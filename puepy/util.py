@@ -83,8 +83,9 @@ def patch_dom_element(source_element, target_element):
         if attribute != "gen-time":
             target_element.setAttribute(attribute, source_element.getAttribute(attribute))
 
-    if source_element.tagName.lower() == "input":
-        target_element.value = source_element.value
+    if not is_server_side:
+        if source_element.tagName.lower() == "input":
+            target_element.value = source_element.value
 
     # Iterate over the children
     target_child_nodes = list(target_element.childNodes)
