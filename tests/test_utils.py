@@ -1,7 +1,7 @@
 import unittest
 from xml.dom import getDOMImplementation
 
-from puepy.util import merge_classes, extract_event_handlers, patch_dom_element
+from puepy.util import merge_classes, _extract_event_handlers, patch_dom_element
 from dom_tools import node_to_dict
 
 
@@ -46,7 +46,7 @@ class TestMergeClasses(unittest.TestCase):
 class TestExtractEventHandlers(unittest.TestCase):
     def test_extract_event_handlers(self):
         kwargs = {"on_click": "click", "on_hover": "hover", "not_event": "value"}
-        result = extract_event_handlers(kwargs)
+        result = _extract_event_handlers(kwargs)
 
         # check correct extracted event handlers
         self.assertDictEqual(result, {"click": "click", "hover": "hover"})
@@ -56,7 +56,7 @@ class TestExtractEventHandlers(unittest.TestCase):
 
         # edge case: no events to extract
         kwargs = {"key1": "value1", "key2": "value2"}
-        result = extract_event_handlers(kwargs)
+        result = _extract_event_handlers(kwargs)
         self.assertEqual(result, {})
 
         # check kwargs is still same when no events are extracted

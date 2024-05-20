@@ -43,14 +43,18 @@ class Link(Component):
 
     def set_href(self, href):
         if issubclass(href, Page):
-            href = self.page.router.reverse(href)
+            self._resolved_href = self.page.router.reverse(href)
+        else:
+            self._resolved_href = href
 
-        self.kwargs["href"] = href
+        self.attrs["href"] = self._resolved_href
 
     def on_click(self, event):
-        href = self.kwargs.get("href")
-
-        if isinstance(href, str) and href.startswith("/") and self.page.application.navigate_to_path(href):
+        if (
+            isinstance(self._resolved_href, str)
+            and self._resolved_href.startswith("/")
+            and self.page.application.navigate_to_path(self._resolved_href)
+        ):
             # A page was found; prevent navigation and navigate to page
             event.preventDefault()
 

@@ -1,18 +1,17 @@
 import re
 
-from dataclasses import dataclass
 from .core import Page
 from .util import mixed_to_underscores
 
 named_group_pattern = re.compile(r"\(\?P<(\w+)>[^)]*\)")
 
 
-@dataclass
 class Route:
-    pattern: re.Pattern
-    page: Page
-    name: str
-    base_path: str
+    def __init__(self, pattern: re.Pattern, page: Page, name: str, base_path: str):
+        self.pattern = pattern
+        self.page = page
+        self.name = name
+        self.base_path = base_path
 
     def match(self, path):
         if self.base_path and path.startswith(self.base_path):

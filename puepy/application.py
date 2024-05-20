@@ -1,17 +1,7 @@
-try:
-    from js import window, localStorage, sessionStorage, history
+from .runtime import is_server_side, add_event_listener, window, history, platform, PLATFORM_PYODIDE
 
-    is_server_side = False
-except ImportError:
-    is_server_side = True
-
-try:
-    from pyodide.ffi.wrappers import add_event_listener
-except ImportError:
-    pass
 
 from .core import ReactiveDict, jsobj, Page
-from puepy.router import Router
 from puepy.storage import BrowserStorage
 
 
@@ -22,12 +12,14 @@ class Application:
             self.session_storage = None
             self.local_storage = None
         else:
+            from js import localStorage, sessionStorage
+
             self.session_storage = BrowserStorage(sessionStorage, "session_storage")
             self.local_storage = BrowserStorage(localStorage, "local_storage")
         self.router = None
         self.selector_or_element = None
         self.default_page = None
-        if not is_server_side:
+        if platform == PLATFORM_PYODIDE:
             add_event_listener(window, "popstate", self.on_popstate)
 
         self.enable_history_mode = True

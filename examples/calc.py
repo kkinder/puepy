@@ -1,5 +1,3 @@
-import pprint
-
 import math
 from examples.app import app
 from puepy.core import t, Page

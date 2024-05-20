@@ -1,5 +1,5 @@
 import logging
-from dataclasses import dataclass
+from collections import namedtuple
 
 from .errors import ElementNotInDom, PropsError
 from .reactivity import ReactiveDict
@@ -7,28 +7,27 @@ from .util import (
     mixed_to_underscores,
     merge_classes,
     jsobj,
-    extract_event_handlers,
+    _extract_event_handlers,
     patch_dom_element,
 )
 
-try:
-    from pyodide.ffi import create_proxy, to_js
-    from pyodide.ffi.wrappers import add_event_listener, remove_event_listener
-    from js import document, setTimeout, Object, CustomEvent
+from .runtime import (
+    add_event_listener,
+    remove_event_listener,
+    create_proxy,
+    document,
+    is_server_side,
+    setTimeout,
+    CustomEvent,
+)
 
-    is_server_side = False
-except ImportError:
-    is_server_side = True
 
-    document = None
-
-
-@dataclass
 class Prop:
-    name: str
-    description: str = None
-    type: type = str
-    default_value: any = None
+    def __init__(self, name, description=None, type=str, default_value=None):
+        self.name = name
+        self.description = description
+        self.type = type
+        self.default_value = default_value
 
 
 def _element_input_type(element):
@@ -47,7 +46,6 @@ class Tag:
     stack = []
     population_stack = []
     component_stack = []
-    props = []
     default_classes = []
     default_attrs = {}
     default_role = None
@@ -92,10 +90,14 @@ class Tag:
         self._children_generated = False
         self.destroyed = False
 
-        self.set_kwargs(**kwargs)
+        self._handle_kwargs(kwargs)
 
-    def set_kwargs(self, **kwargs):
-        self.event_handlers = extract_event_handlers(kwargs)
+    def _handle_kwargs(self, kwargs):
+        self.event_handlers = _extract_event_handlers(kwargs)
+        self._handle_bind(kwargs)
+        self._handle_attrs(kwargs)
+
+    def _handle_bind(self, kwargs):
         self.bind_component = self.population_stack[-1] if self.population_stack else None
         if "bind" in kwargs:
             self.bind = kwargs.pop("bind")
@@ -105,32 +107,14 @@ class Tag:
                 raise Exception("Cannot specify both 'bind' and 'on_input'")
         else:
             self.bind = None
-        self.expand_props(kwargs)
 
-        self.kwargs = {}
+    def _handle_attrs(self, kwargs):
+        self.attrs = {}
         for k, v in kwargs.items():
             if hasattr(self, f"set_{k}"):
                 getattr(self, f"set_{k}")(v)
             else:
-                self.kwargs[k] = v
-
-    def expand_props(self, kwargs):
-        self.props_expanded = {}
-        for prop in self.props:
-            if isinstance(prop, Prop):
-                self.props_expanded[prop.name] = prop
-            elif isinstance(prop, dict):
-                self.props_expanded[prop["name"]] = Prop(**prop)
-            elif isinstance(prop, str):
-                self.props_expanded[prop] = Prop(name=prop)
-            else:
-                raise PropsError(f"Unknown prop type {type(prop)}")
-
-        for prop in self.props_expanded.keys():
-            if prop in kwargs:
-                setattr(self, prop, kwargs.pop(prop))
-            else:
-                setattr(self, prop, None)
+                self.attrs[k] = v
 
     def populate(self):
         pass
@@ -149,19 +133,21 @@ class Tag:
             self.population_stack.pop()
 
     def render(self):
-        if "xmlns" in self.kwargs:
-            element = self.document.createElementNS(self.kwargs.get("xmlns"), self.tag_name)
+        if "xmlns" in self.attrs:
+            element = self.document.createElementNS(self.attrs.get("xmlns"), self.tag_name)
         else:
             element = self.document.createElement(self.tag_name)
+
         element.setAttribute("id", self.element_id)
         if is_server_side:
             element.setIdAttribute("id")
+
         self._render_onto(element)
         return element
 
     @property
     def element_id(self):
-        return self.kwargs.get("id", f"e-{id(self)}")
+        return self.attrs.get("id", f"e-{id(self)}")
 
     @property
     def element(self):
@@ -174,7 +160,7 @@ class Tag:
     def _render_onto(self, element):
         self._rendered_element = element
         attrs = self.default_attrs.copy()
-        attrs.update(self.kwargs)
+        attrs.update(self.attrs)
 
         # Handle classes
         classes = self.get_render_classes(attrs)
@@ -184,7 +170,7 @@ class Tag:
             element.setAttribute("class", " ".join(classes))
 
         # Add attributes
-        for key, value in self.kwargs.items():
+        for key, value in self.attrs.items():
             if key not in ("class_name", "classes", "class"):
                 if hasattr(self, f"handle_{key}_attr"):
                     getattr(self, f"handle_{key}_attr")(element, value)
@@ -195,7 +181,7 @@ class Tag:
                         attr = key
                     element.setAttribute(attr.replace("_", "-"), value)
 
-        if "role" not in self.kwargs and self.default_role:
+        if "role" not in self.attrs and self.default_role:
             element.setAttribute("role", self.default_role)
 
         # Add event handlers
@@ -235,7 +221,7 @@ class Tag:
             elif isinstance(child, Tag):
                 element.appendChild(child.render())
             elif isinstance(child, html):
-                element.insertAdjacentHTML("beforeend", child)
+                element.insertAdjacentHTML("beforeend", str(child))
             elif isinstance(child, str):
                 element.appendChild(self.document.createTextNode(child))
             elif child is None:
@@ -290,7 +276,6 @@ class Tag:
 
         element.innerHTML = ""
         element.appendChild(self.render())
-
         self.recursive_call("ready")
 
     def recursive_call(self, method, *args, **kwargs):
@@ -362,8 +347,8 @@ class Tag:
         with self:
             self.generate_children()
 
-        if "xmls" in self.kwargs:
-            staging_element = self.document.createElementNS(self.kwargs["xmlns"], self.tag_name)
+        if "xmls" in self.attrs:
+            staging_element = self.document.createElementNS(self.attrs["xmlns"], self.tag_name)
         else:
             staging_element = self.document.createElement(self.tag_name)
         staging_element.setAttribute("id", self.element_id)
@@ -371,16 +356,16 @@ class Tag:
             staging_element.setIdAttribute("id")
 
         self._render_onto(staging_element)
-        staging_html = staging_element.toxml() if is_server_side else staging_element.outerHTML
+        # staging_html = staging_element.toxml() if is_server_side else staging_element.outerHTML
 
         patch_dom_element(staging_element, element)
-        patched_html = element.toxml() if is_server_side else element.outerHTML
-
-        if staging_html != patched_html:
-            print("Failed to attempt patching HTML")
-            print("FROM: ", staging_html)
-            print("TO:   ", patched_html)
-            logging.error("Redraw patch not successful", exc_info=True)
+        # patched_html = element.toxml() if is_server_side else element.outerHTML
+        #
+        # if staging_html != patched_html:
+        #     print("Failed to attempt patching HTML")
+        #     print("FROM: ", staging_html)
+        #     print("TO:   ", patched_html)
+        #     logging.error("Redraw patch not successful", exc_info=True)
 
         if old_active_element_id is not None:
             el = self.document.getElementById(old_active_element_id)
@@ -420,9 +405,15 @@ class Tag:
         self.page.redraw_tag(self)
 
     def trigger_event(self, event, detail=None, **kwargs):
-        if detail is not None:
-            kwargs["detail"] = detail
-        self.element.dispatchEvent(CustomEvent.new(event, jsobj(**kwargs)))
+        from pyscript.ffi import to_js
+        from js import Object, Map
+
+        if detail:
+            event_object = to_js({"detail": Map.new(Object.entries(to_js(detail)))})
+        else:
+            event_object = to_js({})
+
+        self.element.dispatchEvent(CustomEvent.new(event, event_object))
 
     def update_title(self):
         pass
@@ -455,13 +446,37 @@ class Component(Tag):
     enclosing_tag = "div"
     component_name = None
     redraw_on_changes = True
+    props = []
 
     def __init__(self, *args, **kwargs):
-        super().__init__(tag_name=self.enclosing_tag, *args, **kwargs)
+        super().__init__(*args, tag_name=self.enclosing_tag, **kwargs)
         self.state = ReactiveDict(self.initial())
         self.state.listener.add_callback(self._on_state_change)
 
         self.slots = {}
+
+    def _handle_attrs(self, kwargs):
+        self._handle_props(kwargs)
+
+        super()._handle_attrs(kwargs)
+
+    def _handle_props(self, kwargs):
+        self.props_expanded = {}
+        for prop in self.props:
+            if isinstance(prop, Prop):
+                self.props_expanded[prop.name] = prop
+            elif isinstance(prop, dict):
+                self.props_expanded[prop["name"]] = Prop(**prop)
+            elif isinstance(prop, str):
+                self.props_expanded[prop] = Prop(name=prop)
+            else:
+                raise PropsError(f"Unknown prop type {type(prop)}")
+
+        for prop in self.props_expanded.keys():
+            if prop in kwargs:
+                setattr(self, prop, kwargs.pop(prop))
+            else:
+                setattr(self, prop, None)
 
     def initial(self):
         return {}
@@ -593,7 +608,7 @@ class Builder:
 
         if ref in parent.children_by_ref:
             element = parent.children_by_ref[ref]
-            element.set_kwargs(**kwargs)
+            element._handle_kwargs(kwargs)
             element.children = []
             if children:
                 element.add(*children)

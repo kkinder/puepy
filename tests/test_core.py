@@ -93,17 +93,11 @@ class TestIntegration(DomTest):
         # Make sure it's mounted
         mounted_element = self.page.element
 
-        x = self.html.toprettyxml()
-        print(x)
-
         # Change values
         self.page.state["field2"] = "New Value"
         self.page.state["card_buttons"] = False
         self.assertEqual(self.page.on_card_buttons_change_called, [False])
         self.page.redraw()
-
-        y = self.html.toprettyxml()
-        print(y)
 
         # Remove the card
         self.page.state["draw_card"] = False

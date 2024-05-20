@@ -1,10 +1,11 @@
-try:
-    from js import Object
-    from pyodide.ffi import create_proxy, to_js
+from .runtime import is_server_side, create_proxy, Object, platform, PLATFORM_PYODIDE
 
-    is_server_side = False
+try:
+    from pyscript.ffi import to_js
 except ImportError:
-    is_server_side = True
+
+    def to_js(obj):
+        return obj
 
 
 def mixed_to_underscores(input_string):
@@ -41,10 +42,13 @@ def merge_classes(*items):
 
 
 def jsobj(**kwargs):
-    return kwargs if is_server_side else Object.fromEntries(to_js(kwargs))
+    if is_server_side:
+        return kwargs
+    else:
+        return to_js(kwargs)
 
 
-def extract_event_handlers(kwargs):
+def _extract_event_handlers(kwargs):
     event_handlers = {}
     for key in list(kwargs.keys()):
         if key.startswith("on_"):
@@ -84,7 +88,7 @@ def patch_dom_element(source_element, target_element):
             target_element.setAttribute(attribute, source_element.getAttribute(attribute))
 
     if not is_server_side:
-        if source_element.tagName.lower() == "input":
+        if source_element.tagName.lower() in ("input", "radio", "option"):
             target_element.value = source_element.value
 
     # Iterate over the children

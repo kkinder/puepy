@@ -72,6 +72,39 @@ class TestListener(unittest.TestCase):
             # Check that logging.error was called
             self.assertTrue(mock_log_error.called)
 
+    def test_mutate_context_manager(self):
+        called_with = []
+
+        def callback(key):
+            called_with.append(key)
+
+        self.reactive_dict["foo"] = []
+        self.reactive_dict["bar"] = []
+        self.reactive_dict["spam"] = []
+
+        self.reactive_dict.listener.add_callback(callback)
+        # Confirm that modifying in place does NOT work (it would be nice if it did, but, yanno)
+        self.reactive_dict["foo"].append("x")
+        self.assertEqual(called_with, [])
+
+        with self.reactive_dict.mutate("foo", "bar"):
+            self.reactive_dict["foo"].append("y")
+
+        self.assertEqual(set(called_with), {"foo", "bar"})
+
+        # Test with only one key...
+        with self.reactive_dict.mutate("spam"):
+            self.reactive_dict["spam"] = "z"
+
+        self.assertEqual(set(called_with), {"foo", "bar", "spam"})
+
+        # With no key, each dict item should be notified
+        called_with = []
+        with self.reactive_dict.mutate():
+            self.reactive_dict["spam"] = "z"
+
+        self.assertEqual(len(called_with), len(self.reactive_dict.keys()))
+
 
 if __name__ == "__main__":
     unittest.main()
