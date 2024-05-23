@@ -1,6 +1,3 @@
-import logging
-from collections import namedtuple
-
 from .errors import ElementNotInDom, PropsError
 from .reactivity import ReactiveDict
 from .util import (
