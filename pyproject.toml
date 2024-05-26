@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "puepy"
-version = "0.1.0a"
+version = "0.1.1"
 description = "Frontend Framework for PyScript"
 authors = ["Ken Kinder <ken+github@kkinder.com>"]
 readme = "README.md"
@@ -13,3 +13,7 @@ python = "^3.9"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tools.poetry.urls]
+Homepage = "https://github.com/kkinder/puepy"
+Repository = "https://github.com/kkinder/puepy.git"
+Issues = "https://github.com/kkinder/puepy/issues"
