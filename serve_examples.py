@@ -92,7 +92,7 @@ def gather_py_files(directory):
 
 
 def build_config():
-    files = {}
+    files = {"http://localhost:8000/examples/puepy.zip": "./*"}
 
     def add_files(path):
         for file in gather_py_files(path):

@@ -19,16 +19,31 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Build
+      - name: Build Poetry image
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      - name: Run image
+      - name: Run Poetry image
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      - name: build
+      - name: Set release version
+        id: set_version
+        run: |
+          echo "RELEASE_VERSION=$(poetry version -s)" >> $GITHUB_ENV
+      - name: Show release version
+        run: echo "Release version is ${{ env.RELEASE_VERSION }}"
+      - name: Build PuePy
         run: |
           poetry build
+          VERSION=$(poetry version -s)
+          zip -r puepy-${{ env.RELEASE_VERSION }}.zip puepy/*.py
+          echo puepy-${{ env.RELEASE_VERSION }}.zip
+#      - name: Upload release artifact
+#        uses: JasonEtco/upload-to-release@master
+#        with:
+#          args: puepy-${{ env.RELEASE_VERSION }}.zip
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
