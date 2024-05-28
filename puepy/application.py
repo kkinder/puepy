@@ -1,13 +1,16 @@
-from .runtime import is_server_side, add_event_listener, window, history, platform, PLATFORM_PYODIDE
-
-
-from .core import ReactiveDict, jsobj, Page
 from puepy.storage import BrowserStorage
+from .core import Page
+from .runtime import (
+    is_server_side,
+    add_event_listener,
+    window,
+    platform,
+    PLATFORM_PYODIDE,
+)
 
 
 class Application:
     def __init__(self):
-        self.ephemeral = ReactiveDict()
         if is_server_side:
             self.session_storage = None
             self.local_storage = None
@@ -17,15 +20,13 @@ class Application:
             self.session_storage = BrowserStorage(sessionStorage, "session_storage")
             self.local_storage = BrowserStorage(localStorage, "local_storage")
         self.router = None
-        self.selector_or_element = None
+        self._selector_or_element = None
         self.default_page = None
-        if platform == PLATFORM_PYODIDE:
-            add_event_listener(window, "popstate", self.on_popstate)
-
-        self.enable_history_mode = True
 
     def install_router(self, router_class, **kwargs):
         self.router = router_class(application=self, **kwargs)
+        if platform == PLATFORM_PYODIDE:
+            add_event_listener(window, "popstate", self._on_popstate)
 
     def page(self, route=None, name=None):
         """
@@ -53,25 +54,28 @@ class Application:
 
             return decorator
 
-    def navigate_to_path(self, path):
-        if self.enable_history_mode:
-            history.pushState(jsobj(), "", path)
-            return self.mount(self.selector_or_element, path)
-        else:
-            window.location = path
+    def _on_popstate(self, event):
+        if self.router.link_mode == self.router.LINK_MODE_HASH:
+            self.mount(self._selector_or_element, window.location.hash.split("#", 1)[-1])
+        elif self.router.link_mode in (self.router.LINK_MODE_DIRECT, self.router.LINK_MODE_HTML5):
+            self.mount(self._selector_or_element, window.location.pathname)
 
-    def on_popstate(self, event):
-        self.mount(self.selector_or_element, window.location.pathname)
+    def mount(self, selector_or_element, path=None, page_kwargs=None):
+        if page_kwargs is None:
+            page_kwargs = {}
 
-    def mount(self, selector_or_element, path=None, **kwargs):
-        path = path or window.location.pathname
-
-        self.selector_or_element = selector_or_element
+        self._selector_or_element = selector_or_element
 
         if self.router:
+            if self.router.link_mode == self.router.LINK_MODE_HASH:
+                path = path or window.location.hash.split("#", 1)[-1]
+            elif self.router.link_mode in (self.router.LINK_MODE_DIRECT, self.router.LINK_MODE_HTML5):
+                path = path or window.location.pathname
+            else:
+                path = ""
             route, arguments = self.router.match(path)
             if arguments:
-                kwargs.update(arguments)
+                page_kwargs.update(arguments)
 
             if route:
                 page_class = route.page
@@ -85,6 +89,6 @@ class Application:
         else:
             return None
 
-        page: Page = page_class(router=self.router, matched_route=route, application=self, **kwargs)
+        page: Page = page_class(matched_route=route, application=self, **page_kwargs)
         page.mount(selector_or_element)
         return page

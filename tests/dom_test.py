@@ -1,5 +1,5 @@
 import unittest
-from xml.dom import getDOMImplementation
+from xml.dom import getDOMImplementation, Node
 
 from puepy import core
 
@@ -17,3 +17,14 @@ class DomTest(unittest.TestCase):
         self.html = self.document.documentElement
 
         core.Tag.document = self.document
+
+    def remove_ids_from_elements(self, element):
+        """
+        Recursively remove 'id' attributes from all elements in the given XML DOM element.
+        """
+        if element.hasAttribute("id"):
+            element.removeAttribute("id")
+
+        for child in element.childNodes:
+            if child.nodeType == Node.ELEMENT_NODE:
+                self.remove_ids_from_elements(child)

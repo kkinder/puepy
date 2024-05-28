@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PuePy Counter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.5.2/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .button-box {
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .count {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+        .decrement-button {
+            background-color: darkred;
+            color: white;
+        }
+        .increment-button {
+            background-color: darkgreen;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="mpy" src="./counter.py" config="../pyscript.json"></script>
+</body>
+</html>

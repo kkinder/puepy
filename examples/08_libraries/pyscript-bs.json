@@ -1,0 +1,16 @@
+{
+  "name": "PuePy Tutorial",
+  "debug": true,
+  "files": {
+    "/puepy/util.py": "puepy/util.py",
+    "/puepy/__init__.py": "puepy/__init__.py",
+    "/puepy/core.py": "puepy/core.py",
+    "/puepy/runtime.py": "puepy/runtime.py",
+    "/puepy/application.py": "puepy/application.py",
+    "/puepy/storage.py": "puepy/storage.py",
+    "/puepy/errors.py": "puepy/errors.py",
+    "/puepy/router.py": "puepy/router.py",
+    "/puepy/reactivity.py": "puepy/reactivity.py"
+  },
+  "packages": ["beautifulsoup4"]
+}

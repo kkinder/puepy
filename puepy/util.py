@@ -8,11 +8,11 @@ except ImportError:
         return obj
 
 
-def mixed_to_underscores(input_string):
+def mixed_to_underscores(input_string, separator="_"):
     result = []
     for index, char in enumerate(input_string):
         if char.isupper() and index > 0:
-            result.append("_")
+            result.append(separator)
         result.append(char.lower())
     return "".join(result)
 
@@ -84,11 +84,10 @@ def patch_dom_element(source_element, target_element):
 
     # Set attributes from source to target
     for attribute in get_attributes(source_element):
-        if attribute != "gen-time":
-            target_element.setAttribute(attribute, source_element.getAttribute(attribute))
+        target_element.setAttribute(attribute, source_element.getAttribute(attribute))
 
     if not is_server_side:
-        if source_element.tagName.lower() in ("input", "radio", "option"):
+        if source_element.tagName.lower() in ("input", "radio", "option", "textarea"):
             target_element.value = source_element.value
 
     # Iterate over the children

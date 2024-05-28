@@ -72,6 +72,8 @@ class TestIntegration(DomTest):
                                     t("This is a header")
                                 with card.slot():
                                     t("This is the card body")
+                                    t.ul(t.li(t.strong("Bold")), t.li(t.em("Italic")))
+                                    t("Or ", t.a("a link", href="https://www.example.com"))
                                     t.input(bind="field1", placeholder="Field 1 in Card")
                                     t.input(bind="field2", placeholder="Field 2 in Card")
                                     t.button("In-Slot Button", on_click=[self.on_card_button_click])
@@ -101,7 +103,22 @@ class TestIntegration(DomTest):
 
         # Remove the card
         self.page.state["draw_card"] = False
-        print(self.html.toprettyxml())
+        self.remove_ids_from_elements(self.html)  # Useful to remove ids (which change) from the comparison
+        without_draw = self.html.toxml()
+
+        self.page.state["draw_card"] = True
+        self.remove_ids_from_elements(self.html)
+        with_draw = self.html.toxml()
+
+        self.assertEqual(
+            with_draw,
+            '<html><div><body><div class="header"><h1>This is h1 content</h1></div><div class="main-content"><p escaped-attribute="hi">This is a paragraph</p><button role="button">Test events</button><ul><li>List Content 1</li><li>List Content 2</li><ul><li>Sublist Content 1</li><li>Sublist Content 2</li></ul></ul></div><form><input placeholder="Field 1" value="value1"/><input placeholder="Field 2" value="New Value"/></form></body></div></html>',
+        )
+
+        self.assertEqual(
+            without_draw,
+            '<html><div><body><div class="header"><h1>This is h1 content</h1></div><div class="main-content"><p escaped-attribute="hi">This is a paragraph</p><button role="button">Test events</button><ul><li>List Content 1</li><li>List Content 2</li><ul><li>Sublist Content 1</li><li>Sublist Content 2</li></ul></ul></div><form><input placeholder="Field 1" value="value1"/><input placeholder="Field 2" value="New Value"/></form></body></div></html>',
+        )
 
 
 if __name__ == "__main__":

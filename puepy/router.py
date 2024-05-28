@@ -1,34 +1,58 @@
-import re
-
 from .core import Page
-from .util import mixed_to_underscores
+from .runtime import (
+    window,
+    history,
+    platform,
+    PLATFORM_MICROPYTHON,
+)
+from .util import mixed_to_underscores, jsobj
 
-named_group_pattern = re.compile(r"\(\?P<(\w+)>[^)]*\)")
+
+if platform == PLATFORM_MICROPYTHON:
+    from js import encodeURIComponent
+
+    def url_quote(s):
+        return encodeURIComponent(s)
+
+else:
+    from urllib.parse import quote as url_quote
 
 
 class Route:
-    def __init__(self, pattern: re.Pattern, page: Page, name: str, base_path: str):
-        self.pattern = pattern
+    def __init__(self, path_match, page: Page, name: str, base_path: str, router=None):
+        self.path_match = path_match
         self.page = page
         self.name = name
         self.base_path = base_path
+        self.router = router
 
     def match(self, path):
         if self.base_path and path.startswith(self.base_path):
             path = path[len(self.base_path) :]
 
-        if match := self.pattern.match(path):
-            return True, match.groupdict()
-        else:
+        # Simple pattern matching without regex
+        parts = path.strip("/").split("/")
+        pattern_parts = self.path_match.strip("/").split("/")
+        if len(parts) != len(pattern_parts):
             return False, None
 
-    def reverse(self, **kwargs):
-        # replace each found named group with its respective replacement
-        def substitution(m):
-            group_name = m.group(1)
-            return str(kwargs.get(group_name, m.group(0)))
+        kwargs = {}
+        for part, pattern_part in zip(parts, pattern_parts):
+            if pattern_part.startswith("<") and pattern_part.endswith(">"):
+                group_name = pattern_part[1:-1]
+                kwargs[group_name] = part
+            elif part != pattern_part:
+                return False, None
 
-        result = named_group_pattern.sub(substitution, self.pattern.pattern)[1:-1]
+        return True, kwargs
+
+    def reverse(self, **kwargs):
+        result = self.path_match
+        for key, value in kwargs.items():
+            result = result.replace(f"<{key}>", str(value))
+
+        if self.router and self.router.link_mode == Router.LINK_MODE_HASH:
+            result = "#" + result
 
         if self.base_path:
             return f"{self.base_path}{result}"
@@ -43,12 +67,17 @@ class Route:
 
 
 class Router:
-    def __init__(self, application=None, base_path=None):
+    LINK_MODE_DIRECT = "direct"
+    LINK_MODE_HTML5 = "html5"
+    LINK_MODE_HASH = "hash"
+
+    def __init__(self, application=None, base_path=None, link_mode=LINK_MODE_HASH):
         self.routes = []
         self.routes_by_name = {}
         self.routes_by_page = {}
         self.application = application
         self.base_path = base_path
+        self.link_mode = link_mode
 
     def add_route_instance(self, route: Route):
         if route in self.routes:
@@ -58,24 +87,26 @@ class Router:
         self.routes.append(route)
         self.routes_by_name[route.name] = route
         self.routes_by_page[route.page] = route
+        route.router = self
 
-    def add_route(self, path, page_class, name=None):
-        pattern = re.compile("^" + re.sub(r":(\w+)", r"(?P<\1>[^/]+)", path) + "$")
-
+    def add_route(self, path_match, page_class, name=None):
+        # Convert path to a simple pattern without regex
         if not name:
             name = mixed_to_underscores(page_class.__name__)
-        self.add_route_instance(Route(pattern=pattern, page=page_class, name=name, base_path=self.base_path))
+        self.add_route_instance(Route(path_match=path_match, page=page_class, name=name, base_path=self.base_path))
 
-    def reverse(self, name_or_page, **kwargs):
+    def reverse(self, destination, **kwargs):
         route: Route
-        if name_or_page in self.routes_by_name:
-            route = self.routes_by_name[name_or_page]
-        elif name_or_page in self.routes_by_page:
-            route = self.routes_by_page[name_or_page]
-        elif self.application and name_or_page is self.application.default_page:
+        if isinstance(destination, Route):
+            return destination.reverse(**kwargs)
+        elif destination in self.routes_by_name:
+            route = self.routes_by_name[destination]
+        elif destination in self.routes_by_page:
+            route = self.routes_by_page[destination]
+        elif self.application and destination is self.application.default_page:
             return "/"
         else:
-            raise KeyError(f"{name_or_page} not found in routes")
+            raise KeyError(f"{destination} not found in routes")
         return route.reverse(**kwargs)
 
     def match(self, path):
@@ -85,3 +116,21 @@ class Router:
             if matches:
                 return route, arguments
         return None, None
+
+    def navigate_to_path(self, path, **kwargs):
+        if isinstance(path, Page):
+            path = self.reverse(path, **kwargs)
+        else:
+            path = path + "?" + "&".join(f"{url_quote(k)}={url_quote(v)}" for k, v in kwargs.items())
+
+        if self.link_mode == self.LINK_MODE_DIRECT:
+            window.location = path
+        elif self.link_mode == self.LINK_MODE_HTML5:
+            history.pushState(jsobj(), "", path)
+            return self.application.mount(self.application._selector_or_element, path)
+        elif self.link_mode == self.LINK_MODE_HASH:
+            path = path[1:] if path.startswith("#") else path
+            history.pushState(jsobj(), "", "#" + path)
+            return self.application.mount(self.application._selector_or_element, path)
+        else:
+            raise Exception(f"Invalid link mode: {self.link_mode}")

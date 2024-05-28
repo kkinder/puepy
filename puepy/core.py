@@ -42,6 +42,7 @@ class Tag:
 
     stack = []
     population_stack = []
+    origin_stack = [[]]
     component_stack = []
     default_classes = []
     default_attrs = {}
@@ -49,12 +50,22 @@ class Tag:
 
     document = document
 
-    def __init__(self, tag_name, ref, page: "Page" = None, parent=None, parent_component=None, children=None, **kwargs):
+    def __init__(
+        self,
+        tag_name,
+        ref,
+        page: "Page" = None,
+        parent=None,
+        parent_component=None,
+        origin=None,
+        children=None,
+        **kwargs,
+    ):
         self.added_event_listeners = []
         self._rendered_element = None
 
         self.children = []
-        self.children_by_ref = {}
+        self.refs = {}
         if children:
             self.add(*children)
 
@@ -71,11 +82,12 @@ class Tag:
             raise Exception("No page passed")
 
         if isinstance(parent, Tag):
+            self.parent = parent
             parent.add(self)
         elif parent:
             raise Exception(f"Unknown parent type {type(parent)}: {repr(parent)}")
         else:
-            self._parent = None
+            self.parent = None
 
         if isinstance(parent_component, Component):
             self.parent_component = parent_component
@@ -84,18 +96,27 @@ class Tag:
         else:
             self.parent_component = None
 
+        self.origin = origin
         self._children_generated = False
         self.destroyed = False
 
-        self._handle_kwargs(kwargs)
+        self._configure(kwargs)
 
-    def _handle_kwargs(self, kwargs):
+    def __del__(self):
+        if not is_server_side:
+            while self.added_event_listeners:
+                remove_event_listener(*self.added_event_listeners.pop())
+
+    @property
+    def application(self):
+        return self._page._application
+
+    def _configure(self, kwargs):
         self.event_handlers = _extract_event_handlers(kwargs)
         self._handle_bind(kwargs)
         self._handle_attrs(kwargs)
 
     def _handle_bind(self, kwargs):
-        self.bind_component = self.population_stack[-1] if self.population_stack else None
         if "bind" in kwargs:
             self.bind = kwargs.pop("bind")
             if "value" in kwargs:
@@ -123,11 +144,15 @@ class Tag:
         That way, as populate is executed, self.population_stack can be used to figure out what the innermost populate()
         method is being run and thus, where to send bind= parameters.
         """
+        self.origin_stack.append([])
+        self._refs_pending_removal = self.refs.copy()
+        self.refs = {}
         self.population_stack.append(self)
         try:
             self.populate()
         finally:
             self.population_stack.pop()
+            self.origin_stack.pop()
 
     def render(self):
         if "xmlns" in self.attrs:
@@ -140,7 +165,11 @@ class Tag:
             element.setIdAttribute("id")
 
         self._render_onto(element)
+        self.post_render(element)
         return element
+
+    def post_render(self, element):
+        pass
 
     @property
     def element_id(self):
@@ -183,6 +212,7 @@ class Tag:
 
         # Add event handlers
         for key, value in self.event_handlers.items():
+            key = key.replace("_", "-")
             if isinstance(value, (list, tuple)):
                 for handler in value:
                     self._add_event_listener(element, key, handler)
@@ -190,21 +220,19 @@ class Tag:
                 self._add_event_listener(element, key, value)
 
         # Add bind
-
-        if self.bind and self.bind_component:
+        if self.bind and self.origin:
             if _element_input_type(element) == "checkbox":
-                if is_server_side and self.bind_component.state[self.bind]:
-                    element.setAttribute("checked", self.bind_component.state[self.bind])
+                if is_server_side and self.origin.state[self.bind]:
+                    element.setAttribute("checked", self.origin.state[self.bind])
                 else:
-                    element.checked = bool(self.bind_component.state[self.bind])
+                    element.checked = bool(self.origin.state[self.bind])
             else:
                 if is_server_side:
-                    element.setAttribute("value", self.bind_component.state[self.bind])
+                    element.setAttribute("value", self.origin.state[self.bind])
                 else:
-                    element.value = self.bind_component.state[self.bind]
+                    element.value = self.origin.state[self.bind]
 
             self._add_event_listener(element, "input", self.on_bind_input)
-
         elif self.bind:
             raise Exception("Cannot specify bind a valid parent component")
 
@@ -248,7 +276,7 @@ class Tag:
         if not is_server_side:
             add_event_listener(element, event, listener)
 
-    def add_event_handler(self, event, handler):
+    def add_event_listener(self, event, handler):
         if event not in self.event_handlers:
             self.event_handlers[event] = handler
         else:
@@ -271,6 +299,9 @@ class Tag:
         else:
             element = selector_or_element
 
+        if not element:
+            raise RuntimeError(f"Element {selector_or_element} not found")
+
         element.innerHTML = ""
         element.appendChild(self.render())
         self.recursive_call("ready")
@@ -289,9 +320,9 @@ class Tag:
 
     def on_bind_input(self, event):
         if _element_input_type(event.target) == "checkbox":
-            self.bind_component.state[self.bind] = event.target.checked
+            self.origin.state[self.bind] = event.target.checked
         else:
-            self.bind_component.state[self.bind] = event.target.value
+            self.origin.state[self.bind] = event.target.value
 
     @property
     def page(self):
@@ -301,16 +332,35 @@ class Tag:
             return self
 
     @property
+    def router(self):
+        if self.application:
+            return self.application.router
+
+    @property
     def parent(self):
         return self._parent
+
+    @parent.setter
+    def parent(self, new_parent):
+        existing_parent = getattr(self, "_parent", None)
+        if new_parent == existing_parent:
+            if new_parent and self not in new_parent.children:
+                existing_parent.children.append(self)
+            return
+
+        if existing_parent and self in existing_parent.children:
+            existing_parent.children.remove(self)
+        if new_parent and self not in new_parent.children:
+            new_parent.children.append(self)
+
+        self._parent = new_parent
 
     def add(self, *children):
         for child in children:
             if isinstance(child, Tag):
-                self.children_by_ref[child.ref] = child
-                child._parent = self
-
-            self.children.append(child)
+                child.parent = self
+            else:
+                self.children.append(child)
 
     def print_tree(self, n=0):
         if n == 0:
@@ -371,37 +421,13 @@ class Tag:
 
         self.recursive_call("on_redraw")
 
-    def destroy_orphans(self):
-        to_remove = []
-        for ref, child in self.children_by_ref.items():
-            if child not in self.children:
-                to_remove.append((ref, child))
-            child.destroy_orphans()
-        for ref, child in to_remove:
-            del self.children_by_ref[ref]
-            if isinstance(child, Tag):
-                child.destroy()
-
-    def destroy(self):
-        self.destroyed = True
-        if self in self.parent.children:
-            self.parent.children.remove(self)
-        if self.ref in self.parent.children_by_ref:
-            del self.parent.children_by_ref[self.ref]
-
-        while self.children:
-            child = self.children.pop()
-            if isinstance(child, Tag):
-                child.destroy()
-
-        if not is_server_side:
-            while self.added_event_listeners:
-                remove_event_listener(*self.added_event_listeners.pop())
-
     def trigger_redraw(self):
         self.page.redraw_tag(self)
 
     def trigger_event(self, event, detail=None, **kwargs):
+        if "_" in event:
+            print("Triggering event with underscores. Did you mean dashes?: ", event)
+
         from pyscript.ffi import to_js
         from js import Object, Map
 
@@ -417,10 +443,12 @@ class Tag:
 
     def __enter__(self):
         self.stack.append(self)
+        self.origin_stack[0].append(self)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.stack.pop()
+        self.origin_stack[0].pop()
         return False
 
     def __str__(self):
@@ -497,17 +525,15 @@ class Component(Tag):
 
     def insert_slot(self, name="default", **kwargs):
         if name in self.slots:
-            assert self.slots[name].page == self.page
-            assert self.slots[name].parent == Tag.stack[-1]
-            if self.slots[name] not in Tag.stack[-1].children:
-                Tag.stack[-1].children.append(self.slots[name])
-            Tag.stack[-1].children_by_ref[self.slots[name].ref] = self.slots[name]
-
-            # Moved this to slot()
-            # self.slots[name].children = []
+            self.slots[name].parent = Tag.stack[-1]  # The children will be cleared during redraw, so re-establish
         else:
             self.slots[name] = Slot(ref=f"slot={name}", slot_name=name, page=self.page, parent=Tag.stack[-1], **kwargs)
-        return self.slots[name]
+        slot = self.slots[name]
+        if self.origin:
+            slot.origin = self.origin
+            if slot.ref:
+                self.origin.refs[slot.ref] = slot
+        return slot
 
     def slot(self, name="default"):
         #
@@ -518,11 +544,13 @@ class Component(Tag):
 
     def __enter__(self):
         self.stack.append(self)
+        self.origin_stack[0].append(self)
         self.component_stack.append(self)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.stack.pop()
+        self.origin_stack[0].pop()
         self.component_stack.pop()
         return False
 
@@ -534,11 +562,10 @@ class Component(Tag):
 
 
 class Page(Component):
-    def __init__(self, router=None, matched_route=None, application=None, **kwargs):
+    def __init__(self, matched_route=None, application=None, **kwargs):
         ref = mixed_to_underscores(self.__class__.__name__)
-        self.router = router
         self.matched_route = matched_route
-        self.application = application
+        self._application = application
 
         self._redraw_timeout_set = False
         self.redraw_list = set()
@@ -554,6 +581,7 @@ class Page(Component):
         pass
 
     def redraw_tag(self, tag):
+        # print("requesting redraw", tag)
         assert isinstance(tag, Tag)
         self.redraw_list.add(tag)
 
@@ -576,7 +604,6 @@ class Page(Component):
                     )
                 tag.redraw()
                 redrawn_already.add(tag)
-                tag.destroy_orphans()
         finally:
             self._redraw_timeout_set = False
 
@@ -587,9 +614,15 @@ class Builder:
 
     def generate_tag(self, tag_name, *children, **kwargs):
         tag_name = tag_name.lower().strip()
+        if kwargs.get("tag"):
+            tag_name = kwargs.pop("tag")
+        elif "_" in tag_name:
+            tag_name = tag_name.replace("_", "-")
+
         parent = Tag.stack[-1] if Tag.stack else None
         parent_component = Tag.component_stack[-1] if Tag.component_stack else None
         root_tag = Tag.stack[0] if Tag.stack else None
+        origin = Tag.population_stack[-1] if Tag.population_stack else None
 
         # The root tag might not always be the page, but if it isn't, it should have a reference to the
         # actual page.
@@ -601,22 +634,25 @@ class Builder:
             raise Exception("t.generate_tag called without a context")
 
         # Determine ref value
-        ref = kwargs.pop("ref", f"_{tag_name}-{len(parent.children) + 1}")
+        ref_part = f"__{parent.ref}.{tag_name}{len(parent.children) + 1}"
 
-        if ref in parent.children_by_ref:
-            element = parent.children_by_ref[ref]
-            element._handle_kwargs(kwargs)
+        ref = kwargs.pop("ref", ref_part)
+
+        if ref and origin and ref in origin._refs_pending_removal:
+            element = origin._refs_pending_removal.pop(ref)
+            assert element.origin == origin
+            element._configure(kwargs)
             element.children = []
             if children:
                 element.add(*children)
-            if element not in parent.children:
-                parent.children.append(element)
+            element.parent = parent
         elif tag_name in self.components:
             element = self.components[tag_name](
                 ref=ref,
                 page=page,
                 parent=parent,
                 parent_component=parent_component,
+                origin=origin,
                 children=children,
                 **kwargs,
             )
@@ -627,9 +663,11 @@ class Builder:
                 page=page,
                 parent=parent,
                 parent_component=parent_component,
+                origin=origin,
                 children=children,
                 **kwargs,
             )
+        origin.refs[ref] = element
         with element:
             element.generate_children()
         return element
@@ -649,7 +687,7 @@ class Builder:
         if component.component_name:
             component_name = component.component_name
         else:
-            component_name = mixed_to_underscores(component.__name__)
+            component_name = mixed_to_underscores(component.__name__, "-")
         self.components[component_name.lower()] = component
 
     def __call__(self, *texts):
