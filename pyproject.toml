@@ -1,9 +1,25 @@
 [tool.poetry]
 name = "puepy"
-version = "0.1.2"
+version = "0.2.0"
 description = "Frontend Framework for PyScript"
 authors = ["Ken Kinder <ken+github@kkinder.com>"]
 readme = "README.md"
+Homepage = "https://puepy.dev/"
+Repository = "https://github.com/kkinder/puepy"
+Issues = "https://github.com/kkinder/puepy/issues"
+documentation = "https://docs.puepy.dev/"
+license = "Apache-2.0"
+keywords = ["pyscript", "webassembly", "frontend", "framework", "reactive"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Environment :: WebAssembly",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -12,8 +28,3 @@ python = "^3.9"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tools.poetry.urls]
-Homepage = "https://github.com/kkinder/puepy"
-Repository = "https://github.com/kkinder/puepy.git"
-Issues = "https://github.com/kkinder/puepy/issues"
