@@ -12,6 +12,9 @@
     "/puepy/router.py": "puepy/router.py",
     "/puepy/reactivity.py": "puepy/reactivity.py"
   },
+  "packages": [
+    "pyscript-ltk"
+  ],
   "js_modules": {
     "main": {
       "https://cdn.jsdelivr.net/npm/morphdom@2.7.2/+esm": "morphdom"

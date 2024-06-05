@@ -1,0 +1,599 @@
+/* LTK - Copyright 2023 - All Rights Reserved - chrislaffra.com - See LICENSE  */
+
+.ltk-vbox {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    gap: 0;
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#pubsub {
+    display: none;
+}
+
+.ltk-hbox {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.ltk-text {
+    display: inline-block;
+    text-align: left;
+    padding: 2px;
+}
+
+.ltk-label {
+    text-wrap: nowrap;
+}
+
+.ltk-button {
+    min-width: 90px;
+    align-self: flex-start
+}
+
+.ltk-switch-container {
+    align-items: center;
+}
+
+.ltk-switch-label {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 4px 0 0;
+}
+
+.ltk-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 20px;
+}
+
+.ltk-switch::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: white;
+    top: 1px;
+    left: 1px;
+    transition: all 0.3s;
+}
+
+.ltk-switch-checkbox:checked+.ltk-switch::after {
+    left: 20px;
+}
+
+.ltk-switch-checkbox:checked+.ltk-switch {
+    background-color: #7983ff;
+}
+
+.ltk-switch-checkbox {
+    display: none;
+}
+
+.ltk-code {
+    border: 1px solid gray;
+    width: 100%;
+    height: 100%;
+    white-space: pre;
+    overflow-y: scroll;
+}
+
+.ltk-input {
+    border: 1px solid #e1e1e1;
+    min-width: 36px;
+    height: 28px;
+}
+
+.ltk-container {
+    margin: 0;
+    padding: 0;
+}
+
+.ltk-card {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid gray;
+    box-shadow: 0 2px 2px 2px #DDD;
+    padding: 16px;
+}
+
+.ltk-menubar {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    margin-top: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.ltk-menulabel {
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ltk-menulabel:hover {
+    background-color: #e8ebee;
+}
+
+.ltk-popup, .ltk-menupopup {
+    display: none;
+    position: absolute;
+    top: 32px;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: white;
+    border: 1px solid #DDD;
+    box-shadow: 0 2px 2px 2px #DDD;
+    z-index: 20000;
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.ltk-menupopup-open {
+    display: block;
+}
+
+.ltk-menuitem {
+    cursor: pointer;
+    padding: 2px;
+    min-width: 200px;
+}
+
+.ltk-menuitem:hover {
+    background-color: #e8ebee;
+}
+
+.ltk-menuitem-icon {
+    display: inline-block;
+    width: 24px;
+    padding: 0;
+    height: 24px;
+    margin-left: 4px;
+}
+
+.ltk-menuitem-label {
+    display: inline-block;
+    margin-left: 12px;
+    width: 110px;
+    text-overflow: ellipsis;
+    padding: 0;
+    height: 24px;
+}
+
+.ltk-menuitem-shortcut {
+    display: inline-block;
+    width: 58px;
+    padding: 0;
+    height: 24px;
+    margin-right: 4px;
+}
+
+.ltk-table {
+    border-collapse: collapse;
+}
+
+.ltk-table-title,
+.ltk-th {
+    background-color: rgb(219, 242, 249);
+    border: 0 solid lightgray;
+    border-bottom-width: 1px;
+    padding: 4px 8px;
+}
+
+.ltk-table-cell,
+.ltk-td {
+    border: 0 solid lightgray;
+    border-bottom-width: 1px;
+    padding: 4px 8px;
+    vertical-align: top;
+}
+
+.ltk-log-list {
+    position: fixed;
+    bottom: 3px;
+    width: 100%;
+    left: 0;
+    height: 232px;
+    z-index: 1000;
+    overflow-y: auto;
+    background-color: white;
+    border: 0px solid gray;
+    border-top-width: 1px;
+}
+
+.ltk-log-header {
+    position: fixed;
+    background-color: lightgreen;
+    width: 100%;
+    height: 28px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.ltk-log-header .ltk-text {
+    background-color: lightgreen;
+    width: 40px;
+    font-size: 14px;
+    padding: 3px 8px;
+}
+
+.ltk-log-header .ltk-input {
+    width: 55px;
+    font-size: 14px;
+    height: 16px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.ltk-log-row .ltk-text:nth-child(3) {
+    padding-left: 4px;
+}
+
+.ltk-log-buttons {
+    margin-top: 2px;
+    position: fixed;
+    z-index: 1000;
+    float: right
+}
+
+.ltk-log::-webkit-scrollbar {
+    display: none;
+}
+
+.ltk-log-row {
+    width: 100%;
+    background-color: rgb(255, 255, 240);
+    border: 0px solid lightgray;
+    border-bottom-width: 1px;
+    height: 0;
+}
+
+.ltk-log-row .ltk-text {
+    padding: 4px 8px;
+    width: 35px;
+    font-size: 12px;
+}
+
+.ltk-log-row * {
+    height: 12px;
+}
+
+.ltk-log-row .ltk-text:nth-child(2) {
+    padding-left: 12px;
+}
+
+.ltk-log-row .ltk-text:nth-child(3) {
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    width: calc(100% - 125px);
+    height: 14px;
+}
+
+.ltk-log-container.ltk-button,
+.ltk-log-container.ltk-select {
+    margin-left: 6px;
+}
+
+#ltk-log-ui {
+    width: 100%;
+    overflow: hidden;
+}
+
+#ltk-sequence-ui {
+    width: 700px;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 0px solid lightgray;
+    border-right-width: 3px;
+    z-index: 2;
+}
+
+#ltk-sequence-ui:hover {
+    border-color: gray;
+}
+
+.ltk-sequence-header {
+    position: fixed;
+    background-color: lightgreen;
+    width: 100%;
+    height: 28px;
+    z-index: 2;
+}
+
+.ltk-sequence-header .ltk-text {
+    font-size: 14px;
+    padding-top: 3px;
+}
+
+.ltk-sequence-component {
+    margin: 40px 20px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ltk-sequence-component-title {
+    padding: 8px;
+    min-width: 80px;
+    background-color: rgb(250, 230, 234);
+    text-align: center;
+    border: 1px solid gray;
+    margin: 2px auto 4px auto;
+    height: 40px;
+}
+
+.ltk-sequence-component-line {
+    border: 0px dashed gray;
+    border-left-width: 1px;
+    width: 1px;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.ltk-sequence-call {
+    position: absolute;
+    border: 0px solid #456;
+    border-bottom-width: 2px;
+    height: 1px;
+}
+
+.ltk-sequence-dot {
+    position: absolute;
+    border: 1px solid black;
+    top: -8px;
+}
+
+.ltk-sequence-when {
+    position: absolute;
+    top: -6px;
+    left: -300px;
+    width: 294px;
+    text-align: right;
+    color: rgb(147, 147, 231);
+}
+
+.ltk-sequence-label {
+    position: absolute;
+    opacity: 0;
+    text-align: center;
+    width: 160px;
+    height: 16px;
+    text-wrap: wrap;
+    color: rgb(31, 100, 45);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    top: -19px;
+}
+
+.ltk-vertical-dragger {
+    width: 4px;
+    background-color: lightgray;
+    cursor: ew-resize;
+}
+
+.ltk-vertical-dragger:hover {
+    background-color: gray;
+}
+
+.ltk-log-list .ui-resizable-n {
+    cursor: ns-resize;
+    height: 32px;
+    width: calc(100% - 210px);
+}
+
+.ltk-log-list .ui-resizable-e {
+    cursor: ew-resize;
+    width: 15px;
+}
+
+.ltk-arrow {
+    display: block;
+    width: 0px;
+    height: 0px;
+    border: 10px solid transparent;
+}
+
+.ltk-arrow.ltk-arrow-up {
+    border-bottom-color: #456;
+    border-top-width: 0px;
+}
+
+.ltk-arrow.ltk-arrow-down {
+    border-top-color: #456;
+    border-bottom-width: 0px;
+}
+
+.ltk-arrow.ltk-arrow-left {
+    border-right-color: #456;
+    border-left-width: 0px;
+}
+
+.ltk-arrow.ltk-arrow-right {
+    border-left-color: #456;
+    border-right-width: 0px;
+}
+
+.ltk-built-with {
+    position: fixed;
+    left: 40px;
+    bottom: 1px;
+    z-index: 100000;
+}
+
+.ltk-step {
+    font-family: Arial;
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    background: lightyellow;
+    border: 3px solid orange;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 10px;
+    padding-top: 15px;
+    opacity: 0;
+    z-index: 10000;
+    box-shadow: 0 10px 20px -2px rgba(0, 0, 0, .1), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.ltk-step-marker {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: orange;
+    z-index: 10000;
+}
+
+.ltk-step-buttons {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    visibility: hidden;
+}
+
+.ltk-step:hover .ltk-step-buttons {
+    visibility: visible;
+}
+
+.ltk-step-buttons .ltk-text {
+    height: 12px;
+    width: 16px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 8px;
+    color: rgb(3, 3, 129);
+}
+
+.ltk-step-buttons .ltk-text:hover {
+    font-weight: bold;
+}
+
+body {
+    margin: 0;
+    font-family: var(--ltk-body-font-family);
+    font-size: var(--ltk-body-font-size);
+    font-weight: var(--ltk-body-font-weight);
+    line-height: var(--ltk-body-line-height);
+    color: var(--ltk-body-color);
+    text-align: var(--ltk-body-text-align);
+    background-color: var(--ltk-body-bg);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --ltk-blue: #0d6efd;
+    --ltk-indigo: #6610f2;
+    --ltk-purple: #6f42c1;
+    --ltk-pink: #d63384;
+    --ltk-red: #dc3545;
+    --ltk-orange: #fd7e14;
+    --ltk-yellow: #ffc107;
+    --ltk-green: #198754;
+    --ltk-teal: #20c997;
+    --ltk-cyan: #0dcaf0;
+    --ltk-black: #000;
+    --ltk-white: #fff;
+    --ltk-gray: #6c757d;
+    --ltk-gray-dark: #343a40;
+    --ltk-gray-100: #f8f9fa;
+    --ltk-gray-200: #e9ecef;
+    --ltk-gray-300: #dee2e6;
+    --ltk-gray-400: #ced4da;
+    --ltk-gray-500: #adb5bd;
+    --ltk-gray-600: #6c757d;
+    --ltk-gray-700: #495057;
+    --ltk-gray-800: #343a40;
+    --ltk-gray-900: #212529;
+    --ltk-primary: #0d6efd;
+    --ltk-secondary: #6c757d;
+    --ltk-success: #198754;
+    --ltk-info: #0dcaf0;
+    --ltk-warning: #ffc107;
+    --ltk-danger: #dc3545;
+    --ltk-light: #f8f9fa;
+    --ltk-dark: #212529;
+    --ltk-primary-rgb: 13,110,253;
+    --ltk-secondary-rgb: 108,117,125;
+    --ltk-success-rgb: 25,135,84;
+    --ltk-info-rgb: 13,202,240;
+    --ltk-warning-rgb: 255,193,7;
+    --ltk-danger-rgb: 220,53,69;
+    --ltk-light-rgb: 248,249,250;
+    --ltk-dark-rgb: 33,37,41;
+    --ltk-white-rgb: 255,255,255;
+    --ltk-black-rgb: 0,0,0;
+    --ltk-body-color-rgb: 33,37,41;
+    --ltk-body-bg-rgb: 255,255,255;
+    --ltk-font-sans-serif: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --ltk-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    --ltk-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --ltk-body-font-family: var(--bs-font-sans-serif);
+    --ltk-body-font-size: 1rem;
+    --ltk-body-font-weight: 400;
+    --ltk-body-line-height: 1.5;
+    --ltk-body-color: #212529;
+    --ltk-body-bg: #fff;
+    --ltk-border-width: 1px;
+    --ltk-border-style: solid;
+    --ltk-border-color: #dee2e6;
+    --ltk-border-color-translucent: rgba(0, 0, 0, 0.175);
+    --ltk-border-radius: 0.375rem;
+    --ltk-border-radius-sm: 0.25rem;
+    --ltk-border-radius-lg: 0.5rem;
+    --ltk-border-radius-xl: 1rem;
+    --ltk-border-radius-2xl: 2rem;
+    --ltk-border-radius-pill: 50rem;
+    --ltk-link-color: #0d6efd;
+    --ltk-link-hover-color: #0a58ca;
+    --ltk-code-color: #d63384;
+    --ltk-highlight-bg: #fff3cd;
+}
+
+.py-error {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000000;
+}
+
+.ltk-horizontal-split-pane, .ltk-horizontal-split-pane-first, .ltk-horizontal-split-pane-last
+.ltk-vertical-split-pane .ltk-vertical-split-pane-first, .ltk-vertical-split-pane-last {
+    overflow: hidden;
+}
+
+.ltk-horizontal-split-pane-middle {
+    width: 7px;
+    background-color: transparent;
+    z-index: 10000;
+    cursor: ew-resize;
+}
+
+.ltk-horizontal-split-pane-middle:hover {
+    background-color: #AAF;
+}
+
+.ltk-vertical-split-pane-middle {
+    height: 7px;
+    background-color: transparent;
+    z-index: 10000;
+    cursor: ns-resize;
+}
+
+.ltk-vertical-split-pane-middle:hover {
+    background-color: #AAF;
+}

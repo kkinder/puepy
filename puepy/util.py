@@ -76,6 +76,9 @@ def patch_dom_element(source_element, target_element):
     :param target_element: The target DOM element that will be patched with the attributes and children from the source
     element.
     """
+    # Use morphdom on the client side
+    if morphdom:
+        return morphdom.default(target_element, source_element)
 
     # Remove attributes that don't exist in source element
     for attribute in get_attributes(target_element):
@@ -111,3 +114,15 @@ def patch_dom_element(source_element, target_element):
             target_element.appendChild(source_child)
         elif target_child:
             target_element.removeChild(target_child)
+
+
+# Import morphdom if available
+morphdom = None
+if not is_server_side:
+    try:
+        from pyscript.js_modules import morphdom
+    except ImportError:
+        print(
+            "Consider loading https://cdn.jsdelivr.net/npm/morphdom@2.7.2/+esm into js_modules for faster"
+            " patching and more reliable DOM updates."
+        )

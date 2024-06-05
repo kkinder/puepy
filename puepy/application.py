@@ -25,7 +25,7 @@ class Application:
 
     def install_router(self, router_class, **kwargs):
         self.router = router_class(application=self, **kwargs)
-        if platform == PLATFORM_PYODIDE:
+        if not is_server_side:
             add_event_listener(window, "popstate", self._on_popstate)
 
     def page(self, route=None, name=None):

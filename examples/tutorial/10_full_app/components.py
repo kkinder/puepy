@@ -4,6 +4,8 @@ from puepy import t, Component
 from puepy.router import Route
 from puepy.util import jsobj
 
+import js
+
 
 @dataclass
 class SidebarItem:
@@ -76,10 +78,14 @@ class Chart(Component):
     props = ["type", "data", "options"]
     enclosing_tag = "canvas"
 
-    def post_render(self, element):
-        import js
+    def on_redraw(self):
+        self.call_chartjs()
 
+    def on_ready(self):
+        self.call_chartjs()
+
+    def call_chartjs(self):
         js.Chart.new(
-            element,
+            self.element,
             jsobj(type=self.type, data=self.data, options=self.options),
         )

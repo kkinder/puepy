@@ -2,6 +2,11 @@
   "name": "PuePy Tutorial",
   "debug": true,
   "files": {
+    "./common.py": "common.py",
+    "./components.py": "components.py",
+    "./main.py": "main.py",
+    "./pages.py": "pages.py",
+
     "/puepy/util.py": "puepy/util.py",
     "/puepy/__init__.py": "puepy/__init__.py",
     "/puepy/core.py": "puepy/core.py",
@@ -14,6 +19,7 @@
   },
   "js_modules": {
     "main": {
+      "https://cdn.jsdelivr.net/npm/chart.js": "chart",
       "https://cdn.jsdelivr.net/npm/morphdom@2.7.2/+esm": "morphdom"
     }
   }

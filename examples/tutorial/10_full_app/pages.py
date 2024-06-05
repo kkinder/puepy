@@ -20,6 +20,7 @@ class ChartsPage(Page):
                         ],
                     },
                     options={"responsive": True, "scales": {"y": {"beginAtZero": True}}},
+                    style="width: 100%; height: 100%;",
                 )
 
 

@@ -31,13 +31,6 @@ class Link(Component):
         self.attrs["href"] = self._resolved_href
 
     def on_click(self, event):
-        print(
-            "***",
-            isinstance(self._resolved_href, str),
-            self._resolved_href[0] in "#/",
-            self.page.router.navigate_to_path(self._resolved_href),
-        )
-
         if (
             isinstance(self._resolved_href, str)
             and self._resolved_href[0] in "#/"

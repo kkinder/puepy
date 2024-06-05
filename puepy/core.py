@@ -61,17 +61,27 @@ class Tag:
         children=None,
         **kwargs,
     ):
-        self.added_event_listeners = []
+        # Kept so we can garbage collect them later
+        self._added_event_listeners = []
+
+        # Ones manually added, which we persist when reconfigured
+        self._manually_added_event_listeners = {}
+
+        # The rendered element
         self._rendered_element = None
 
+        # Child nodes and origin refs
         self.children = []
         self.refs = {}
-        if children:
-            self.add(*children)
 
         self.tag_name = tag_name
         self.ref = ref
 
+        # Add any children passed to constructor
+        if children:
+            self.add(*children)
+
+        # Configure self._page
         if isinstance(page, Page):
             self._page = page
         elif isinstance(self, Page):
@@ -98,21 +108,20 @@ class Tag:
 
         self.origin = origin
         self._children_generated = False
-        self.destroyed = False
 
         self._configure(kwargs)
 
     def __del__(self):
         if not is_server_side:
-            while self.added_event_listeners:
-                remove_event_listener(*self.added_event_listeners.pop())
+            while self._added_event_listeners:
+                remove_event_listener(*self._added_event_listeners.pop())
 
     @property
     def application(self):
         return self._page._application
 
     def _configure(self, kwargs):
-        self.event_handlers = _extract_event_handlers(kwargs)
+        self._kwarg_event_listeners = _extract_event_handlers(kwargs)
         self._handle_bind(kwargs)
         self._handle_attrs(kwargs)
 
@@ -121,8 +130,6 @@ class Tag:
             self.bind = kwargs.pop("bind")
             if "value" in kwargs:
                 raise Exception("Cannot specify both 'bind' and 'value'")
-            if "on_input" in self.event_handlers:
-                raise Exception("Cannot specify both 'bind' and 'on_input'")
         else:
             self.bind = None
 
@@ -155,8 +162,18 @@ class Tag:
             self.origin_stack.pop()
 
     def render(self):
-        if "xmlns" in self.attrs:
-            element = self.document.createElementNS(self.attrs.get("xmlns"), self.tag_name)
+        attrs = self.get_default_attrs()
+        attrs.update(self.attrs)
+
+        element = self._create_element(attrs)
+
+        self._render_onto(element, attrs)
+        self.post_render(element)
+        return element
+
+    def _create_element(self, attrs):
+        if "xmlns" in attrs:
+            element = self.document.createElementNS(attrs.get("xmlns"), self.tag_name)
         else:
             element = self.document.createElement(self.tag_name)
 
@@ -164,9 +181,11 @@ class Tag:
         if is_server_side:
             element.setIdAttribute("id")
 
-        self._render_onto(element)
-        self.post_render(element)
+        self.configure_element(element)
         return element
+
+    def configure_element(self, element):
+        pass
 
     def post_render(self, element):
         pass
@@ -183,10 +202,8 @@ class Tag:
         else:
             raise ElementNotInDom(self.element_id)
 
-    def _render_onto(self, element):
+    def _render_onto(self, element, attrs):
         self._rendered_element = element
-        attrs = self.default_attrs.copy()
-        attrs.update(self.attrs)
 
         # Handle classes
         classes = self.get_render_classes(attrs)
@@ -196,7 +213,7 @@ class Tag:
             element.setAttribute("class", " ".join(classes))
 
         # Add attributes
-        for key, value in self.attrs.items():
+        for key, value in attrs.items():
             if key not in ("class_name", "classes", "class"):
                 if hasattr(self, f"handle_{key}_attr"):
                     getattr(self, f"handle_{key}_attr")(element, value)
@@ -205,19 +222,22 @@ class Tag:
                         attr = key[:-1]
                     else:
                         attr = key
-                    element.setAttribute(attr.replace("_", "-"), value)
+                    attr = attr.replace("_", "-")
 
-        if "role" not in self.attrs and self.default_role:
+                    if isinstance(value, bool) or value is None:
+                        if value:
+                            element.setAttribute(attr, attr)
+                    elif isinstance(value, (str, int, float)):
+                        element.setAttribute(attr, value)
+                    else:
+                        element.setAttribute(attr, str(value))
+
+        if "role" not in attrs and self.default_role:
             element.setAttribute("role", self.default_role)
 
         # Add event handlers
-        for key, value in self.event_handlers.items():
-            key = key.replace("_", "-")
-            if isinstance(value, (list, tuple)):
-                for handler in value:
-                    self._add_event_listener(element, key, handler)
-            else:
-                self._add_event_listener(element, key, value)
+        self._add_listeners(element, self._kwarg_event_listeners)
+        self._add_listeners(element, self._manually_added_event_listeners)
 
         # Add bind
         if self.bind and self.origin:
@@ -238,6 +258,15 @@ class Tag:
 
         self.render_children(element)
 
+    def _add_listeners(self, element, listeners):
+        for key, value in listeners.items():
+            key = key.replace("_", "-")
+            if isinstance(value, (list, tuple)):
+                for handler in value:
+                    self._add_event_listener(element, key, handler)
+            else:
+                self._add_event_listener(element, key, value)
+
     def render_children(self, element):
         for child in self.children:
             if isinstance(child, Slot):
@@ -251,8 +280,17 @@ class Tag:
                 element.appendChild(self.document.createTextNode(child))
             elif child is None:
                 pass
+            elif getattr(child, "nodeType", None) is not None:
+                # DOM element
+                element.appendChild(child)
             else:
-                raise Exception(f"Unknown child type {type(child)} onto {self}")
+                self.render_unknown_child(element, child)
+
+    def render_unknown_child(self, element, child):
+        """
+        Called when the child is not a Tag, Slot, or html. By default, it raises an error.
+        """
+        raise Exception(f"Unknown child type {type(child)} onto {self}")
 
     def get_render_classes(self, attrs):
         return merge_classes(
@@ -263,7 +301,10 @@ class Tag:
         )
 
     def get_default_classes(self):
-        return self.default_classes
+        return self.default_classes.copy()
+
+    def get_default_attrs(self):
+        return self.default_attrs.copy()
 
     def _add_event_listener(self, element, event, listener):
         """
@@ -272,19 +313,19 @@ class Tag:
 
         Should probably not be used outside this class.
         """
-        self.added_event_listeners.append((element, event, listener))
+        self._added_event_listeners.append((element, event, listener))
         if not is_server_side:
             add_event_listener(element, event, listener)
 
     def add_event_listener(self, event, handler):
-        if event not in self.event_handlers:
-            self.event_handlers[event] = handler
+        if event not in self._manually_added_event_listeners:
+            self._manually_added_event_listeners[event] = handler
         else:
-            existing_handler = self.event_handlers[event]
+            existing_handler = self._manually_added_event_listeners[event]
             if isinstance(existing_handler, (list, tuple)):
-                self.event_handlers[event] = [existing_handler] + list(handler)
+                self._manually_added_event_listeners[event] = [existing_handler] + list(handler)
             else:
-                self.event_handlers[event] = [existing_handler, handler]
+                self._manually_added_event_listeners[event] = [existing_handler, handler]
         if self._rendered_element:
             self._add_event_listener(self._rendered_element, event, handler)
 
@@ -304,7 +345,7 @@ class Tag:
 
         element.innerHTML = ""
         element.appendChild(self.render())
-        self.recursive_call("ready")
+        self.recursive_call("on_ready")
 
     def recursive_call(self, method, *args, **kwargs):
         for child in self.children:
@@ -312,7 +353,7 @@ class Tag:
                 child.recursive_call(method, *args, **kwargs)
         getattr(self, method)(*args, **kwargs)
 
-    def ready(self):
+    def on_ready(self):
         pass
 
     def on_redraw(self):
@@ -321,6 +362,16 @@ class Tag:
     def on_bind_input(self, event):
         if _element_input_type(event.target) == "checkbox":
             self.origin.state[self.bind] = event.target.checked
+        elif _element_input_type(event.target) == "number":
+            value = event.target.value
+            try:
+                if "." in str(value):
+                    value = float(value)
+                else:
+                    value = int(value)
+            except (ValueError, TypeError):
+                pass
+            self.origin.state[self.bind] = value
         else:
             self.origin.state[self.bind] = event.target.value
 
@@ -390,29 +441,18 @@ class Tag:
 
         self.children = []
 
+        attrs = self.get_default_attrs()
+        attrs.update(self.attrs)
+
         self.update_title()
         with self:
             self.generate_children()
 
-        if "xmls" in self.attrs:
-            staging_element = self.document.createElementNS(self.attrs["xmlns"], self.tag_name)
-        else:
-            staging_element = self.document.createElement(self.tag_name)
-        staging_element.setAttribute("id", self.element_id)
-        if is_server_side:
-            staging_element.setIdAttribute("id")
+        staging_element = self._create_element(attrs)
 
-        self._render_onto(staging_element)
-        # staging_html = staging_element.toxml() if is_server_side else staging_element.outerHTML
+        self._render_onto(staging_element, attrs)
 
         patch_dom_element(staging_element, element)
-        # patched_html = element.toxml() if is_server_side else element.outerHTML
-        #
-        # if staging_html != patched_html:
-        #     print("Failed to attempt patching HTML")
-        #     print("FROM: ", staging_html)
-        #     print("TO:   ", patched_html)
-        #     logging.error("Redraw patch not successful", exc_info=True)
 
         if old_active_element_id is not None:
             el = self.document.getElementById(old_active_element_id)
@@ -487,6 +527,7 @@ class Component(Tag):
 
     def _handle_props(self, kwargs):
         self.props_expanded = {}
+        self.props_values = {}
         for prop in self.props:
             if isinstance(prop, Prop):
                 self.props_expanded[prop.name] = prop
@@ -497,11 +538,10 @@ class Component(Tag):
             else:
                 raise PropsError(f"Unknown prop type {type(prop)}")
 
-        for prop in self.props_expanded.keys():
-            if prop in kwargs:
-                setattr(self, prop, kwargs.pop(prop))
-            else:
-                setattr(self, prop, None)
+        for name, prop in self.props_expanded.items():
+            value = kwargs.pop(prop.name, prop.default_value)
+            setattr(self, name, value)
+            self.props_values[name] = value
 
     def initial(self):
         return {}
@@ -581,7 +621,6 @@ class Page(Component):
         pass
 
     def redraw_tag(self, tag):
-        # print("requesting redraw", tag)
         assert isinstance(tag, Tag)
         self.redraw_list.add(tag)
 
@@ -685,7 +724,7 @@ class Builder:
 
     def add_component(self, component: Component):
         if component.component_name:
-            component_name = component.component_name
+            component_name = component.component_name.replace("_", "-")
         else:
             component_name = mixed_to_underscores(component.__name__, "-")
         self.components[component_name.lower()] = component
