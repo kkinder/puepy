@@ -22,6 +22,7 @@ class Application:
         self.router = None
         self._selector_or_element = None
         self.default_page = None
+        self.active_page = None
 
     def install_router(self, router_class, **kwargs):
         self.router = router_class(application=self, **kwargs)
@@ -89,6 +90,6 @@ class Application:
         else:
             return None
 
-        page: Page = page_class(matched_route=route, application=self, **page_kwargs)
-        page.mount(selector_or_element)
-        return page
+        self.active_page: Page = page_class(matched_route=route, application=self, **page_kwargs)
+        self.active_page.mount(selector_or_element)
+        return self.active_page
