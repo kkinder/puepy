@@ -468,7 +468,10 @@ class Tag:
         if "_" in event:
             print("Triggering event with underscores. Did you mean dashes?: ", event)
 
+        # noinspection PyUnresolvedReferences
         from pyscript.ffi import to_js
+
+        # noinspection PyUnresolvedReferences
         from js import Object, Map
 
         if detail:
