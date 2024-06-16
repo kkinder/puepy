@@ -118,7 +118,7 @@ class Router:
         return None, None
 
     def navigate_to_path(self, path, **kwargs):
-        if isinstance(path, Page):
+        if issubclass(path, Page):
             path = self.reverse(path, **kwargs)
         else:
             path = path + "?" + "&".join(f"{url_quote(k)}={url_quote(v)}" for k, v in kwargs.items())
