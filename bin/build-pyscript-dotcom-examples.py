@@ -9,12 +9,12 @@ import json
 import subprocess
 from pathlib import Path
 
-module_path = Path(__file__).resolve().parent
+module_path = Path(__file__).resolve().parent.parent
 examples_path = module_path / "examples"
 pyscript_examples_path = module_path / "pyscript_examples"
 
 
-def replace_puepy_files_with_zip(content, zipfile_location):
+def replace_puepy_files_with_dist(content, wheel_location):
     """
     Replaces the example with a PyScript one
     """
@@ -24,7 +24,9 @@ def replace_puepy_files_with_zip(content, zipfile_location):
             if fnmatch.fnmatch(file_source, "/puepy/*.py"):
                 del content["files"][file_source]
 
-        content["files"][zipfile_location] = "./*"
+    if "packages" not in content:
+        content["packages"] = []
+    content["packages"].append(wheel_location)
 
     return content
 
@@ -36,7 +38,7 @@ def build_pyscript_examples(source_dir: Path, destination_dir: Path):
     for origin_path, dirs, files in os.walk(source_dir):
         origin_path = Path(origin_path)
 
-        zipfile_location = os.path.join(os.path.relpath(examples_path, origin_path), "puepy-bundle.zip")
+        wheel_location = os.path.join(os.path.relpath(examples_path, origin_path), wheel_file.name)
 
         for file in files:
             relative_path = os.path.relpath(origin_path, source_dir)
@@ -44,9 +46,10 @@ def build_pyscript_examples(source_dir: Path, destination_dir: Path):
             os.makedirs(dest_path, exist_ok=True)
 
             if fnmatch.fnmatch(file, "pyscript*.json"):
+                print(dest_path / file)
                 open(dest_path / file, "w").write(
                     json.dumps(
-                        replace_puepy_files_with_zip(json.loads(open(origin_path / file).read()), zipfile_location),
+                        replace_puepy_files_with_dist(json.loads(open(origin_path / file).read()), wheel_location),
                         indent=2,
                     )
                 )
@@ -55,5 +58,13 @@ def build_pyscript_examples(source_dir: Path, destination_dir: Path):
 
 
 if __name__ == "__main__":
+    # Get puepy version
+    version = subprocess.check_output("poetry version -s", shell=True).decode().strip()
+    wheel_file = Path(module_path / "dist" / f"puepy-{version}-py3-none-any.whl")
+
+    assert wheel_file.exists(), f"Wheel file not found: {wheel_file}"
+    existing_install_config = examples_path / "installation" / "pyscript.json"
+
+    os.makedirs(pyscript_examples_path, exist_ok=True)
+    subprocess.check_call(f"cp {wheel_file} {pyscript_examples_path}", shell=True)
     build_pyscript_examples(examples_path, pyscript_examples_path)
-    subprocess.check_call(f"zip -r {pyscript_examples_path / 'puepy-bundle.zip'} puepy/*.py", shell=True)

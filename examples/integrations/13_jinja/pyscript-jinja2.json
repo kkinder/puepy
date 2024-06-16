@@ -10,7 +10,8 @@
     "/puepy/storage.py": "puepy/storage.py",
     "/puepy/exceptions.py": "puepy/exceptions.py",
     "/puepy/router.py": "puepy/router.py",
-    "/puepy/reactivity.py": "puepy/reactivity.py"
+    "/puepy/reactivity.py": "puepy/reactivity.py",
+    "/puepy/version.py": "puepy/version.py"
   },
   "packages": [
     "jinja2"
