@@ -77,6 +77,9 @@ class Tag:
         self.tag_name = tag_name
         self.ref = ref
 
+        # Attrs that webcomponents create that we need to preserve
+        self._retained_attrs = {}
+
         # Add any children passed to constructor
         if children:
             self.add(*children)
@@ -134,7 +137,7 @@ class Tag:
             self.bind = None
 
     def _handle_attrs(self, kwargs):
-        self.attrs = {}
+        self.attrs = self._retained_attrs.copy()
         for k, v in kwargs.items():
             if hasattr(self, f"set_{k}"):
                 getattr(self, f"set_{k}")(v)
@@ -356,6 +359,18 @@ class Tag:
     def on_ready(self):
         pass
 
+    def _retain_implicit_attrs(self):
+        """
+        Some web components add attributes after their elements are rendered. Eg, <sl-button> becomes <sl-button variant="default">
+
+        If we patch the DOM and remove those attributes, we lose them. This method is called recursively on redraw
+        to retain any attributes that were added by the web component.
+        """
+        if getattr(self.element, "shadowRoot"):
+            for attr in self.element.attributes:
+                if attr.name not in self.attrs and attr.name != "id":
+                    self._retained_attrs[attr.name] = attr.value
+
     def on_redraw(self):
         pass
 
@@ -438,6 +453,8 @@ class Tag:
             old_active_element_id = None
         else:
             old_active_element_id = self.document.activeElement.id if self.document.activeElement else None
+
+            self.recursive_call("_retain_implicit_attrs")
 
         self.children = []
 
