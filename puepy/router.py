@@ -152,7 +152,8 @@ class Router:
             return self.application.mount(self.application._selector_or_element, path)
         elif self.link_mode == self.LINK_MODE_HASH:
             path = path[1:] if path.startswith("#") else path
-            history.pushState(jsobj(), "", "#" + path)
+            if not is_server_side:
+                history.pushState(jsobj(), "", "#" + path)
             return self.application.mount(self.application._selector_or_element, path)
         else:
             raise Exception(f"Invalid link mode: {self.link_mode}")

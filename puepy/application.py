@@ -33,7 +33,7 @@ class TracebackErrorPage(Page):
             sys.print_exception(self.error, buf)
             return buf.getvalue()
 
-        return "\n".join(traceback.format_exception(self.error))
+        return "\n".join(traceback.format_exception(type(self.error), self.error, self.error.__traceback__))
 
     def populate(self):
         t.h1(f"Error: {self.error}")
@@ -117,8 +117,10 @@ class Application(Stateful):
 
             if route:
                 page_class = route.page
-            elif self.default_page:
+            elif path in ("", "/") and self.default_page:
                 page_class = self.default_page
+            elif self.not_found_page:
+                page_class = self.not_found_page
             else:
                 return None
         elif self.default_page:
@@ -205,6 +207,9 @@ class Application(Stateful):
 
     def handle_error(self, exception):
         self.mount_page(self._selector_or_element, self.error_page, None, {"error": exception}, handle_exceptions=False)
+        if is_server_side:
+            raise
 
     def handle_redirect(self, exception):
-        self.mount(self._selector_or_element, exception.path)
+        self.router.navigate_to_path(exception.path)
+        # self.mount(self._selector_or_element, exception.path)
