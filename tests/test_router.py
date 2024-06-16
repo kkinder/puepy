@@ -1,7 +1,7 @@
 import unittest
 
 from puepy.core import Page
-from puepy.router import Router, Route
+from puepy.router import Router, Route, _micropython_parse_query_string
 
 
 class TestRoute(unittest.TestCase):
@@ -89,6 +89,51 @@ class TestRouter(unittest.TestCase):
         self.assertIsNone(route)
         self.assertIsNone(params)
 
+
+class TestMicropythonParseQueryString(unittest.TestCase):
+    def test_simple_query(self):
+        query_string = "?name=John"
+        expected_output = {"name": ["John"]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_multiple_params(self):
+        query_string = "?name=John&age=30"
+        expected_output = {"name": ["John"], "age": ["30"]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_url_encoded_chars(self):
+        query_string = "?name=John%20Doe&age=30"
+        expected_output = {"name": ["John Doe"], "age": ["30"]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_repeated_params(self):
+        query_string = "?name=John&name=Jane"
+        expected_output = {"name": ["John", "Jane"]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_no_value_param(self):
+        query_string = "?name="
+        expected_output = {"name": [""]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_no_value_multiple_params(self):
+        query_string = "?name=&age="
+        expected_output = {"name": [""], "age": [""]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_plus_as_space(self):
+        query_string = "?name=John+Doe&age=30"
+        expected_output = {"name": ["John Doe"], "age": ["30"]}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+    def test_single_param_without_value(self):
+        query_string = "?name"
+        expected_output = {"name": ""}
+        self.assertEqual(_micropython_parse_query_string(query_string), expected_output)
+
+
+if __name__ == "__main__":
+    unittest.main()
 
 if __name__ == "__main__":
     unittest.main()

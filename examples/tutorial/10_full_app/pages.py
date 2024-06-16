@@ -128,6 +128,8 @@ class LoginPage(Page):
                 t.sl_button("Login", type="submit")
                 t.p("Use any username or password")
 
+                t.p(f"You will be returned to {self.return_to}")
+
     def on_submit(self, event):
         event.preventDefault()
         if self.refs["form"].element.checkValidity():

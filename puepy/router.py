@@ -3,6 +3,57 @@ from .runtime import window, history, platform, PLATFORM_MICROPYTHON, is_server_
 from .util import mixed_to_underscores, jsobj
 
 
+def _micropython_parse_query_string(query_string):
+    """
+    In MicroPython, urllib isn't available and we can't use the JavaScript library:
+    https://github.com/pyscript/pyscript/issues/2100
+    """
+    if query_string and query_string[0] == "?":
+        query_string = query_string[1:]
+
+    def url_decode(s):
+        # Decode URL-encoded characters without using regex, which is also pretty broken in MicroPython...
+        i = 0
+        length = len(s)
+        decoded = []
+
+        while i < length:
+            if s[i] == "%":
+                if i + 2 < length:
+                    hex_value = s[i + 1 : i + 3]
+                    decoded.append(chr(int(hex_value, 16)))
+                    i += 3
+                else:
+                    decoded.append("%")
+                    i += 1
+            elif s[i] == "+":
+                decoded.append(" ")
+                i += 1
+            else:
+                decoded.append(s[i])
+                i += 1
+
+        return "".join(decoded)
+
+    params = {}
+    for part in query_string.split("&"):
+        if "=" in part:
+            key, value = part.split("=", 1)
+            key = url_decode(key)
+            value = url_decode(value)
+            if key in params:
+                params[key].append(value)
+            else:
+                params[key] = [value]
+        else:
+            key = url_decode(part)
+            if key in params:
+                params[key].append("")
+            else:
+                params[key] = ""
+    return params
+
+
 if platform == PLATFORM_MICROPYTHON:
     from js import encodeURIComponent
 
@@ -17,6 +68,9 @@ if is_server_side:
 
     def parse_query_string(qs):
         return parse_qs(urlparse(qs).query)
+
+elif platform == PLATFORM_MICROPYTHON:
+    parse_query_string = _micropython_parse_query_string
 
 else:
     import js
@@ -142,8 +196,8 @@ class Router:
     def navigate_to_path(self, path, **kwargs):
         if isinstance(path, type) and issubclass(path, Page):
             path = self.reverse(path, **kwargs)
-        else:
-            path = path + "?" + "&".join(f"{url_quote(k)}={url_quote(v)}" for k, v in kwargs.items())
+        elif kwargs:
+            path += "?" + "&".join(f"{url_quote(k)}={url_quote(v)}" for k, v in kwargs.items())
 
         if self.link_mode == self.LINK_MODE_DIRECT:
             window.location = path
