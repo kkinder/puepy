@@ -39,7 +39,6 @@ class BrowserStorage:
 
     def items(self):
         for item in Object.entries(self.target):
-            # print("item", item)
             yield item[0], item[1]
 
     def keys(self):

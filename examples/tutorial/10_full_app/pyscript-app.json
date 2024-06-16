@@ -13,7 +13,7 @@
     "/puepy/runtime.py": "puepy/runtime.py",
     "/puepy/application.py": "puepy/application.py",
     "/puepy/storage.py": "puepy/storage.py",
-    "/puepy/errors.py": "puepy/errors.py",
+    "/puepy/exceptions.py": "puepy/exceptions.py",
     "/puepy/router.py": "puepy/router.py",
     "/puepy/reactivity.py": "puepy/reactivity.py"
   },

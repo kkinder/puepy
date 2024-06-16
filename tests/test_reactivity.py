@@ -17,11 +17,11 @@ class TestListener(unittest.TestCase):
 
     def test_dict_notify_insertion(self):
         self.reactive_dict["c"] = 5
-        self.assertEqual(self.reactive_dict_notifications, [(("c",), {})])
+        self.assertEqual(self.reactive_dict_notifications, [(("c", 5), {})])
 
     def test_dict_notify_deletion(self):
         del self.reactive_dict["a"]
-        self.assertEqual(self.reactive_dict_notifications, [(("a",), {})])
+        self.assertEqual(self.reactive_dict_notifications, [(("a", None), {})])
 
     def test_dict_add_callback(self):
         callback = MagicMock()
@@ -73,10 +73,10 @@ class TestListener(unittest.TestCase):
             self.assertTrue(mock_log_error.called)
 
     def test_mutate_context_manager(self):
-        called_with = []
+        called_with_keys = []
 
-        def callback(key):
-            called_with.append(key)
+        def callback(key, value):
+            called_with_keys.append(key)
 
         self.reactive_dict["foo"] = []
         self.reactive_dict["bar"] = []
@@ -85,25 +85,42 @@ class TestListener(unittest.TestCase):
         self.reactive_dict.listener.add_callback(callback)
         # Confirm that modifying in place does NOT work (it would be nice if it did, but, yanno)
         self.reactive_dict["foo"].append("x")
-        self.assertEqual(called_with, [])
+        self.assertEqual(called_with_keys, [])
 
         with self.reactive_dict.mutate("foo", "bar"):
             self.reactive_dict["foo"].append("y")
 
-        self.assertEqual(set(called_with), {"foo", "bar"})
+        self.assertEqual(set(called_with_keys), {"foo", "bar"})
 
         # Test with only one key...
         with self.reactive_dict.mutate("spam"):
             self.reactive_dict["spam"] = "z"
 
-        self.assertEqual(set(called_with), {"foo", "bar", "spam"})
+        self.assertEqual(set(called_with_keys), {"foo", "bar", "spam"})
 
         # With no key, each dict item should be notified
-        called_with = []
+        called_with_keys = []
         with self.reactive_dict.mutate():
             self.reactive_dict["spam"] = "z"
 
-        self.assertEqual(len(called_with), len(self.reactive_dict.keys()))
+        self.assertEqual(len(called_with_keys), len(self.reactive_dict.keys()))
+
+    def test_key_notifiers(self):
+        called_with = []
+
+        def callback(key, value):
+            called_with.append((key, value))
+
+        self.reactive_dict.add_key_listener("a", callback)
+
+        self.reactive_dict["a"] = 5
+        self.assertEqual(called_with, [("a", 5)])
+
+        self.reactive_dict["b"] = 6
+        self.assertEqual(called_with, [("a", 5)])
+
+        self.reactive_dict["a"] = 7
+        self.assertEqual(called_with, [("a", 5), ("a", 7)])
 
 
 if __name__ == "__main__":

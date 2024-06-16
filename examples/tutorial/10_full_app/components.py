@@ -1,26 +1,38 @@
-from dataclasses import dataclass
+# from dataclasses import dataclass
 
 from puepy import t, Component
 from puepy.router import Route
 from puepy.util import jsobj
+from puepy import exceptions
 
 import js
 
 
-@dataclass
+# @dataclass
 class SidebarItem:
-    label: str
-    icon: str
-    route: Route
+    def __init__(self, label, icon, route):
+        self.label = label
+        self.icon = icon
+        self.route = route
+
+    # label: str
+    # icon: str
+    # route: Route
 
 
 @t.component()
 class AppLayout(Component):
+    compose_app_state = ["authenticated_user"]
+
     sidebar_items = [
-        SidebarItem("Dashboard", "emoji-sunglasses", "welcome_page"),
+        SidebarItem("Dashboard", "emoji-sunglasses", "dashboard_page"),
         SidebarItem("Charts", "graph-up", "charts_page"),
         SidebarItem("Forms", "input-cursor-text", "forms_page"),
     ]
+
+    def precheck(self):
+        if not self.application.state["authenticated_user"]:
+            raise exceptions.Unauthorized()
 
     def populate(self):
         with t.sl_drawer(label="Menu", placement="start", classes="drawer-placement-start", ref="drawer"):
@@ -55,7 +67,8 @@ class AppLayout(Component):
                     t.sl_menu_item("Logout", t.sl_icon(slot="suffix", name="box-arrow-right"), value="logout")
 
     def on_menu_select(self, event):
-        print("You selected", event.detail.item.value)
+        if event.detail.item.value == "logout":
+            self.application.state["authenticated_user"] = ""
 
     def populate_sidebar(self):
         for item in self.sidebar_items:
@@ -85,7 +98,10 @@ class Chart(Component):
         self.call_chartjs()
 
     def call_chartjs(self):
-        js.Chart.new(
+        if hasattr(self, "_chart_js"):
+            self._chart_js.destroy()
+
+        self._chart_js = js.Chart.new(
             self.element,
             jsobj(type=self.type, data=self.data, options=self.options),
         )

@@ -1,4 +1,5 @@
 import logging
+from functools import partial
 
 
 class Listener:
@@ -42,13 +43,15 @@ class ReactiveDict(dict):
     def __init__(self, *args, **kwargs):
         super().__init__(*args)
         self.listener = Listener()
+        self.key_listeners = {}
         self._in_mutation = False
         self._notifications_pending = set()
         self._keys_mutate = None
 
-        # # Necessary for Micropython
-        # for k, v in kwargs.items():
-        #     self[k] = v
+    def add_key_listener(self, key, callback):
+        if key not in self.key_listeners:
+            self.key_listeners[key] = Listener()
+        self.key_listeners[key].add_callback(callback)
 
     def notify(self, *keys):
         if keys:
@@ -62,7 +65,10 @@ class ReactiveDict(dict):
     def _flush_pending(self):
         while self._notifications_pending:
             key = self._notifications_pending.pop()
-            self.listener.notify(key)
+            value = self.get(key, None)
+            self.listener.notify(key, value)
+            if key in self.key_listeners:
+                self.key_listeners[key].notify(key, value)
 
     def __setitem__(self, key, value):
         if (key in self and value != self[key]) or key not in self:
@@ -92,3 +98,20 @@ class ReactiveDict(dict):
     def __exit__(self, type, value, traceback):
         self._in_mutation = False
         self._flush_pending()
+
+
+class Stateful:
+    def add_context(self, name: str, value: ReactiveDict):
+        value.listener.add_callback(partial(self._on_state_change, name))
+
+    def initial(self):
+        return {}
+
+    def on_state_change(self, context, key, value):
+        pass
+
+    def _on_state_change(self, context, key, value):
+        self.on_state_change(context, key, value)
+
+        if hasattr(self, f"on_{key}_change"):
+            getattr(self, f"on_{key}_change")(value)

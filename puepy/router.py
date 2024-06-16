@@ -1,10 +1,5 @@
 from .core import Page
-from .runtime import (
-    window,
-    history,
-    platform,
-    PLATFORM_MICROPYTHON,
-)
+from .runtime import window, history, platform, PLATFORM_MICROPYTHON, is_server_side
 from .util import mixed_to_underscores, jsobj
 
 
@@ -16,6 +11,19 @@ if platform == PLATFORM_MICROPYTHON:
 
 else:
     from urllib.parse import quote as url_quote
+
+if is_server_side:
+    from urllib.parse import urlparse, parse_qs
+
+    def parse_query_string(qs):
+        return parse_qs(urlparse(qs).query)
+
+else:
+    import js
+
+    def parse_query_string(qs):
+        usp = js.URLSearchParams.new(qs)
+        return {key: list(usp.getAll(key)) for key in usp.keys()}
 
 
 class Route:
@@ -47,17 +55,24 @@ class Route:
         return True, kwargs
 
     def reverse(self, **kwargs):
+        kwargs = kwargs.copy()
         result = self.path_match
-        for key, value in kwargs.items():
-            result = result.replace(f"<{key}>", str(value))
+        for key in list(kwargs.keys()):
+            if f"<{key}>" in result:
+                value = kwargs.pop(key)
+                result = result.replace(f"<{key}>", str(value))
 
         if self.router and self.router.link_mode == Router.LINK_MODE_HASH:
             result = "#" + result
 
         if self.base_path:
-            return f"{self.base_path}{result}"
+            path = f"{self.base_path}{result}"
         else:
-            return result
+            path = result
+
+        if kwargs:
+            path += "?" + "&".join(f"{url_quote(k)}={url_quote(v)}" for k, v in kwargs.items())
+        return path
 
     def __str__(self):
         return self.name
@@ -110,15 +125,22 @@ class Router:
         return route.reverse(**kwargs)
 
     def match(self, path):
-        path = path.split("#")[0].split("?")[0]
+        path = path.split("#")[0]
+        if "?" not in path:
+            path += "?"
+        path, query_string = path.split("?", 1)
+        arguments = parse_query_string(query_string)
+
         for route in self.routes:
-            matches, arguments = route.match(path)
+            matches, path_arguments = route.match(path)
+            if path_arguments:
+                arguments.update(path_arguments)
             if matches:
                 return route, arguments
         return None, None
 
     def navigate_to_path(self, path, **kwargs):
-        if issubclass(path, Page):
+        if isinstance(path, type) and issubclass(path, Page):
             path = self.reverse(path, **kwargs)
         else:
             path = path + "?" + "&".join(f"{url_quote(k)}={url_quote(v)}" for k, v in kwargs.items())

@@ -1,4 +1,4 @@
-from puepy import Page, t
+from puepy import Page, t, Prop
 from common import app
 
 
@@ -55,11 +55,13 @@ class FormsPage(Page):
 
 
 @app.page("/")
-class WelcomePage(Page):
+class DashboardPage(Page):
+    compose_app_state = ["authenticated_user"]
+
     def populate(self):
         with t.app_layout() as layout:
             with layout.slot():
-                t.h1("Building a big app", style="margin-top: 0;")
+                t.h1(f"Hello, you are authenticated as {self.application.state['authenticated_user']}")
                 t.p("This is an example of how you might choose to layout an app. This example includes")
                 t.ul(
                     t.li("Pages spread across multiple files"),
@@ -69,9 +71,72 @@ class WelcomePage(Page):
                 )
 
 
-@app.page(route=None, name="404 Page")
+@app.page(route=None)
 class NotFoundPage(Page):
     def populate(self):
         with t.app_layout() as layout:
             with layout.slot():
                 t.h1("Page Not Found")
+
+
+@app.page("/login")
+class LoginPage(Page):
+    props = ["return_to"]
+
+    def initial(self):
+        return {"username": "", "password": ""}
+
+    def populate(self):
+        t.style(
+            """
+            body, html {
+              height: 100%;
+              margin: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-family: Arial, sans-serif;
+            }
+        
+            .login-container {
+              width: 300px;
+              padding: 20px;
+              border-radius: 10px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              background-color: #fff;
+            }
+        
+            .login-container h2 {
+              margin-bottom: 20px;
+              text-align: center;
+            }
+        
+            sl-input, sl-button {
+              margin-bottom: 15px;
+              width: 100%;
+            }
+            """
+        )
+
+        with t.div(classes="login-container"):
+            t.h2("Login")
+            with t.form(on_submit=self.on_submit, ref="form"):
+                with t.sl_input(label="Username", required=True, bind="username"):
+                    t.sl_icon(name="person-fill", slot="prefix")
+                with t.sl_input(label="Password", type="password", required=True, bind="password"):
+                    t.sl_icon(name="lock-fill", slot="prefix")
+                t.sl_button("Login", type="submit")
+                t.p("Use any username or password")
+
+    def on_submit(self, event):
+        event.preventDefault()
+        if self.refs["form"].element.checkValidity():
+            self.application.state["authenticated_user"] = self.state["username"]
+
+            if self.return_to:
+                self.router.navigate_to_path(self.return_to)
+            else:
+                self.router.navigate_to_path("/")
+
+
+# app.unauthorized_page = LoginPage

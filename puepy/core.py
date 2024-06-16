@@ -1,5 +1,5 @@
-from .errors import ElementNotInDom, PropsError
-from .reactivity import ReactiveDict
+from .exceptions import ElementNotInDom, PropsError, PageError
+from .reactivity import ReactiveDict, Stateful
 from .util import (
     mixed_to_underscores,
     merge_classes,
@@ -147,6 +147,9 @@ class Tag:
     def populate(self):
         pass
 
+    def precheck(self):
+        pass
+
     def generate_children(self):
         """
         Runs populate, but first adds self to self.population_stack, and removes it after populate runs.
@@ -159,6 +162,7 @@ class Tag:
         self.refs = {}
         self.population_stack.append(self)
         try:
+            self.precheck()
             self.populate()
         finally:
             self.population_stack.pop()
@@ -185,6 +189,7 @@ class Tag:
             element.setIdAttribute("id")
 
         self.configure_element(element)
+
         return element
 
     def configure_element(self, element):
@@ -428,18 +433,6 @@ class Tag:
             else:
                 self.children.append(child)
 
-    def print_tree(self, n=0):
-        if n == 0:
-            print("Tree")
-        print("." * n, self)
-        for child in self.children:
-            if isinstance(child, Tag):
-                child.print_tree(n + 1)
-            else:
-                print("." * (n + 1), child)
-        if n == 0:
-            print("End Tree")
-
     def redraw(self):
         if self in self.page.redraw_list:
             self.page.redraw_list.remove(self)
@@ -477,9 +470,6 @@ class Tag:
                 el.focus()
 
         self.recursive_call("on_redraw")
-
-    def trigger_redraw(self):
-        self.page.redraw_tag(self)
 
     def trigger_event(self, event, detail=None, **kwargs):
         if "_" in event:
@@ -527,16 +517,20 @@ class Slot(Tag):
         return f"Slot: {self.slot_name}"
 
 
-class Component(Tag):
+class Component(Tag, Stateful):
     enclosing_tag = "div"
     component_name = None
-    redraw_on_changes = True
+    redraw_on_state_changes = True
+    redraw_on_app_state_changes = True
+
     props = []
+
+    compose_app_state = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, tag_name=self.enclosing_tag, **kwargs)
         self.state = ReactiveDict(self.initial())
-        self.state.listener.add_callback(self._on_state_change)
+        self.add_context("state", self.state)
 
         self.slots = {}
 
@@ -546,42 +540,52 @@ class Component(Tag):
         super()._handle_attrs(kwargs)
 
     def _handle_props(self, kwargs):
-        self.props_expanded = {}
-        self.props_values = {}
-        for prop in self.props:
-            if isinstance(prop, Prop):
-                self.props_expanded[prop.name] = prop
-            elif isinstance(prop, dict):
-                self.props_expanded[prop["name"]] = Prop(**prop)
-            elif isinstance(prop, str):
-                self.props_expanded[prop] = Prop(name=prop)
-            else:
-                raise PropsError(f"Unknown prop type {type(prop)}")
+        if not hasattr(self, "props_expanded"):
+            self._expanded_props()
 
+        self.props_values = {}
         for name, prop in self.props_expanded.items():
             value = kwargs.pop(prop.name, prop.default_value)
             setattr(self, name, value)
             self.props_values[name] = value
 
+    @classmethod
+    def _expanded_props(cls):
+        # This would be ideal for metaprogramming, but we do it this way to be compatible with Micropython. :/
+        props_expanded = {}
+        for prop in cls.props:
+            if isinstance(prop, Prop):
+                props_expanded[prop.name] = prop
+            elif isinstance(prop, dict):
+                props_expanded[prop["name"]] = Prop(**prop)
+            elif isinstance(prop, str):
+                props_expanded[prop] = Prop(name=prop)
+            else:
+                raise PropsError(f"Unknown prop type {type(prop)}")
+        cls.props_expanded = props_expanded
+
     def initial(self):
         return {}
 
-    def _on_state_change(self, key):
-        value = self.state[key]
+    def _on_state_change(self, context, key, value):
+        super()._on_state_change(context, key, value)
 
-        self.on_state_change(key, value)
+        if context == "state":
+            redraw_rule = self.redraw_on_state_changes
+        elif context == "app":
+            redraw_rule = self.redraw_on_app_state_changes
+        else:
+            return
 
-        if hasattr(self, f"on_{key}_change"):
-            getattr(self, f"on_{key}_change")(value)
-
-        if self.redraw_on_changes is True:
-            self.trigger_redraw()
-        elif isinstance(self.redraw_on_changes, list):
-            if key in self.redraw_on_changes:
-                self.trigger_redraw()
-
-    def on_state_change(self, key, value):
-        pass
+        if redraw_rule is True:
+            self.page.redraw_tag(self)
+        elif redraw_rule is False:
+            pass
+        elif isinstance(redraw_rule, (list, set)):
+            if key in redraw_rule:
+                self.page.redraw_tag(self)
+        else:
+            raise Exception(f"Unknown value for redraw rule: {redraw_rule} (context: {context})")
 
     def insert_slot(self, name="default", **kwargs):
         if name in self.slots:
@@ -631,6 +635,8 @@ class Page(Component):
         self.redraw_list = set()
 
         super().__init__(ref=ref, **kwargs)
+        if self.application:
+            self.add_context("app", self.application.state)
 
     def update_title(self):
         title = self.page_title()
@@ -652,19 +658,25 @@ class Page(Component):
                 self._redraw_timeout_set = True
 
     def _do_redraw(self):
-        redrawn_already = set()
         try:
-            while self.redraw_list:
-                tag = self.redraw_list.pop()
-                if tag in redrawn_already:
-                    raise Exception(
-                        "A redraw event is causing a circular redraw event loop. Yo dawg, are you causing "
-                        "a redraw from your redraw?"
-                    )
-                tag.redraw()
-                redrawn_already.add(tag)
-        finally:
-            self._redraw_timeout_set = False
+            redrawn_already = set()
+            try:
+                while self.redraw_list:
+                    tag = self.redraw_list.pop()
+                    if tag in redrawn_already:
+                        raise Exception(
+                            "A redraw event is causing a circular redraw event loop. Yo dawg, are you causing "
+                            "a redraw from your redraw?"
+                        )
+
+                    tag.redraw()
+                    redrawn_already.add(tag)
+            finally:
+                self._redraw_timeout_set = False
+        except PageError as e:
+            self.application.handle_page_error(e)
+        except Exception as e:
+            self.application.handle_error(e)
 
 
 class Builder:
