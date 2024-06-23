@@ -1,23 +1,15 @@
-# from dataclasses import dataclass
-
 from puepy import t, Component
-from puepy.router import Route
 from puepy.util import jsobj
 from puepy import exceptions
 
 import js
 
 
-# @dataclass
 class SidebarItem:
     def __init__(self, label, icon, route):
         self.label = label
         self.icon = icon
         self.route = route
-
-    # label: str
-    # icon: str
-    # route: Route
 
 
 @t.component()
