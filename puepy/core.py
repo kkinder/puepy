@@ -1,13 +1,8 @@
+import binascii
+import hashlib
+
 from .exceptions import ElementNotInDom, PropsError, PageError
 from .reactivity import ReactiveDict, Stateful
-from .util import (
-    mixed_to_underscores,
-    merge_classes,
-    jsobj,
-    _extract_event_handlers,
-    patch_dom_element,
-)
-
 from .runtime import (
     add_event_listener,
     remove_event_listener,
@@ -16,6 +11,12 @@ from .runtime import (
     is_server_side,
     setTimeout,
     CustomEvent,
+)
+from .util import (
+    mixed_to_underscores,
+    merge_classes,
+    _extract_event_handlers,
+    patch_dom_element,
 )
 
 
@@ -705,12 +706,15 @@ class Builder:
             raise Exception("t.generate_tag called without a context")
 
         # Determine ref value
-        ref_part = f"__{parent.ref}.{tag_name}{len(parent.children) + 1}"
+        ref_part = f"__{parent.ref}.{tag_name}{len(parent.children) + 1}_" + binascii.hexlify(
+            hashlib.sha256(str(kwargs).encode()).digest()
+        )[:8].decode("utf8")
 
         ref = kwargs.pop("ref", ref_part)
 
         if ref and origin and ref in origin._refs_pending_removal:
-            element = origin._refs_pending_removal.pop(ref)
+            element: Tag = origin._refs_pending_removal.pop(ref)
+
             assert element.origin == origin
             element._configure(kwargs)
             element.children = []
