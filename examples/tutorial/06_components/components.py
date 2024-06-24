@@ -50,7 +50,7 @@ class ComponentPage(Page):
             t.p(self.state["message"])
 
     def handle_custom_event(self, event):
-        self.state["message"] = f"Custom event from card with type {event.detail.get("type")}"
+        self.state["message"] = f"Custom event from card with type {event.detail.get('type')}"
 
 
 app.mount("#app")
