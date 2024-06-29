@@ -1,6 +1,5 @@
 import binascii
 import hashlib
-import warnings
 
 from .exceptions import ElementNotInDom, PropsError, PageError
 from .reactivity import ReactiveDict, Stateful
@@ -693,9 +692,9 @@ class Builder:
             tag_name = tag_name.replace("_", "-")
 
         if tag_name == "insert_slot":
-            warnings.warn(f"Called t.insert_slot. Did you mean self.insert_slot?")
+            print(f"Called t.insert_slot. Did you mean self.insert_slot?")
         elif tag_name == "slot":
-            warnings.warn(f"Called t.slot. Did you mean <component>.slot?")
+            print(f"Called t.slot. Did you mean <component>.slot?")
 
         parent = Tag.stack[-1] if Tag.stack else None
         parent_component = Tag.component_stack[-1] if Tag.component_stack else None
