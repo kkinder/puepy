@@ -4,7 +4,9 @@
 
 PuePy is an attempt to create a frontend framework using [PyScript](https://pyscript.net). PuePy is partially inspired by Vue. It runs entirely in your browser, though server-side rendering is likely feasible.  PuePy aims to support two runtime environments: PyScript Pyodide or PyScript Micropython. The Micropython option foregoes some features found in the CPython, but offers a far, far smaller runtime, making it a better option for websites. Line-of-business or scientific webapp developers may prefer the CPython version, which is heavier but more functional.
 
-Without further ado, here's a taste:
+#### 😎 To see an example of a demo built with PuePy, see [ExpenseLemur.com](https://expenselemur.com) and the [Expense Lemur Github Rep](https://github.com/kkinder/expenselemur).
+
+Here's an example:
 
 ```python
 from puepy import Page, Application, t
