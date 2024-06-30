@@ -46,7 +46,6 @@ def build_pyscript_examples(source_dir: Path, destination_dir: Path):
             os.makedirs(dest_path, exist_ok=True)
 
             if fnmatch.fnmatch(file, "pyscript*.json"):
-                print(dest_path / file)
                 open(dest_path / file, "w").write(
                     json.dumps(
                         replace_puepy_files_with_dist(json.loads(open(origin_path / file).read()), wheel_location),
