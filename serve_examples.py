@@ -1,3 +1,4 @@
+import argparse
 import os
 import pathlib
 import sys
@@ -36,8 +37,12 @@ class Handler(server.SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="A simple HTTP server to serve examples of PuePy")
+    parser.add_argument("--host", default="", help="The host on which the server runs")
+    parser.add_argument("--port", type=int, default=8000, help="The port on which the server listens")
+    args = parser.parse_args()
+
     os.chdir(project_path)
-    server_address = ("", 8000)
-    httpd = server.HTTPServer(server_address, Handler)
-    print(f"Serving at port 8000")
+    httpd = server.HTTPServer((args.host, args.port), Handler)
+    print(f"Serving at port {args.host or '*'}:{args.port}")
     httpd.serve_forever()
