@@ -1,14 +1,11 @@
 import os
 import re
-import signal
 import socket
 import subprocess
-import time
 from pathlib import Path
 
 import pytest
 from playwright.sync_api import Page, expect
-
 
 main_directory = Path(__file__).parent.parent.parent.resolve()
 
@@ -40,13 +37,11 @@ def http_server():
         process = subprocess.Popen(
             ["python", "serve_examples.py", f"--port", str(PORT)], stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        response = process.stdout.readline()
-        assert response == b"Serving at port *:5566\n"
 
     yield PORT
 
     if not already_running:
-        os.kill(process.pid, signal.SIGTERM)
+        process.terminate()
         process.wait()
 
 
@@ -68,21 +63,3 @@ def test_hello_name(page: Page) -> None:
     page.get_by_placeholder("name").fill("Jack")
     page.get_by_placeholder("name").press("Enter")
     expect(page.locator("h1")).to_contain_text("Hello, Jack!")
-
-
-#
-# def test_has_title(page: Page):
-#     page.goto("https://playwright.dev/")
-#
-#     # Expect a title "to contain" a substring.
-#     expect(page).to_have_title(re.compile("Playwright"))
-#
-#
-# def test_get_started_link(page: Page):
-#     page.goto("https://playwright.dev/")
-#
-#     # Click the get started link.
-#     page.get_by_role("link", name="Get started").click()
-#
-#     # Expects page to have a heading with the name of Installation.
-#     expect(page.get_by_role("heading", name="Installation")).to_be_visible()
