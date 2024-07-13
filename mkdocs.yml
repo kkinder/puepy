@@ -41,8 +41,6 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      auto_append:
-        - docs/includes/abbreviations.md
       url_download: true
   - attr_list
   - pymdownx.emoji:
@@ -58,7 +56,7 @@ plugins:
     default_handler: python
     handlers:
       python:
-        paths: [/code/puepy]
+        paths: [/code/puepy, /opt/buildhome/clone]
         options:
           show_source: true
 nav:

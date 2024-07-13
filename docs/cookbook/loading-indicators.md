@@ -23,7 +23,7 @@ replaced upon execution by PuePy:
 <div id="app">Loading...</div>
 ```
  
-The [Full App Template](A-Full-App-Template.md) example from the tutorial makes use of a
+The [Full App Template](../tutorial/10-full-app.md) example from the tutorial makes use of a
 [Shoelace](https://shoelace.style) web component to show a visual loading indicator as a spinning wheel:
 
 ```html

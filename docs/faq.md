@@ -48,7 +48,7 @@ t.button("Buy Items", on_click=self.buy)
 
 If you have a whole HTML file ready to go, try out the HTML to
 Python [converter](https://kkinder.pyscriptapps.com/puepy-tutorial/latest/tutorial/08_libraries/index.html) built in
-the [PypII libraries](PyPI-Libraries.md) tutorial chapter, which uses BeautifulSoup.
+the [PypII libraries](tutorial/08-pypi-libraries.md) tutorial chapter, which uses BeautifulSoup.
 
 ### Can I use SVGs?
 

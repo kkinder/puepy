@@ -43,7 +43,7 @@ Once enabled, the Router object may be accessed on any component using `self.pag
 ## Defining routes
 
 The preferred way of adding pages to the router is by calling the `@app.page` decorator on your Application object 
-(see [Hello World](Hello-World.md) in the tutorial or the [Application Developer Guide](Application.md)).
+(see [Hello World](../tutorial/01-hello-world.md) in the tutorial.
 
 ```Python
 from puepy import Page
