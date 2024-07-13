@@ -1,0 +1,101 @@
+site_name: PuePy Documentation
+site_url: https://docs.puepy.dev/
+theme:
+  name: material
+  palette:
+
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - content.code.annotate
+    - navigation.footer
+    - content.code.copy
+    - content.code.select
+    - content.tooltips
+markdown_extensions:
+  - abbr
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - docs/includes/abbreviations.md
+      url_download: true
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+    handlers:
+      python:
+        paths: [/code/puepy]
+        options:
+          show_source: true
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Tutorial:
+    - 'Using This Tutorial': tutorial/00-using-this-tutorial.md
+    - 'Hello World': tutorial/01-hello-world.md
+    - 'Hello, Name': tutorial/02-hello-name.md
+    - 'Events': tutorial/03-events.md
+    - 'Using Refs': tutorial/04-refs.md
+    - 'Watchers': tutorial/05-watchers.md
+    - 'Components': tutorial/06-components.md
+    - 'Routing': tutorial/07-routing.md
+    - 'Using PyPi Libraries': tutorial/08-pypi-libraries.md
+    - 'Using Web Components': tutorial/09-using-web-components.md
+    - 'A full app': tutorial/10-full-app.md
+  - Developer Guide:
+    - 'Reactivity': guide/reactivity.md
+    - 'In-Depth Components': guide/in-depth-components.md
+    - 'Advanced Routing': guide/advanced-routing.md
+    - 'Runtimes': guide/runtimes.md
+    - 'CSS Classes': guide/css-classes.md
+    - 'PyScript Config': guide/pyscript-config.md
+  - 'Cookcook':
+      - 'Loading Indicators': cookbook/loading-indicators.md
+  - Reference:
+    - 'puepy.Application': reference/application.md
+    - 'puepy.core.Tag': reference/tag.md
+    - 'puepy.Component': reference/component.md
+    - 'puepy.router': reference/router.md
+    - 'puepy.Prop': reference/prop.md
+    - 'puepy.reactivity': reference/reactivity.md
+    - 'puepy.storage': reference/storage.md
+    - 'puepy.exceptions': reference/exceptions.md
+  - FAQ: faq.md
+extra_css:
+  - extra/extra.css
+hooks:
+  - puepy_hooks.py

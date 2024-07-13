@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "puepy-mkdocs"
+version = "0.1.0"
+description = ""
+authors = ["Ken Kinder <ken+github@kkinder.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mkdocs = "^1.6.0"
+mkdocs-material = "^9.5.28"
+beautifulsoup4 = "^4.12.3"
+mkdocs-material-extensions = "^1.3.1"
+mkdocstrings = {extras = ["python"], version = "^0.25.1"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
