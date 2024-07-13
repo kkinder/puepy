@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "puepy"
-version = "0.3.3"
+version = "0.3.4"
 description = "Frontend Framework for PyScript"
 authors = ["Ken Kinder <ken+github@kkinder.com>"]
 readme = "README.md"
