@@ -21,6 +21,16 @@ from .util import (
 
 
 class Prop:
+    """
+    Class representing a prop for a component.
+
+    Attributes:
+        name (str): The name of the property.
+        description (str): The description of the property (optional).
+        type (type): The data type of the property (default: str).
+        default_value: The default value of the property (optional).
+    """
+
     def __init__(self, name, description=None, type=str, default_value=None):
         self.name = name
         self.description = description
@@ -38,7 +48,22 @@ def _element_input_type(element):
 
 class Tag:
     """
-    A class that allows you to push and pop a context
+    The most basic building block of a PuePy app. A Tag is a single HTML element. This is also the base class of
+    `Component`, which is then the base class of `Page`.
+
+    Attributes:
+        default_classes (list): Default classes for the tag.
+        default_attrs (dict): Default attributes for the tag.
+        default_role (str): Default role for the tag.
+        page (Page): The page the tag is on.
+        router (Router or None): The router the application is using, if any.
+        parent (Tag): The parent tag, component, or page.
+        application (Application): The application instance.
+        element: The rendered element on the DOM. Raises ElementNotInDom if not found.
+        children (list): The children of the tag.
+        refs (dict): The refs of the tag.
+        tag_name (str): The name of the tag.
+        ref (str): The reference of the tag.
     """
 
     stack = []
@@ -146,9 +171,21 @@ class Tag:
                 self.attrs[k] = v
 
     def populate(self):
+        """To be overwritten by subclasses, this method will define the composition of the element"""
         pass
 
     def precheck(self):
+        """
+        Before doing too much work, decide whether rendering this tag should raise an error or not. This may be useful,
+        especially on a Page, to check if the user is authorized to view the page, for example:
+
+        Examples:
+            ``` py
+            def precheck(self):
+                if not self.application.state["authenticated_user"]:
+                    raise exceptions.Unauthorized()
+            ```
+        """
         pass
 
     def generate_children(self):
@@ -310,6 +347,14 @@ class Tag:
         )
 
     def get_default_classes(self):
+        """
+        Returns a shallow copy of the default_classes list.
+
+        This could be overridden by subclasses to provide a different default_classes list.
+
+        Returns:
+            (list): A shallow copy of the default_classes list.
+        """
         return self.default_classes.copy()
 
     def get_default_attrs(self):
@@ -327,6 +372,14 @@ class Tag:
             add_event_listener(element, event, listener)
 
     def add_event_listener(self, event, handler):
+        """
+        Add an event listener for a given event.
+
+        Args:
+            event (str): The name of the event to listen for.
+            handler (function): The function to be executed when the event occurs.
+
+        """
         if event not in self._manually_added_event_listeners:
             self._manually_added_event_listeners[event] = handler
         else:
@@ -357,6 +410,14 @@ class Tag:
         self.recursive_call("on_ready")
 
     def recursive_call(self, method, *args, **kwargs):
+        """
+        Recursively call a specified method on all child Tag objects.
+
+        Args:
+            method (str): The name of the method to be called on each Tag object.
+            *args: Optional arguments to be passed to the method.
+            **kwargs: Optional keyword arguments to be passed to the method.
+        """
         for child in self.children:
             if isinstance(child, Tag):
                 child.recursive_call(method, *args, **kwargs)
@@ -473,6 +534,14 @@ class Tag:
         self.recursive_call("on_redraw")
 
     def trigger_event(self, event, detail=None, **kwargs):
+        """
+                Triggers an event to be consumed by code using this class.
+
+                Args:
+                    event (str): The name of the event to trigger. If the event name contains underscores, a warning message is printed suggesting to use dashes instead.
+                    detail (dict, optional): Additional data to be sent with the event. This should be a dictionary where the keys and values will be converted to JavaScript objects.
+                    **kwargs: Additional keyword arguments. These arguments are not used in the implementation of the method and are ignored.
+        ß"""
         if "_" in event:
             print("Triggering event with underscores. Did you mean dashes?: ", event)
 
@@ -490,6 +559,11 @@ class Tag:
         self.element.dispatchEvent(CustomEvent.new(event, event_object))
 
     def update_title(self):
+        """
+        To be overridden by subclasses (usually pages), this method should update the Window title as needed.
+
+        Called on mounting or redraw.
+        """
         pass
 
     def __enter__(self):
@@ -519,14 +593,25 @@ class Slot(Tag):
 
 
 class Component(Tag, Stateful):
+    """
+    Components are a way of defining reusable and composable elements in PuePy. They are a subclass of Tag, but provide
+    additional features such as state management and props. By defining your own components and registering them, you
+    can create a library of reusable elements for your application.
+
+    Attributes:
+        enclosing_tag (str): The tag name that will enclose the component. To be defined as a class attribute on subclasses.
+        component_name (str): The name of the component. If left blank, class name is used. To be defined as a class attribute on subclasses.
+        redraw_on_state_changes (bool): Whether the component should redraw when its state changes. To be defined as a class attribute on subclasses.
+        redraw_on_app_state_changes (bool): Whether the component should redraw when the application state changes. To be defined as a class attribute on subclasses.
+        props (list): A list of props for the component. To be defined as a class attribute on subclasses.
+    """
+
     enclosing_tag = "div"
     component_name = None
     redraw_on_state_changes = True
     redraw_on_app_state_changes = True
 
     props = []
-
-    compose_app_state = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, tag_name=self.enclosing_tag, **kwargs)
@@ -566,6 +651,12 @@ class Component(Tag, Stateful):
         cls.props_expanded = props_expanded
 
     def initial(self):
+        """
+        To be overridden in subclasses, the `initial()` method defines the initial state of the component.
+
+        Returns:
+            (dict): Initial component state
+        """
         return {}
 
     def _on_state_change(self, context, key, value):
@@ -589,6 +680,16 @@ class Component(Tag, Stateful):
             raise Exception(f"Unknown value for redraw rule: {redraw_rule} (context: {context})")
 
     def insert_slot(self, name="default", **kwargs):
+        """
+        In defining your own component, when you want to create a slot in your `populate` method, you can use this method.
+
+        Args:
+            name (str): The name of the slot. If not passed, the default slot is inserted.
+            **kwargs: Additional keyword arguments to be passed to Slot initialization.
+
+        Returns:
+            Slot: The inserted slot object.
+        """
         if name in self.slots:
             self.slots[name].parent = Tag.stack[-1]  # The children will be cleared during redraw, so re-establish
         else:
@@ -601,6 +702,16 @@ class Component(Tag, Stateful):
         return slot
 
     def slot(self, name="default"):
+        """
+        To be used in the `populate` method of code making use of this component, this method returns the slot object
+        with the given name. It should be used inside of a context manager.
+
+        Args:
+            name (str): The name of the slot to clear and return.
+
+        Returns:
+            Slot: The cleared slot object.
+        """
         #
         # We put this here, so it clears the children only when the slot-filler is doing its filling.
         # Otherwise, the previous children are kept. Lucky them.
