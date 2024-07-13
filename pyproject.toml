@@ -6,7 +6,7 @@ authors = ["Ken Kinder <ken+github@kkinder.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 mkdocs = "^1.6.0"
 mkdocs-material = "^9.5.28"
 beautifulsoup4 = "^4.12.3"
