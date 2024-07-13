@@ -14,8 +14,6 @@ class SidebarItem:
 
 @t.component()
 class AppLayout(Component):
-    compose_app_state = ["authenticated_user"]
-
     sidebar_items = [
         SidebarItem("Dashboard", "emoji-sunglasses", "dashboard_page"),
         SidebarItem("Charts", "graph-up", "charts_page"),

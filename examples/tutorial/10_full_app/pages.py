@@ -56,8 +56,6 @@ class FormsPage(Page):
 
 @app.page("/")
 class DashboardPage(Page):
-    compose_app_state = ["authenticated_user"]
-
     def populate(self):
         with t.app_layout() as layout:
             with layout.slot():
