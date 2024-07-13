@@ -15,11 +15,6 @@ class RefsSolutionPage(Page):
                 t.span(char, classes="char-box")
         with t.div(style="margin-top: 1em"):
             t.input(bind="word", placeholder="Type a word", ref="enter_word")
-        t.hr()
-        t.p(
-            'Solution: by setting ref="enter_word" on the input box, we tell PuePy to identify that component by its ref.'
-        )
-        t.a("See Problem", href="./index.html")
 
 
 app.mount("#app")
