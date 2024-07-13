@@ -14,3 +14,9 @@ Python.
 - **Minimal, Python**: PuePy is built to use Pythonic conventions whenever possible, and eschews verbosity in the name
   of opinion.
 
+---
+
+# External Links
+
+[PuePy.dev Main Site](https://puepy.dev){ .md-button }
+[GitHub](https://github.com/kkinder/puepy){ .md-button }

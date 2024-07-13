@@ -93,6 +93,9 @@ nav:
     - 'puepy.storage': reference/storage.md
     - 'puepy.exceptions': reference/exceptions.md
   - FAQ: faq.md
+  - Links:
+    - GitHub: https://github.com/kkinder/puepy
+    - PuePy.dev: https://puepy.dev
 extra_css:
   - extra/extra.css
 hooks:
