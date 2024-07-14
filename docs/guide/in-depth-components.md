@@ -15,7 +15,7 @@ See the [Components Tutorial Chapter](../tutorial/06-components.md) for more inf
 
 ### Props
 
-Props are a way to pass data to child components. Slots must be defined by a component. When writing a component, you can simply include slots as a list of strings, where each element is the name of a slot, or include instances of the `Prop` class. You can mix and match the two as well
+Props are a way to pass data to child components. Props must be defined by a component. When writing a component, you can simply include props as a list of strings, where each element is the name of a prop, or include instances of the `Prop` class. You can mix and match the two as well
 
 ``` py
 class MyComponent(Component):
@@ -25,10 +25,10 @@ class MyComponent(Component):
     ]
 ```
 
-1. This is a slot which only defines a name.
+1. This is a prop which only defines a name.
 2. To add extra metadata about a prop, you can also define a Prop instance.
 
-Regardless of how you define slots in your component, a full "expanded" list of slots is available on `self.props_expanded` as a dictionary mapping prop name to `Prop` instance, with the Prop instance created automatically if only a name is specified.
+Regardless of how you define props in your component, a full "expanded" list of props is available on `self.props_expanded` as a dictionary mapping prop name to `Prop` instance, with the Prop instance created automatically if only a name is specified.
 
 !!! note "See Also"
     - [Prop Class Reference](../reference/prop.md)
