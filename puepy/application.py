@@ -1,3 +1,4 @@
+import itertools
 import sys
 
 from puepy.storage import BrowserStorage
@@ -39,6 +40,48 @@ class TracebackErrorPage(Page):
         t.pre(str(self.format_exception()))
 
 
+class DefaultIdGenerator:
+    """
+    A class representing a default ID generator.
+
+    The DefaultIdGenerator class generates serial IDs with an optional prefix using a counter and base36 encoding.
+
+    Attributes:
+        counter (itertools.count): A counter object to keep track of the next ID value.
+        prefix (str): An optional prefix to prepend to the generated IDs.
+    """
+
+    def __init__(self, prefix="pp-"):
+        """
+        Args:
+            prefix (Optional[str]): The prefix to be used for generating unique IDs. Default is "pp-".
+        """
+        self.counter = itertools.count()
+        self.prefix = prefix
+
+    @staticmethod
+    def _int_to_base36(num):
+        base_chars = "0123456789abcdefghijklmnopqrstuvwxyz"
+        base = len(base_chars)
+        encoded = ""
+        while num:
+            num, rem = divmod(num, base)
+            encoded = base_chars[rem] + encoded
+        return encoded or base_chars[0]
+
+    def get_id_for_element(self, element):
+        """
+        Returns the unique ID for the given element.
+
+        Args:
+            element: The element for which the ID is to be retrieved.
+
+        Returns:
+            The unique ID for the given element.
+        """
+        return self.prefix + self._int_to_base36(next(self.counter))
+
+
 class Application(Stateful):
     """
     The main application class for PuePy. It manages the state, storage, router, and pages for the application.
@@ -56,7 +99,7 @@ class Application(Stateful):
         error_page (Page): The page to mount when an error occurs.
     """
 
-    def __init__(self):
+    def __init__(self, element_id_generator=None):
         self.state = ReactiveDict(self.initial())
         self.add_context("state", self.state)
 
@@ -77,6 +120,8 @@ class Application(Stateful):
         self.forbidden_page = GenericErrorPage
         self.unauthorized_page = GenericErrorPage
         self.error_page = TracebackErrorPage
+
+        self.element_id_generator = element_id_generator or DefaultIdGenerator()
 
     def install_router(self, router_class, **kwargs):
         """

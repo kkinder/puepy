@@ -120,6 +120,13 @@ class Tag:
         else:
             raise Exception("No page passed")
 
+        if id in kwargs:
+            self._element_id = kwargs["id"]
+        elif self._page and self._page.application:
+            self._element_id = self._page.application.element_id_generator.get_id_for_element(self)
+        else:
+            self._element_id = f"ppauto-{id(self)}"
+
         if isinstance(parent, Tag):
             self.parent = parent
             parent.add(self)
@@ -238,7 +245,7 @@ class Tag:
 
     @property
     def element_id(self):
-        return self.attrs.get("id", f"e-{id(self)}")
+        return self._element_id
 
     @property
     def element(self):
