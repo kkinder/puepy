@@ -1,5 +1,6 @@
 import unittest
 
+from puepy import Application
 from puepy.core import Page
 from puepy.router import Router, Route, _micropython_parse_query_string
 
@@ -88,6 +89,17 @@ class TestRouter(unittest.TestCase):
         route, params = self.router.match("/other/123")
         self.assertIsNone(route)
         self.assertIsNone(params)
+
+    def test_hash_root(self):
+        application = Application()
+        application.install_router(Router)
+
+        page = Page()
+        application.default_page = page
+
+        self.assertEqual(application.router.reverse(page), "#/")
+        application.router.link_mode = Router.LINK_MODE_HTML5
+        self.assertEqual(application.router.reverse(page), "/")
 
 
 class TestMicropythonParseQueryString(unittest.TestCase):

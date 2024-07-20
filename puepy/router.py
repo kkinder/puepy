@@ -296,7 +296,11 @@ class Router:
         elif destination in self.routes_by_page:
             route = self.routes_by_page[destination]
         elif self.application and destination is self.application.default_page:
-            return "/"
+            if self.link_mode == Router.LINK_MODE_HASH:
+                path = "#/"
+            else:
+                path = "/"
+            return self.base_path or "" + path
         else:
             raise KeyError(f"{destination} not found in routes")
         return route.reverse(**kwargs)
