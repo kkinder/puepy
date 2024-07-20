@@ -122,3 +122,53 @@ class MyComponent(Component):
         # bind specifies what key on self.state should be tied to this input's value
         t.input(placeholder="Type your name", bind="name")
 ```
+
+## Application State
+
+In addition to components and pages, there is also a "global" application-wide state. Note that this state is only for
+a running [Application](../reference/application.md) instance and does not survive reloads nor is it shared across
+multiple browser tabs or windows.
+
+To use the application state, use `application.state` as you would local state. For example, in the
+[Full App Template](../tutorial/10-full-app.md) tutorial chapter, the working example uses 
+`self.application.state["authenticated_user"]` in a variety of places:
+
+```py title="Navigation Guard"
+def precheck(self):
+    if not self.application.state["authenticated_user"]:
+        raise exceptions.Unauthorized()
+```
+
+```py title="Setting state"
+self.application.state["authenticated_user"] = self.state["username"]
+```
+
+```py title="Rendering based on application state"
+def populate(self):
+    ...
+    
+    t.h1(f"Hello, you are authenticated as {self.application.state['authenticated_user']}")
+```
+
+As with page or component state, changes to the application state trigger refreshes by default. That behavior can
+be controlled with `redraw_on_app_state_changes` on components or pages:
+
+```py
+class Page1(Page):
+    redraw_on_app_state_changes = True  # (1)!
+
+
+class Page2(Page):
+    redraw_on_app_state_changes = False  # (2)!
+
+
+class Page3(Page):
+    redraw_on_app_state_changes = ["authenticated_user"]  # (3)!
+```
+
+1. The default behavior, with `redraw_on_app_state_changes` set to True, all changes to application state trigger a redraw.
+2. Setting `redraw_on_app_state_changes` to False prevents changes to application state from triggering a redraw.
+3. Setting `redraw_on_app_state_changes` to a list of keys will trigger a redraw only when those keys change.
+
+!!! tip
+    This behavior mirrors `redraw_on_state_changes`, which is used for local state.

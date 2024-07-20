@@ -83,6 +83,7 @@ nav:
     - 'PyScript Config': guide/pyscript-config.md
   - 'Cookcook':
       - 'Loading Indicators': cookbook/loading-indicators.md
+      - 'Navigation Guards': cookbook/navigation-guards.md
   - Reference:
     - 'puepy.Application': reference/application.md
     - 'puepy.core.Tag': reference/tag.md
