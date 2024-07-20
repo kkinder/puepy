@@ -33,7 +33,7 @@ class Jinja2Fragment(Component):
 
 EXAMPLE_TEMPLATE = """
 <h1>Hello, {{ name }}</h1>
-<input type="text" value="{{ name }}" class="my-input">
+<input type="text" value="{{ name }}" id="my-input" class="my-input">
 """
 
 
