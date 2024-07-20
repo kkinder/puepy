@@ -69,15 +69,15 @@ def test_counter(page: Page) -> None:
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 3: Counter").click()
     page.get_by_role("button", name="+").click()
-    expect(page.locator("#e-425680")).to_contain_text("1")
+    expect(page.locator(".count")).to_contain_text("1")
     page.get_by_role("button", name="+").click()
-    expect(page.locator("#e-425680")).to_contain_text("2")
+    expect(page.locator(".count")).to_contain_text("2")
     page.get_by_role("button", name="-").click()
-    expect(page.locator("#e-425680")).to_contain_text("1")
+    expect(page.locator(".count")).to_contain_text("1")
     page.get_by_role("button", name="-").click()
-    expect(page.locator("#e-425680")).to_contain_text("0")
+    expect(page.locator(".count")).to_contain_text("0")
     page.get_by_role("button", name="-").click()
-    expect(page.locator("#e-425680")).to_contain_text("-1")
+    expect(page.locator(".count")).to_contain_text("-1")
 
 
 def test_refs_problem(page: Page) -> None:
