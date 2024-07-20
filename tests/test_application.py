@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from dom_test import DomTest
+from .dom_test import DomTest
 from puepy.application import Application
 from puepy.exceptions import Redirect, Unauthorized, Forbidden
 from puepy.router import Router

@@ -2,7 +2,7 @@ import unittest
 from xml.dom import getDOMImplementation
 
 from puepy.util import merge_classes, _extract_event_handlers, patch_dom_element
-from dom_tools import node_to_dict
+from .dom_tools import node_to_dict
 
 
 class TestMergeClasses(unittest.TestCase):

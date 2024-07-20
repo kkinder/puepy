@@ -1,7 +1,7 @@
 import unittest
 
-from dom_test import DomTest
-from dom_tools import node_to_dict
+from .dom_test import DomTest
+from .dom_tools import node_to_dict
 from puepy import core
 
 
