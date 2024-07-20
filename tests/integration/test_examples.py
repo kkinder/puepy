@@ -51,15 +51,61 @@ def test_has_title(http_server, page: Page):
 
 
 def test_hello_world(http_server, page: Page):
-    page.goto("http://localhost:5566/")
+    page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 1: Hello, World").click()
     expect(page.locator("h1")).to_contain_text("Hello, World!")
 
 
 def test_hello_name(page: Page) -> None:
-    page.goto("http://localhost:5566/")
+    page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 2: Hello, Name").click()
     page.get_by_placeholder("name").click()
     page.get_by_placeholder("name").fill("Jack")
     page.get_by_placeholder("name").press("Enter")
     expect(page.locator("h1")).to_contain_text("Hello, Jack!")
+
+
+def test_counter(page: Page) -> None:
+    page.goto(f"http://localhost:{PORT}/")
+    page.get_by_role("link", name="Example 3: Counter").click()
+    page.get_by_role("button", name="+").click()
+    expect(page.locator("#e-425680")).to_contain_text("1")
+    page.get_by_role("button", name="+").click()
+    expect(page.locator("#e-425680")).to_contain_text("2")
+    page.get_by_role("button", name="-").click()
+    expect(page.locator("#e-425680")).to_contain_text("1")
+    page.get_by_role("button", name="-").click()
+    expect(page.locator("#e-425680")).to_contain_text("0")
+    page.get_by_role("button", name="-").click()
+    expect(page.locator("#e-425680")).to_contain_text("-1")
+
+
+def test_refs_problem(page: Page) -> None:
+    def input_is_active():
+        return page.evaluate("document.querySelector(\"[placeholder='Type a word']\") === document.activeElement")
+
+    page.goto(f"http://localhost:{PORT}/")
+    page.get_by_role("link", name="Example 4: Refs Problem").click()
+    page.get_by_placeholder("Type a word").click()
+
+    # Input box has focus
+    assert input_is_active()
+
+    # You type...
+    page.get_by_placeholder("Type a word").fill("F")
+
+    # Input box loses focus
+    assert not input_is_active()
+
+
+def test_refs_solution(page: Page) -> None:
+    def input_is_active():
+        return page.evaluate("document.querySelector(\"[placeholder='Type a word']\") === document.activeElement")
+
+    page.goto(f"http://localhost:{PORT}/")
+    page.get_by_role("link", name="solution").click()
+    page.get_by_placeholder("Type a word").click()
+
+    assert input_is_active()
+    page.get_by_placeholder("Type a word").fill("foobar")
+    assert input_is_active()
