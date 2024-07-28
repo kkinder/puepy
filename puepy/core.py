@@ -120,7 +120,7 @@ class Tag:
         else:
             raise Exception("No page passed")
 
-        if id in kwargs:
+        if "id" in kwargs:
             self._element_id = kwargs["id"]
         elif self._page and self._page.application:
             self._element_id = self._page.application.element_id_generator.get_id_for_element(self)
