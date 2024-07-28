@@ -135,6 +135,10 @@ class ReactiveDict(dict):
         self._keys_mutate = keys
         return self
 
+    def update(self, other):
+        with self.mutate(*other.keys()):
+            super().update(other)
+
     def _flush_pending(self):
         while self._notifications_pending:
             key = self._notifications_pending.pop()
