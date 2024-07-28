@@ -2,11 +2,18 @@
 
 ➡️ [https://puepy.dev](https://puepy.dev)
 
-PuePy is an attempt to create a frontend framework using [PyScript](https://pyscript.net). PuePy is partially inspired by Vue. It runs entirely in your browser, though server-side rendering is likely feasible.  PuePy aims to support two runtime environments: PyScript Pyodide or PyScript Micropython. The Micropython option foregoes some features found in the CPython, but offers a far, far smaller runtime, making it a better option for websites. Line-of-business or scientific webapp developers may prefer the CPython version, which is heavier but more functional.
+PuePy is a lightweight web framework that uses Webassembly via [PyScript](https://pyscript.net) to put Python right in your browser with all the modern conveniences of a web framework, but none of the headaches of Webpack, NPM, or even JavaScript.
 
-#### 😎 To see an example of a demo built with PuePy, see [ExpenseLemur.com](https://expenselemur.com) and the [Expense Lemur Github Rep](https://github.com/kkinder/expenselemur).
+- Reactive data binding with Component-based architecture
+- Single Page App router included
+- No build layer: direct execution like other Python projects
+- Choice of full [Pyodide](https://pyodide.org/en/stable/) or [Micropython](https://micropython.org/)
 
-Here's an example:
+## 🐒 Try a demo app
+
+See [ExpenseLemur.com](https://expenselemur.com) and the [Expense Lemur Github Rep](https://github.com/kkinder/expenselemur) for a demonstration of what PuePy is capable of.
+
+## 🧑‍💻 See some code
 
 ```python
 from puepy import Page, Application, t
@@ -36,54 +43,11 @@ class Hello(Page):
 app.mount("#app")
 ```
 
-A few things to note:
+## Learn
 
-- The `.state` dictionary, which is populated by `initial()`, is reactive. As it changes, populate is called as necessary and the page is redrawn.
-- Events are simply and Python, but use JavaScript events under the hood (including custom events)
-- You layout your page with context managers.
+- **Project Website**: [puepy.dev](https://puepy.dev/)
+- **Documentation**: [docs.puepy.dev](https://docs.puepy.dev/)
 
-## Components, Props, Slots
+## License
 
-You can define reusable components with PuePy, which also use slots (similar to Vue, Web Components, etc). Here's a simple Card component:
-
-```python
-from puepy import Component, Prop, t
-
-# This registers the component
-@t.component()
-class Card(Component):
-    default_role = "card"
-    props = ["help_text", Prop("show_buttons", "whether to show buttons", bool, False)]
-
-    def populate(self):
-        with t.div(classes="card-header"):
-            self.insert_slot("card-header")
-        with t.div(classes="card-body"):
-            self.insert_slot()
-            if self.show_buttons:
-                with t.div(classes="card-footer"):
-                    t.button("Button 1")
-                    t.button("Button 2")
-```
-
-Using the component is simple:
-
-```python
-@app.page("/my-page")
-class MyPage(Page):
-    def populate(self):
-        with t.card(show_buttons=True) as card:
-            with card.slot("card-header"):
-                t("Show header here")
-            with card.slot():
-                t("This is the card body")
-```
-
-## Where to go from here...
-
-A few things to note:
-
-- PuePy is not fully documented yet
-- I haven't figured out exactly what is permanent and what isn't
-- You can examine, in git, the `/examples` directory and view them with `python3 ./serve_examples.py`
-
+PuePy is licensed under the Apache 2 license, for your coding convenience.
