@@ -2,7 +2,7 @@
 
 PuePy is a frontend web framework that builds on Python and Webassembly using [PyScript](https://pyscript.net). PuePy is
 *truly* a Python-first development environment. There is no transpiling to JavaScript; no Yarn, no NPM, no webpack, no
-Vite or Parcel. Python runs directly in your browser. PuePy is inspired by Vue.js, but is entirely from scratch in
+Vite or Parcel. Python runs directly in your browser. PuePy is inspired by Vue.js, but is built entirely from scratch in
 Python.
 
 ## Features
