@@ -2,7 +2,7 @@
 
 Each of the examples in this tutorial can be run on PyScript.com, a web environment that lets you write, test, and share PyScript code. Alternatively, you can clone the [PuePy git repo](https://github.com/kkinder/puepy) and run a live web server with each example included.
 
-The PyScript.com environment uses the PuePy `.whl` file, as [downloadable from PyPi](https://github.com/kkinder/puepy), while the examples in the git repository are served with PuePy directly from source files on disk.
+The PyScript.com environment uses the PuePy `.whl` file, as [downloadable from PyPi](https://pypi.org/project/puepy/#files), while the examples in the git repository are served with PuePy directly from source files on disk.
 
 ## Using PyScript.com
 
