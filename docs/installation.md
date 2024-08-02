@@ -12,8 +12,8 @@ A simple first project (with no web server) would be:
 - `hello.py` (Hello World code)
 - `puepy-0.3.6-py3-none-any.whl` (PuePy wheel file)
 
-The runtime file would contain only the files needed to actually execute PuePy code; no tests or other files. Runtime
-zips are available in each release's notes on GitHub.
+The runtime file would contain only the files needed to actually execute PuePy code; no tests or other files. 
+Runtime zips are available in each release's notes on [GitHub](https://github.com/kkinder/puepy/releases).
 
 ### Downloading client runtime
 
