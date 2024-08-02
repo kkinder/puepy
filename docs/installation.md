@@ -2,7 +2,7 @@
 
 ## Client-side installation
 
-Although PuePy is [available on pypi](https://pypi.org), because PuePy is intended primarily as a client-side framework,
+Although PuePy is [available on pypi](https://pypi.org/project/puepy/), because PuePy is intended primarily as a client-side framework,
 "installation" is best achieved by downloading the wheel file and including it in your pyscript `packages` configuration.
 
 A simple first project (with no web server) would be:
