@@ -299,11 +299,13 @@ class Tag:
                     element.setAttribute("checked", self.origin.state[self.bind])
                 else:
                     element.checked = bool(self.origin.state[self.bind])
+                    element.setAttribute("checked", self.origin.state[self.bind])
             else:
                 if is_server_side:
                     element.setAttribute("value", self.origin.state[self.bind])
                 else:
                     element.value = self.origin.state[self.bind]
+                    element.setAttribute("value", self.origin.state[self.bind])
 
             self._add_event_listener(element, "input", self.on_bind_input)
         elif self.bind:
