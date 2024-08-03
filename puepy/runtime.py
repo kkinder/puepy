@@ -39,5 +39,11 @@ if is_server_side:
     def create_proxy(obj):
         return obj
 
+    def next_tick(fn):
+        fn()
+
 else:
     from js import document, setTimeout, Object, CustomEvent, window, history
+
+    def next_tick(fn):
+        setTimeout(create_proxy(fn), 100)
