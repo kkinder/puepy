@@ -904,7 +904,7 @@ class Builder:
         return _tag
 
 
-t = Builder()
+builder = Builder()
 
 
 class html(str):
