@@ -14,7 +14,7 @@ class WatcherPage(Page):
         t.h1("Can you guess a number between 1 and 10?")
 
         with t.div(style="margin: 1em"):
-            t.input(bind="number", placeholder="Enter a guess", autocomplete="off", type="number", maxlength=1, min=1, max=10)
+            t.input(bind="number", placeholder="Guess", autocomplete="off", type="number", maxlength=1, min=1, max=10)
 
         if self.state["message"]:
             t.p(self.state["message"])
