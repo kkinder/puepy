@@ -35,8 +35,8 @@ The [Full App Template](../tutorial/10-full-app.md) example from the tutorial ma
     <title>Example</title>
     <link rel="stylesheet" href="app.css">
 
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.6.2/core.css">
-    <script type="module" src="https://pyscript.net/releases/2024.6.2/core.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.8.2/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.8.2/core.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/themes/light.css"/>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/shoelace.js"></script>
 </head>

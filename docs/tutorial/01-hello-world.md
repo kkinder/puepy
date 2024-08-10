@@ -29,7 +29,7 @@ Let's start with the simplest possible: Hello, World!
         }
       },
       "packages": [
-        "./puepy-0.3.7-py3-none-any.whl"
+        "./puepy-0.4.0-py3-none-any.whl"
       ]
     }
     ```
@@ -52,7 +52,7 @@ Then, we include our PyScript config file and also execute our `hello_world.py` 
 
 !!! info "PyScript Configuration"
 
-    The official PyScript documentation has more information on [PyScript configuration](https://docs.pyscript.net/2024.7.1/user-guide/configuration/).
+    The official PyScript documentation has more information on [PyScript configuration](https://docs.pyscript.net/2024.8.2/user-guide/configuration/).
 
 The PyScript configuration must, at minimum, tell PyScript to use PuePy (usually as a package) and include Morphdom, which is a dependency of PuePy.
 

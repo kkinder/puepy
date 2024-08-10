@@ -24,7 +24,7 @@ In `pyscript-bs.json`, we also must specify that we need BeautifulSoup4. This is
   "name": "PuePy Tutorial",
   "debug": true,
   "packages": [
-    "./puepy-0.3.7-py3-none-any.whl",
+    "./puepy-0.4.0-py3-none-any.whl",
     "beautifulsoup4"
   ],
   "js_modules": {
@@ -57,4 +57,4 @@ from bs4 import BeautifulSoup, Comment
 
 !!! Note "PyScript documentation on packages"
     For more information, including packages available to 
-    MicroPython, [refer to the PyScript docs](https://docs.pyscript.net/2024.6.2/user-guide/configuration/#packages).
+    MicroPython, [refer to the PyScript docs](https://docs.pyscript.net/2024.8.2/user-guide/configuration/#packages).
