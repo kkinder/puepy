@@ -58,7 +58,7 @@ class TestRouter(unittest.TestCase):
         class UnnamedPage(Page):
             pass
 
-        self.router.add_route("/test_unmaed/:id", UnnamedPage)
+        self.router.add_route("/test_named/:id", UnnamedPage)
         route = self.router.routes[0]
         self.assertEqual(route.name, "unnamed_page")
 
