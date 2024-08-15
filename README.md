@@ -11,7 +11,7 @@ PuePy is a lightweight web framework that uses Webassembly via [PyScript](https:
 
 ## 🐒 Try a demo app
 
-See [ExpenseLemur.com](https://expenselemur.com) and the [Expense Lemur Github Rep](https://github.com/kkinder/expenselemur) for a demonstration of what PuePy is capable of.
+See [ExpenseLemur.com](https://expenselemur.com) and the [Expense Lemur Github Repo](https://github.com/kkinder/expenselemur) for a demonstration of what PuePy is capable of.
 
 ## 🧑‍💻 See some code
 
