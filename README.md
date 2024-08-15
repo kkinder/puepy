@@ -30,7 +30,7 @@ class Hello(Page):
         with t.div(classes=["container", "mx-auto", "p-4"]):
             t.h1("Welcome to PyScript", classes=["text-xl", "pb-4"])
             if self.state["name"]:
-                t.p(f"Why hello there, {self.state['name']}")
+                t.p(f"Hello there, {self.state['name']}")
             else:
                 t.p("Why don't you tell me your name?")
             t.input(placeholder="Enter your name", bind="name")
