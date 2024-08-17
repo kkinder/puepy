@@ -43,6 +43,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     os.chdir(project_path)
-    httpd = server.HTTPServer((args.host, args.port), Handler)
+    httpd = server.ThreadingHTTPServer((args.host, args.port), Handler)
     print(f"Serving at port {args.host or '*'}:{args.port}")
     httpd.serve_forever()
