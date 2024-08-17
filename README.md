@@ -1,11 +1,12 @@
-# PuePy — PyScript Frontend Framework
+# PuePy - PyScript Frontend Framework
 
-➡️ [https://puepy.dev](https://puepy.dev)
+➡️ [Project Website](https://puepy.dev)
+📝 [Project Documentation](https://docs.puepy.dev/)
 
-PuePy is a lightweight web framework that uses Webassembly via [PyScript](https://pyscript.net) to put Python right in your browser with all the modern conveniences of a web framework, but none of the headaches of Webpack, NPM, or even JavaScript.
+PuePy is a lightweight web framework that uses WebAssembly via [PyScript](https://pyscript.net) to put Python right in your browser with all the modern conveniences of a web framework, but none of the headaches of Webpack, NPM or even JavaScript.
 
-- Reactive data binding with Component-based architecture
-- Single Page App router included
+- Reactive data binding with component-based architecture
+- Single Page App (SPA) router included
 - No build layer: direct execution like other Python projects
 - Choice of full [Pyodide](https://pyodide.org/en/stable/) or [Micropython](https://micropython.org/)
 
