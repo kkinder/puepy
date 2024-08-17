@@ -29,7 +29,7 @@ Let's start with the simplest possible: Hello, World!
         }
       },
       "packages": [
-        "./puepy-0.4.0-py3-none-any.whl"
+        "./puepy-0.4.1-py3-none-any.whl"
       ]
     }
     ```
