@@ -114,11 +114,11 @@ def test_refs_solution(page: Page):
 def test_watchers(page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 5: Watchers").click()
-    page.get_by_placeholder("Enter a guess").click()
-    page.get_by_placeholder("Enter a guess").fill("3")
+    page.get_by_placeholder("Guess").click()
+    page.get_by_placeholder("Guess").fill("3")
     page.get_by_text("Keep trying...").click()
-    page.get_by_placeholder("Enter a guess").click()
-    page.get_by_placeholder("Enter a guess").fill("4")
+    page.get_by_placeholder("Guess").click()
+    page.get_by_placeholder("Guess").fill("4")
     page.get_by_text("You guessed the number!").click()
 
 
