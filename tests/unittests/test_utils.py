@@ -1,45 +1,54 @@
 import unittest
 from xml.dom import getDOMImplementation
 
+from puepy import CssClass
 from puepy.util import merge_classes, _extract_event_handlers, patch_dom_element
 from .dom_tools import node_to_dict
 
 
-class TestMergeClasses(unittest.TestCase):
+class TestMergeCssClasses(unittest.TestCase):
+    def test_basic_usage(self):
+        test1 = CssClass(border="solid 1px silver")
+        css_classes, runtime_css = merge_classes([test1])
+
+        self.assertEqual(css_classes.pop(), runtime_css[0].class_name)
+
+
+class TestMergeStringClasses(unittest.TestCase):
     def test_single_str_input(self):
-        result = merge_classes("class1")
+        result = merge_classes("class1")[0]
         self.assertSetEqual(result, {"class1"})
 
     def test_multiple_str_input(self):
-        result = merge_classes("class1 class2")
+        result = merge_classes("class1 class2")[0]
         self.assertSetEqual(result, {"class1", "class2"})
 
     def test_multiple_different_input(self):
-        result = merge_classes("class1", ["class2", "class3"])
+        result = merge_classes("class1", ["class2", "class3"])[0]
         self.assertSetEqual(result, {"class1", "class2", "class3"})
 
     def test_dict_input_true_values(self):
-        result = merge_classes({"class1": True, "class2": True})
+        result = merge_classes({"class1": True, "class2": True})[0]
         self.assertSetEqual(result, {"class1", "class2"})
 
     def test_dict_input_false_values(self):
-        result = merge_classes({"class1": False, "class2": False})
+        result = merge_classes({"class1": False, "class2": False})[0]
         self.assertSetEqual(result, set())
 
     def test_dict_input_mixed_values(self):
-        result = merge_classes({"class1": True, "class2": False})
+        result = merge_classes({"class1": True, "class2": False})[0]
         self.assertSetEqual(result, {"class1"})
 
     def test_exclude_class(self):
-        result = merge_classes("/class1", "class1 class2")
+        result = merge_classes("/class1", "class1 class2")[0]
         self.assertEqual(result, {"class2"})
 
     def test_none_input(self):
-        result = merge_classes(None)
+        result = merge_classes(None)[0]
         self.assertSetEqual(result, set())
 
     def test_class_list_input(self):
-        result = merge_classes(("class1", "class2"))
+        result = merge_classes(("class1", "class2"))[0]
         self.assertSetEqual(result, {"class1", "class2"})
 
 

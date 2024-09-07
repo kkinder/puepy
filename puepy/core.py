@@ -20,6 +20,23 @@ from .util import (
 )
 
 
+class CssClass:
+    def __init__(self, *rules, **kw_rules):
+        self.rules = list(rules)
+
+        for k, v in kw_rules.items():
+            k = k.replace("_", "-")
+            self.rules.append(f"{k}: {v}")
+
+        self.class_name = f"-ps-{id(self)}"
+
+    def __str__(self):
+        return self.class_name
+
+    def render_css(self):
+        return f".{self.class_name} {{ {';'.join(self.rules)} }}"
+
+
 class Prop:
     """
     Class representing a prop for a component.
@@ -348,12 +365,14 @@ class Tag:
         raise Exception(f"Unknown child type {type(child)} onto {self}")
 
     def get_render_classes(self, attrs):
-        return merge_classes(
+        class_names, python_css_classes = merge_classes(
             set(self.get_default_classes()),
             attrs.pop("class_name", []),
             attrs.pop("classes", []),
             attrs.pop("class", []),
         )
+        self.page.python_css_classes.update(python_css_classes)
+        return class_names
 
     def get_default_classes(self):
         """
@@ -417,6 +436,13 @@ class Tag:
         element.innerHTML = ""
         element.appendChild(self.render())
         self.recursive_call("on_ready")
+        self.add_python_css_classes()
+
+    def add_python_css_classes(self):
+        """
+        This is only done at the page level.
+        """
+        pass
 
     def recursive_call(self, method, *args, **kwargs):
         """
@@ -752,6 +778,8 @@ class Page(Component):
         self.matched_route = matched_route
         self._application = application
 
+        self.python_css_classes = set()
+
         self._redraw_timeout_set = False
         self.redraw_list = set()
 
@@ -798,6 +826,28 @@ class Page(Component):
             self.application.handle_page_error(e)
         except Exception as e:
             self.application.handle_error(e)
+
+    def add_python_css_classes(self):
+        """
+        Iterates over Python css classes defined by elements and puts them in the head of the document.
+        """
+        css_class: CssClass
+        css_rules = []
+        for css_class in self.python_css_classes:
+            css_rules.append(css_class.render_css())
+
+        if css_rules:
+            el = self.document.getElementById("puepy-runtime-css")
+            if el:
+                created = False
+            else:
+                el = self.document.createElement("style")
+                el.type = "text/css"
+                created = True
+            el.innerHTML = ""
+            el.appendChild(self.document.createTextNode("\n".join(css_rules)))
+            if created:
+                self.document.head.appendChild(el)
 
 
 class Builder:
