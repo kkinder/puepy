@@ -7,7 +7,7 @@ PyScript's configuration is fully [documented](https://docs.pyscript.net/2024.8.
   "name": "PuePy Tutorial",
   "debug": true,
   "packages": [
-    "./puepy-0.4.1-py3-none-any.whl"
+    "./puepy-0.4.5-py3-none-any.whl"
   ],
   "js_modules": {
     "main": {

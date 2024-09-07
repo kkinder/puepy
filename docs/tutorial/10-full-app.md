@@ -38,7 +38,7 @@ To make additional source files available in the Python runtime environment, add
     }
   },
   "packages": [
-    "../../puepy-0.4.1-py3-none-any.whl"
+    "../../puepy-0.4.5-py3-none-any.whl"
   ]
 }
 ```

@@ -6,27 +6,42 @@ Components are a way to encapsulate a piece of UI that can be reused throughout 
 
 === "Component Definition"
 
-    ``` py linenums="1" hl_lines="1 2 3 4 8 10 15"
-    @t.component()  # (1)
-    class Card(Component):  # (2)
-        props = ["type"]  # (3)
-        default_classes = ["card"]  # (4)
+    ``` py linenums="1" hl_lines="1 2 3 5 22 24 28 29"
+    @t.component()  # (1)!
+    class Card(Component):  # (2)!
+        props = ["type", "button_text"]  # (3)!
+
+        card = CssClass(  # (4)!
+            margin="1em",
+            padding="1em",
+            background_color="#efefef",
+            border="solid 2px #333",
+        )
+    
+        default_classes = [card]
+    
+        type_styles = {
+            "success": success,
+            "warning": warning,
+            "error": error,
+        }
     
         def populate(self):
-            with t.h2(classes=[self.type]):
-                self.insert_slot("card-header")  # (5)
+            with t.h2(classes=[self.type_styles[self.type]]):
+                self.insert_slot("card-header")    # (5)!
             with t.p():
-                self.insert_slot()  # (6)
-            t.button("Understood", on_click=self.on_button_click)
+                self.insert_slot()    # (6)!
+            t.button(self.button_text, on_click=self.on_button_click)
     
         def on_button_click(self, event):
-            self.trigger_event("my-custom-event", 
-                               detail={"type": self.type})  # (7) 
+            self.trigger_event("my-custom-event",
+                detail={"type": self.type})  # (7)!
     ```
 
     1. The `@t.component()` decorator registers the class as a component for use elsewhere.
     2. All components should subclass the `puepy.Component` class.
     3. The `props` attribute is a list of properties that can be passed to the component.
+    4. Classes can be defined programmatically in Python. Class names are automatically generated for each instance, so they're scoped like Python instances.
     4. `default_classes` is a list of CSS classes that will be applied to the component by default.
     5. The `insert_slot` method is used to insert content into a named slot. In this case, we are inserting content into the `card-header` slot.
     6. Unnamed, or default slots, can be filled by calling `insert_slot` without a name.

@@ -24,7 +24,7 @@ In `pyscript-bs.json`, we also must specify that we need BeautifulSoup4. This is
   "name": "PuePy Tutorial",
   "debug": true,
   "packages": [
-    "./puepy-0.4.1-py3-none-any.whl",
+    "./puepy-0.4.5-py3-none-any.whl",
     "beautifulsoup4"
   ],
   "js_modules": {
