@@ -1,4 +1,7 @@
 import unittest
+from unittest.mock import MagicMock
+
+import pytest
 
 from .dom_test import DomTest
 from .dom_tools import node_to_dict
@@ -119,6 +122,63 @@ class TestIntegration(DomTest):
             without_draw,
             '<html><div><body><div class="header"><h1>This is h1 content</h1></div><div class="main-content"><p escaped-attribute="hi">This is a paragraph</p><button role="button">Test events</button><ul><li>List Content 1</li><li>List Content 2</li><ul><li>Sublist Content 1</li><li>Sublist Content 2</li></ul></ul></div><form><input placeholder="Field 1" value="value1"/><input placeholder="Field 2" value="New Value"/></form></body></div></html>',
         )
+
+
+class TestCssClass:
+    def test_cssclass_init(self):
+        css_class = core.CssClass("margin: 10px", "font-size: 12px", color="red")
+
+        assert len(css_class.rules) == 3
+        assert "margin: 10px" in css_class.rules
+        assert "font-size: 12px" in css_class.rules
+        assert "color: red" in css_class.rules
+        assert css_class.class_name.startswith("-ps-")
+
+    def test_cssclass_str(self):
+        css_class = core.CssClass("margin: 10px", "font-size: 12px", color="red")
+        class_name_str = str(css_class)
+
+        assert class_name_str == css_class.class_name
+
+    def test_cssclass_render_css(self):
+        css_class = core.CssClass("margin: 10px", "font-size: 12px", color="red")
+        rendered_css = css_class.render_css()
+
+        assert rendered_css.startswith(f".{css_class.class_name} {{")
+        assert "margin: 10px;" in rendered_css
+        assert "font-size: 12px;" in rendered_css
+        assert "color: red" in rendered_css
+        assert rendered_css.endswith(" }")
+
+
+class TestPage:
+    @pytest.fixture
+    def page(self):
+        return core.Page()
+
+    @pytest.fixture
+    def css_class(self):
+        return core.CssClass(border="solid 1px blue")
+
+    def test_add_python_css_classes(self, page, css_class):
+        page.python_css_classes = [css_class]
+        page.document = MagicMock()
+        page.document.getElementById.return_value = None
+
+        page.add_python_css_classes()
+
+        page.document.getElementById.assert_called_once_with("puepy-runtime-css")
+        page.document.createElement.assert_called_once_with("style")
+        page.document.createTextNode.assert_called_once()
+
+    def test_add_python_css_classes_existing_element(self, page, css_class):
+        page.python_css_classes = [css_class]
+        page.document = MagicMock()
+
+        page.add_python_css_classes()
+
+        page.document.getElementById.assert_called_once_with("puepy-runtime-css")
+        page.document.createElement.assert_not_called()
 
 
 if __name__ == "__main__":

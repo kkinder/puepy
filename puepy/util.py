@@ -18,7 +18,10 @@ def mixed_to_underscores(input_string, separator="_"):
 
 
 def merge_classes(*items):
+    from .core import CssClass
+
     classes = set()
+    python_css_classes = []
     exclude_classes = set()
 
     for class_option in items:
@@ -31,14 +34,23 @@ def merge_classes(*items):
             exclude_classes.update([key for key, value in class_option.items() if not value])
         elif class_option is None:
             pass
+        elif isinstance(class_option, CssClass):
+            classes.add(class_option)
         else:
             classes.update(list(class_option))
+
+    for c in list(classes):
+        if isinstance(c, CssClass):
+            classes.remove(c)
+            classes.add(c.class_name)
+            python_css_classes.append(c)
+
     for c in classes:
         if c.startswith("/"):
             exclude_classes.add(c)
             exclude_classes.add(c[1:])
     classes.difference_update(exclude_classes)
-    return classes
+    return classes, python_css_classes
 
 
 def jsobj(**kwargs):
