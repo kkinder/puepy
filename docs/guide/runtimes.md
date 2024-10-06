@@ -5,7 +5,7 @@ From its upstream project, PyScript, PuePy supports two runtime environments:
 - MicroPython
 - Pyodide
 
-There are some interface differences, as well as technical ones, described in the [official PyScript docs](https://docs.pyscript.net/2024.8.2/user-guide/architecture/#interpreters). Additionally, many standard library features are missing from MicroPython. MicroPython does not have access to PyPi packages, nor does MicroPython type hinting or other advanced features as thoroughly as Pyodide.
+There are some interface differences, as well as technical ones, described in the [official PyScript docs](https://docs.pyscript.net/2024.9.2/user-guide/architecture/#interpreters). Additionally, many standard library features are missing from MicroPython. MicroPython does not have access to PyPi packages, nor does MicroPython type hinting or other advanced features as thoroughly as Pyodide.
 
 MicroPython, however, has just a ~170k runtime, making it small enough to load on "normal" websites without the performance hit of Pyodide's 11MB runtime. It is ideal for situations where webpage response time is important.
 

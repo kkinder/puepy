@@ -518,13 +518,13 @@ type = ["mypy (>=1.8)"]
 
 [[package]]
 name = "puepy"
-version = "0.4.5"
+version = "0.4.6"
 description = "Frontend Framework for PyScript"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "puepy-0.4.5-py3-none-any.whl", hash = "sha256:34959c273d0e336765ed6fd06cc149a4a31dab9cc97af11ff6dd198a8b8f39c6"},
-    {file = "puepy-0.4.5.tar.gz", hash = "sha256:df7c673ddb7f08f13dbfc76d5d818a848879fa5b87a6c4486b0a0797e6b444c7"},
+    {file = "puepy-0.4.6-py3-none-any.whl", hash = "sha256:5a0a1c8d2df1cfeaf94608a503aabbdb16c2942d59dbaf82e6c6dcf4df9a5f4e"},
+    {file = "puepy-0.4.6.tar.gz", hash = "sha256:e11f1795d98fcd5545b338c8b0943bfaf01934a6de7c070de50007898c770a2a"},
 ]
 
 [[package]]
@@ -841,4 +841,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "0d291c709d6da1f2ecc981b54b2408e46cc3a7a12cf739dfbd505364352a7643"
+content-hash = "ddda79a4671d5874960d6ee07097e90c8b8c15bda00ca4066bbd496ce822051b"
