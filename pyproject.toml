@@ -25,8 +25,8 @@ python = "^3.9"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest-playwright = "^0.5.0"
-pytest = "^8.2.2"
+pytest-playwright = "^0.5.1"
+pytest = "^8.3.2"
 
 [build-system]
 requires = ["poetry-core"]
