@@ -181,8 +181,12 @@ class Tag:
     def _handle_bind(self, kwargs):
         if "bind" in kwargs:
             self.bind = kwargs.pop("bind")
-            if "value" in kwargs:
+            input_type = kwargs.get("type")
+            tag_name = self.tag_name.lower()
+
+            if "value" in kwargs and not (tag_name == "input" and input_type == "radio"):
                 raise Exception("Cannot specify both 'bind' and 'value'")
+
         else:
             self.bind = None
 
@@ -311,20 +315,30 @@ class Tag:
 
         # Add bind
         if self.bind and self.origin:
-            if _element_input_type(element) == "checkbox":
+            input_type = _element_input_type(element)
+            if input_type == "checkbox":
                 if is_server_side and self.origin.state[self.bind]:
                     element.setAttribute("checked", self.origin.state[self.bind])
                 else:
                     element.checked = bool(self.origin.state[self.bind])
                     element.setAttribute("checked", self.origin.state[self.bind])
+                event_type = "change"
+            elif input_type == "radio":
+                is_checked = (self.origin.state[self.bind] == element.value)
+                if is_server_side and is_checked:
+                    element.setAttribute("checked", is_checked)
+                else:
+                    element.checked = is_checked
+                    element.setAttribute("checked", is_checked)
+                event_type = "change"
             else:
                 if is_server_side:
                     element.setAttribute("value", self.origin.state[self.bind])
                 else:
                     element.value = self.origin.state[self.bind]
                     element.setAttribute("value", self.origin.state[self.bind])
-
-            self._add_event_listener(element, "input", self.on_bind_input)
+                event_type = "change"
+            self._add_event_listener(element, event_type, self.on_bind_input)
         elif self.bind:
             raise Exception("Cannot specify bind a valid parent component")
 
@@ -477,9 +491,13 @@ class Tag:
         pass
 
     def on_bind_input(self, event):
-        if _element_input_type(event.target) == "checkbox":
+        input_type = _element_input_type(event.target)
+        if input_type == "checkbox":
             self.origin.state[self.bind] = event.target.checked
-        elif _element_input_type(event.target) == "number":
+        elif input_type == "radio":
+            if event.target.checked:
+                self.origin.state[self.bind] = event.target.value
+        elif input_type == "number":
             value = event.target.value
             try:
                 if "." in str(value):
