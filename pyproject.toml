@@ -1,13 +1,12 @@
-[tool.poetry]
+[project]
 name = "puepy"
 version = "0.4.6"
 description = "Frontend Framework for PyScript"
-authors = ["Ken Kinder <ken+github@kkinder.com>"]
+authors = [{name="Ken Kinder", email="ken+github@kkinder.com"}]
 readme = "README.md"
-homepage = "https://puepy.dev/"
-repository = "https://github.com/kkinder/puepy"
-documentation = "https://docs.puepy.dev/"
-license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = []
+license = { text = "Apache-2.0" }
 keywords = ["pyscript", "webassembly", "frontend", "framework", "reactive"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -19,18 +18,15 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
 
+[project.urls]
+Homepage = "https://puepy.dev/"
+Documentation = "https://docs.puepy.dev/"
+Repository = "https://github.com/kkinder/puepy"
+Issues = "https://github.com/kkinder/puepy/issues/"
+Changelog = "https://github.com/kkinder/puepy/releases"
 
-[tool.poetry.dependencies]
-python = "^3.9"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest-playwright = "^0.5.0"
-pytest = "^8.2.2"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tools.poetry.urls]
-issues = "https://github.com/kkinder/puepy/issues"
+[dependency-groups]
+dev = [
+    "pytest-playwright>=0.7.0",
+    "pytest>=8.3.4",
+]
