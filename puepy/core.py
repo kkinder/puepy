@@ -337,7 +337,7 @@ class Tag:
                 else:
                     element.value = self.origin.state[self.bind]
                     element.setAttribute("value", self.origin.state[self.bind])
-                event_type = "change"
+                event_type = "input"
             self._add_event_listener(element, event_type, self.on_bind_input)
         elif self.bind:
             raise Exception("Cannot specify bind a valid parent component")

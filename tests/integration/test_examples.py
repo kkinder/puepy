@@ -197,3 +197,12 @@ def test_a_full_app(page: Page):
     page.get_by_role("button", name="Submit").click()
     page.get_by_role("link", name="Dashboard").click()
     page.get_by_role("heading", name="Hello, you are authenticated").click()
+
+def test_radio_buttons(page: Page):
+    page.goto(f"http://localhost:{PORT}/other/radio_buttons/index.html")
+    page.get_by_text("Option 1").click()
+    page.get_by_role("heading", name="You selected: Option").click()
+    page.get_by_text("Option 3").click()
+    page.get_by_role("heading", name="You selected: Option").click()
+    page.get_by_text("Option 2").click()
+    page.get_by_role("heading", name="You selected: Option").click()
