@@ -1,0 +1,3 @@
+# peupy.exceptions
+
+::: puepy.exceptions
