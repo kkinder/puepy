@@ -895,10 +895,7 @@ class Builder:
             raise Exception("t.generate_tag called without a context")
 
         # Determine ref value
-        ref_part = "__" + (
-            f"{parent.ref}.{tag_name}{len(parent.children) + 1}_"
-            + (binascii.hexlify(hashlib.sha256(str(kwargs).encode()).digest()))[:8].decode("utf8")
-        ).lstrip("_")
+        ref_part = "__" + (f"{parent.ref}.{tag_name}_{len(parent.children) + 1}").lstrip("_")
 
         ref = kwargs.pop("ref", ref_part)
 
