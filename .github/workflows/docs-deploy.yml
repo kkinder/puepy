@@ -35,7 +35,7 @@ jobs:
 
     - name: Build docs
       run: |
-        poetry run mkdocs build
+        poetry run mike deploy -u -b docs-releases development
 
     - name: Package and upload Pages artifact
       uses: actions/upload-pages-artifact@v3

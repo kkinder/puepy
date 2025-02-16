@@ -1,7 +1,14 @@
 site_name: PuePy Documentation
 site_url: https://docs.puepy.dev/
+site_author: Ken Kinder
+
+repo_name: kkinder/puepy
+repo_url: https://github.com/kkinder/puepy
+edit_uri: ""
+
 theme:
   name: material
+  custom_dir: docs/overrides
   palette:
 
     # Palette toggle for automatic mode
@@ -53,6 +60,11 @@ markdown_extensions:
 plugins:
 - search
 - macros
+- mike:
+    alias_type: redirect
+    redirect_template: null
+    canonical_version: stable
+    version_selector: true
 - mkdocstrings:
     default_handler: python
     handlers:
@@ -104,3 +116,8 @@ hooks:
   - docs/puepy_hooks.py
 extra:
   project_version: "0.6.0"
+  version:
+    provider: mike
+    default:
+      - stable
+      - development
