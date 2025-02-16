@@ -5,8 +5,8 @@
     <option name="enabledOnReformat" value="true" />
     <option name="enabledOnSave" value="true" />
     <option name="executionMode" value="BINARY" />
-    <option name="pathToExecutable" value="/Library/Frameworks/Python.framework/Versions/3.12/bin/black" />
-    <option name="sdkName" value="Python 3.12" />
+    <option name="pathToExecutable" value="$USER_HOME$/.local/bin/black" />
+    <option name="sdkName" value="Python 3.12 virtualenv at ~/Projects/puepy/.venv" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (puepy)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 virtualenv at ~/Projects/puepy/.venv" project-jdk-type="Python SDK" />
 </project>
