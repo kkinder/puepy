@@ -1,6 +1,6 @@
 on:
   release:
-    types: [ created ]
+    types: [ published ]
 
 jobs:
   publish:
@@ -39,11 +39,5 @@ jobs:
           VERSION=$(poetry version -s)
           zip -r puepy-${{ env.RELEASE_VERSION }}.zip puepy/*.py
           echo puepy-${{ env.RELEASE_VERSION }}.zip
-#      - name: Upload release artifact
-#        uses: JasonEtco/upload-to-release@master
-#        with:
-#          args: puepy-${{ env.RELEASE_VERSION }}.zip
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
