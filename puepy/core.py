@@ -477,15 +477,11 @@ class Tag:
 
     def _retain_implicit_attrs(self):
         """
-        Some web components add attributes after their elements are rendered. Eg, <sl-button> becomes <sl-button variant="default">
-
-        If we patch the DOM and remove those attributes, we lose them. This method is called recursively on redraw
-        to retain any attributes that were added by the web component.
+        Retain attributes set elsewhere
         """
-        if getattr(self.element, "shadowRoot"):
-            for attr in self.element.attributes:
-                if attr.name not in self.attrs and attr.name != "id":
-                    self._retained_attrs[attr.name] = attr.value
+        for attr in self.element.attributes:
+            if attr.name not in self.attrs and attr.name != "id":
+                self._retained_attrs[attr.name] = attr.value
 
     def on_redraw(self):
         pass
