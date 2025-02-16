@@ -52,9 +52,9 @@ from bs4 import BeautifulSoup, Comment
 
 ??? example "Full Example Source"
     ``` py title="libraries.py" 
-    --8<-- "puepy/examples/tutorial/08_libraries/libraries.py"
+    --8<-- "examples/tutorial/08_libraries/libraries.py"
     ```
 
 !!! Note "PyScript documentation on packages"
     For more information, including packages available to 
-    MicroPython, [refer to the PyScript docs](https://docs.pyscript.net/2024.11.1/user-guide/configuration/#packages).
+    MicroPython, [refer to the PyScript docs](https://docs.pyscript.net/2025.2.2/user-guide/configuration/#packages).

@@ -38,7 +38,7 @@ To make additional source files available in the Python runtime environment, add
     }
   },
   "packages": [
-    "../../puepy-0.5.0-py3-none-any.whl"
+    "../../puepy-{{project_version}}-py3-none-any.whl"
   ]
 }
 ```
@@ -52,7 +52,7 @@ We also added a JavaScript library, chart.js, to the project.
 ```
 
 !!! tip "JavaScript Modules"
-    See [JavaScript Modules](https://docs.pyscript.net/2024.11.1/user-guide/configuration/#javascript-modules) in
+    See [JavaScript Modules](https://docs.pyscript.net/2025.2.2/user-guide/configuration/#javascript-modules) in
     PyScript's documentation for additional information on loading JavaScript libraries into your project.
 
 We use charts.js directly from Python, in `components.py`:

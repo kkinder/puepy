@@ -1,13 +1,13 @@
 # PyScript Config
 
-PyScript's configuration is fully [documented](https://docs.pyscript.net/2024.11.1/user-guide/configuration/) in the PyScript documentation. Configuration for PuePy simply requires adding the PuePy runtime files (see [Quick Start - Installation](../getting-started/quick-start.md)) and Morphdom:
+PyScript's configuration is fully [documented](https://docs.pyscript.net/2025.2.2/user-guide/configuration/) in the PyScript documentation. Configuration for PuePy simply requires adding the PuePy runtime files (see [Quick Start - Installation](../getting-started/quick-start.md)) and Morphdom:
 
 ```JSON
 {
   "name": "PuePy Tutorial",
   "debug": true,
   "packages": [
-    "./puepy-0.5.0-py3-none-any.whl"
+    "./puepy-{{project_version}}-py3-none-any.whl"
   ],
   "js_modules": {
     "main": {

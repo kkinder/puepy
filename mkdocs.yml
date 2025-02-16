@@ -52,6 +52,7 @@ markdown_extensions:
 
 plugins:
 - search
+- macros
 - mkdocstrings:
     default_handler: python
     handlers:
@@ -100,4 +101,6 @@ nav:
 extra_css:
   - extra/extra.css
 hooks:
-  - puepy_hooks.py
+  - docs/puepy_hooks.py
+extra:
+  project_version: "0.6.0"
