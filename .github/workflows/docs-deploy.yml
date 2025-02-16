@@ -35,6 +35,8 @@ jobs:
 
     - name: Build docs
       run: |
+        git config --global user.name "mkdocs"
+        git config --global user.email "mkdocs@puepy.dev"
         poetry run mike deploy -u -b docs-releases development
 
     - name: Package and upload Pages artifact
