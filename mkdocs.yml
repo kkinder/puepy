@@ -4,9 +4,11 @@ site_author: Ken Kinder
 
 repo_name: kkinder/puepy
 repo_url: https://github.com/kkinder/puepy
-edit_uri: ""
+edit_uri: edit/main/docs/
 
 theme:
+  icon:
+    repo: fontawesome/brands/github
   name: material
   custom_dir: docs/overrides
   palette:
@@ -36,6 +38,7 @@ theme:
     - content.code.copy
     - content.code.select
     - content.tooltips
+    - content.action.edit
 markdown_extensions:
   - abbr
   - admonition
