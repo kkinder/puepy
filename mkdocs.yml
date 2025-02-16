@@ -115,7 +115,7 @@ extra_css:
 hooks:
   - docs/puepy_hooks.py
 extra:
-  project_version: "0.6.0"
+  project_version: "0.6.2"
   version:
     provider: mike
     default:
