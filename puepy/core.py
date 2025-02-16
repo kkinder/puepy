@@ -1,6 +1,3 @@
-import binascii
-import hashlib
-
 from .exceptions import ElementNotInDom, PropsError, PageError
 from .reactivity import ReactiveDict, Stateful
 from .runtime import (
