@@ -90,6 +90,7 @@ class Tag:
 
     document = document
 
+    # noinspection t
     def __init__(
         self,
         tag_name,
@@ -273,6 +274,7 @@ class Tag:
         else:
             raise ElementNotInDom(self.element_id)
 
+    # noinspection t
     def _render_onto(self, element, attrs):
         self._rendered_element = element
 
@@ -313,15 +315,23 @@ class Tag:
         # Add bind
         if self.bind and self.origin:
             input_type = _element_input_type(element)
+
+            if type(self.bind) in [list, tuple]:
+                value = self.origin.state
+                for key in self.bind:
+                    value = value[key]
+            else:
+                value = self.origin.state[self.bind]
+
             if input_type == "checkbox":
-                if is_server_side and self.origin.state[self.bind]:
-                    element.setAttribute("checked", self.origin.state[self.bind])
+                if is_server_side and value:
+                    element.setAttribute("checked", value)
                 else:
-                    element.checked = bool(self.origin.state[self.bind])
-                    element.setAttribute("checked", self.origin.state[self.bind])
+                    element.checked = bool(value)
+                    element.setAttribute("checked", value)
                 event_type = "change"
             elif input_type == "radio":
-                is_checked = (self.origin.state[self.bind] == element.value)
+                is_checked = value == element.value
                 if is_server_side and is_checked:
                     element.setAttribute("checked", is_checked)
                 else:
@@ -330,10 +340,10 @@ class Tag:
                 event_type = "change"
             else:
                 if is_server_side:
-                    element.setAttribute("value", self.origin.state[self.bind])
+                    element.setAttribute("value", value)
                 else:
-                    element.value = self.origin.state[self.bind]
-                    element.setAttribute("value", self.origin.state[self.bind])
+                    element.value = value
+                    element.setAttribute("value", value)
                 event_type = "input"
             self._add_event_listener(element, event_type, self.on_bind_input)
         elif self.bind:
@@ -486,10 +496,10 @@ class Tag:
     def on_bind_input(self, event):
         input_type = _element_input_type(event.target)
         if input_type == "checkbox":
-            self.origin.state[self.bind] = event.target.checked
+            self.set_bind_value(self.bind, event.target.checked)
         elif input_type == "radio":
             if event.target.checked:
-                self.origin.state[self.bind] = event.target.value
+                self.set_bind_value(self.bind, event.target.value)
         elif input_type == "number":
             value = event.target.value
             try:
@@ -499,9 +509,19 @@ class Tag:
                     value = int(value)
             except (ValueError, TypeError):
                 pass
-            self.origin.state[self.bind] = value
+            self.set_bind_value(self.bind, value)
         else:
-            self.origin.state[self.bind] = event.target.value
+            self.set_bind_value(self.bind, event.target.value)
+
+    def set_bind_value(self, bind, value):
+        if type(bind) in (list, tuple):
+            nested_dict = self.origin.state
+            for key in bind[:-1]:
+                nested_dict = nested_dict[key]
+            with self.origin.state.mutate(bind[0]):
+                nested_dict[bind[-1]] = value
+        else:
+            self.origin.state[self.bind] = value
 
     @property
     def page(self):
@@ -865,6 +885,7 @@ class Builder:
     def __init__(self):
         self.components = {}
 
+    # noinspection t
     def generate_tag(self, tag_name, *children, **kwargs):
         tag_name = tag_name.lower().strip()
         if kwargs.get("tag"):
