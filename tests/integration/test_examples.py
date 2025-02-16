@@ -56,7 +56,7 @@ def test_hello_world(http_server, page: Page):
     expect(page.locator("h1")).to_contain_text("Hello, World!")
 
 
-def test_hello_name(page: Page):
+def test_hello_name(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 2: Hello, Name").click()
     page.get_by_placeholder("name").click()
@@ -65,7 +65,7 @@ def test_hello_name(page: Page):
     expect(page.locator("h1")).to_contain_text("Hello, Jack!")
 
 
-def test_counter(page: Page):
+def test_counter(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 3: Counter").click()
     page.get_by_role("button", name="+").click()
@@ -80,7 +80,7 @@ def test_counter(page: Page):
     expect(page.locator(".count")).to_contain_text("-1")
 
 
-def test_refs_problem(page: Page):
+def test_refs_problem(http_server, page: Page):
     def input_is_active():
         return page.evaluate("document.querySelector(\"[placeholder='Type a word']\") === document.activeElement")
 
@@ -98,7 +98,7 @@ def test_refs_problem(page: Page):
     assert not input_is_active()
 
 
-def test_refs_solution(page: Page):
+def test_refs_solution(http_server, page: Page):
     def input_is_active():
         return page.evaluate("document.querySelector(\"[placeholder='Type a word']\") === document.activeElement")
 
@@ -111,7 +111,7 @@ def test_refs_solution(page: Page):
     assert input_is_active()
 
 
-def test_watchers(page: Page):
+def test_watchers(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 5: Watchers").click()
     page.get_by_placeholder("Guess").click()
@@ -122,7 +122,7 @@ def test_watchers(page: Page):
     page.get_by_text("You guessed the number!").click()
 
 
-def test_components(page: Page):
+def test_components(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 6: Components").click()
 
@@ -134,7 +134,7 @@ def test_components(page: Page):
     expect(page.locator("#result")).to_contain_text("Custom event from card with type error")
 
 
-def test_routing(page: Page):
+def test_routing(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 7: Routing").click()
 
@@ -151,7 +151,7 @@ def test_routing(page: Page):
     page.get_by_role("heading", name="PuePy Routing Demo: Pet").click()
 
 
-def test_pypi_libraries(page: Page):
+def test_pypi_libraries(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 8: PyPi Libraries").click()
     page.get_by_role("textbox").first.click()
@@ -169,14 +169,14 @@ def test_pypi_libraries(page: Page):
     )
 
 
-def test_webcomponents(page: Page):
+def test_webcomponents(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 9: WebComponents").click()
     page.get_by_role("button", name="Open Dialog").click()
     page.locator("sl-button").filter(has_text="Close").get_by_role("button").click()
 
 
-def test_a_full_app(page: Page):
+def test_a_full_app(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
 
     page.get_by_role("link", name="Example 10: A full-blown app").click()
