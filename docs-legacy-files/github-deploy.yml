@@ -1,0 +1,48 @@
+name: Deploy MkDocs
+
+on:
+  push:
+    branches:
+      - main
+permissions:
+  id-token: write
+  pages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Set timezone to UTC
+      run: echo "TZ=UTC" >> $GITHUB_ENV
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install --no-interaction --no-ansi
+        poetry add puepy --no-interaction --no-ansi
+
+    - name: Build docs
+      run: |
+        poetry run mkdocs build
+
+    - name: Package and upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: site
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
