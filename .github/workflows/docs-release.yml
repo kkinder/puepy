@@ -41,4 +41,4 @@ jobs:
         git config --global user.name "ci-bot"
         git config --global user.email "ci-bot@puepy.dev"
         poetry run mike set-default stable
-        poetry run mike deploy --push -u stable ${{ github.event.release.name }} --allow-empty
+        poetry run mike deploy --push -u ${{ github.event.release.name }} stable --allow-empty
