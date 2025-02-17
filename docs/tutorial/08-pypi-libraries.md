@@ -29,7 +29,7 @@ In `pyscript-bs.json`, we also must specify that we need BeautifulSoup4. This is
   ],
   "js_modules": {
     "main": {
-      "https://cdn.jsdelivr.net/npm/morphdom@2.7.2/+esm": "morphdom"
+      "https://cdn.jsdelivr.net/npm/morphdom@2.7.4/+esm": "morphdom"
     }
   }
 }

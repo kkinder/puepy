@@ -151,20 +151,20 @@ def test_routing(page: Page):
     page.get_by_role("heading", name="PuePy Routing Demo: Pet").click()
 
 
-def test_pypi_libraries(page: Page):
+def test_pypi_libraries(http_server, page: Page):
     page.goto(f"http://localhost:{PORT}/")
     page.get_by_role("link", name="Example 8: PyPi Libraries").click()
     page.get_by_role("textbox").first.click()
     page.get_by_role("textbox").first.fill("<html>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>\n")
     page.get_by_role("button", name="Convert").click()
-    expect(page.locator("#pp-b")).to_have_value(
+    expect(page.locator("textarea").nth(1)).to_have_value(
         "from puepy import Application, Page, t\n\napp = Application()\n\n@app.page()\nclass DefaultPage(Page):\n    "
         "def populate(self):\n        with t.html():\n            with t.body():\n                with t.h1():\n     "
         "               t('Hello, World!')"
     )
     page.get_by_text("Generate full file").click()
     page.get_by_role("button", name="Convert").click()
-    expect(page.locator("#pp-b")).to_have_value(
+    expect(page.locator("textarea").nth(1)).to_have_value(
         "with t.html():\n    with t.body():\n        with t.h1():\n            t('Hello, World!')"
     )
 
@@ -197,6 +197,7 @@ def test_a_full_app(page: Page):
     page.get_by_role("button", name="Submit").click()
     page.get_by_role("link", name="Dashboard").click()
     page.get_by_role("heading", name="Hello, you are authenticated").click()
+
 
 def test_radio_buttons(page: Page):
     page.goto(f"http://localhost:{PORT}/other/radio_buttons/index.html")

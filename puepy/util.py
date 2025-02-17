@@ -135,6 +135,6 @@ if not is_server_side:
         from pyscript.js_modules import morphdom
     except ImportError:
         print(
-            "Consider loading https://cdn.jsdelivr.net/npm/morphdom@2.7.2/+esm into js_modules for faster"
+            "Consider loading https://cdn.jsdelivr.net/npm/morphdom@2.7.4/+esm into js_modules for faster"
             " patching and more reliable DOM updates."
         )

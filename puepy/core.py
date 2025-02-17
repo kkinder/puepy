@@ -345,7 +345,7 @@ class Tag:
                     element.value = value
                     element.setAttribute("value", value)
                 event_type = "input"
-            self._add_event_listener(element, event_type, self.on_bind_input)
+            self.add_event_listener(element, event_type, self.on_bind_input)
         elif self.bind:
             raise Exception("Cannot specify bind a valid parent component")
 
@@ -356,9 +356,9 @@ class Tag:
             key = key.replace("_", "-")
             if isinstance(value, (list, tuple)):
                 for handler in value:
-                    self._add_event_listener(element, key, handler)
+                    self.add_event_listener(element, key, handler)
             else:
-                self._add_event_listener(element, key, value)
+                self.add_event_listener(element, key, value)
 
     def render_children(self, element):
         for child in self.children:
@@ -409,7 +409,7 @@ class Tag:
     def get_default_attrs(self):
         return self.default_attrs.copy()
 
-    def _add_event_listener(self, element, event, listener):
+    def add_event_listener(self, element, event, listener):
         """
         Just an internal wrapper around add_event_listener (JS function) that keeps track of what we added, so
         we can garbage collect it later.
@@ -419,26 +419,6 @@ class Tag:
         self._added_event_listeners.append((element, event, listener))
         if not is_server_side:
             add_event_listener(element, event, listener)
-
-    def add_event_listener(self, event, handler):
-        """
-        Add an event listener for a given event.
-
-        Args:
-            event (str): The name of the event to listen for.
-            handler (function): The function to be executed when the event occurs.
-
-        """
-        if event not in self._manually_added_event_listeners:
-            self._manually_added_event_listeners[event] = handler
-        else:
-            existing_handler = self._manually_added_event_listeners[event]
-            if isinstance(existing_handler, (list, tuple)):
-                self._manually_added_event_listeners[event] = [existing_handler] + list(handler)
-            else:
-                self._manually_added_event_listeners[event] = [existing_handler, handler]
-        if self._rendered_element:
-            self._add_event_listener(self._rendered_element, event, handler)
 
     def mount(self, selector_or_element):
         self.update_title()

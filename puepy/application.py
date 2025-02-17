@@ -1,5 +1,7 @@
 import itertools
+import random
 import sys
+import time
 
 from puepy.storage import BrowserStorage
 
@@ -51,13 +53,16 @@ class DefaultIdGenerator:
         prefix (str): An optional prefix to prepend to the generated IDs.
     """
 
-    def __init__(self, prefix="pp-"):
+    def __init__(self, prefix=None):
         """
         Args:
-            prefix (Optional[str]): The prefix to be used for generating unique IDs. Default is "pp-".
+            prefix (Optional[str]): The prefix to be used for generating unique IDs. Default is "pp-", 5 random numbers and letters, then "-" (eg, "pp-df456-").
         """
         self.counter = itertools.count()
-        self.prefix = prefix
+        if prefix:
+            self.prefix = prefix
+        else:
+            self.prefix = "pp-" + "".join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(5)) + "-"
 
     @staticmethod
     def _int_to_base36(num):

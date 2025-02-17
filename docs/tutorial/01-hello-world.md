@@ -25,7 +25,7 @@
       "files": {},
       "js_modules": {
         "main": {
-          "https://cdn.jsdelivr.net/npm/morphdom@2.7.2/+esm": "morphdom"
+          "https://cdn.jsdelivr.net/npm/morphdom@2.7.4/+esm": "morphdom"
         }
       },
       "packages": [

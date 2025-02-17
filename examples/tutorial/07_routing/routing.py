@@ -17,9 +17,15 @@ class Link(Component):
     enclosing_tag = "a"
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        on_click = kwargs.pop("on_click", None)
+        if isinstance(on_click, (list, tuple)):
+            on_click = list(on_click).copy()
+        else:
+            on_click = [on_click] if on_click else []
 
-        self.add_event_listener("click", self.on_click)
+        on_click.append(self.on_click)
+        kwargs["on_click"] = on_click
+        super().__init__(*args, **kwargs)
 
     def set_href(self, href):
         if issubclass(href, Page):
