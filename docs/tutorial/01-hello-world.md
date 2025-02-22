@@ -1,6 +1,6 @@
-# Hello, World! {{ extra.project_version }}
+# Hello, World!
 
-{{extra.project_version}} Let's start with the simplest possible: Hello, World!
+Let's start with the simplest possible: Hello, World!
 
 <puepy src="https://kkinder.pyscriptapps.com/puepy-tutorial/latest/tutorial/01_hello_world/index.html" edit="https://pyscript.com/@kkinder/puepy-tutorial/latest"/>
 
