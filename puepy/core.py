@@ -466,9 +466,12 @@ class Tag:
         """
         Retain attributes set elsewhere
         """
-        for attr in self.element.attributes:
-            if attr.name not in self.attrs and attr.name != "id":
-                self._retained_attrs[attr.name] = attr.value
+        try:
+            for attr in self.element.attributes:
+                if attr.name not in self.attrs and attr.name != "id":
+                    self._retained_attrs[attr.name] = attr.value
+        except ElementNotInDom:
+            pass
 
     def on_redraw(self):
         pass
