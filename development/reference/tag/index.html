@@ -989,15 +989,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#puepy.core.Tag._add_event_listener" class="md-nav__link">
-    <span class="md-ellipsis">
-      _add_event_listener
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#puepy.core.Tag._retain_implicit_attrs" class="md-nav__link">
     <span class="md-ellipsis">
       _retain_implicit_attrs
@@ -1382,15 +1373,6 @@
   <a href="#puepy.core.Tag" class="md-nav__link">
     <span class="md-ellipsis">
       Tag
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#puepy.core.Tag._add_event_listener" class="md-nav__link">
-    <span class="md-ellipsis">
-      _add_event_listener
     </span>
   </a>
   
@@ -2243,24 +2225,7 @@
 <span class="normal"><a href="#__codelineno-0-629">629</a></span>
 <span class="normal"><a href="#__codelineno-0-630">630</a></span>
 <span class="normal"><a href="#__codelineno-0-631">631</a></span>
-<span class="normal"><a href="#__codelineno-0-632">632</a></span>
-<span class="normal"><a href="#__codelineno-0-633">633</a></span>
-<span class="normal"><a href="#__codelineno-0-634">634</a></span>
-<span class="normal"><a href="#__codelineno-0-635">635</a></span>
-<span class="normal"><a href="#__codelineno-0-636">636</a></span>
-<span class="normal"><a href="#__codelineno-0-637">637</a></span>
-<span class="normal"><a href="#__codelineno-0-638">638</a></span>
-<span class="normal"><a href="#__codelineno-0-639">639</a></span>
-<span class="normal"><a href="#__codelineno-0-640">640</a></span>
-<span class="normal"><a href="#__codelineno-0-641">641</a></span>
-<span class="normal"><a href="#__codelineno-0-642">642</a></span>
-<span class="normal"><a href="#__codelineno-0-643">643</a></span>
-<span class="normal"><a href="#__codelineno-0-644">644</a></span>
-<span class="normal"><a href="#__codelineno-0-645">645</a></span>
-<span class="normal"><a href="#__codelineno-0-646">646</a></span>
-<span class="normal"><a href="#__codelineno-0-647">647</a></span>
-<span class="normal"><a href="#__codelineno-0-648">648</a></span>
-<span class="normal"><a href="#__codelineno-0-649">649</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="k">class</span><span class="w"> </span><span class="nc">Tag</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-632">632</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="k">class</span><span class="w"> </span><span class="nc">Tag</span><span class="p">:</span>
 </span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    The most basic building block of a PuePy app. A Tag is a single HTML element. This is also the base class of</span>
 </span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    `Component`, which is then the base class of `Page`.</span>
@@ -2545,7 +2510,7 @@
 </span><span id="__span-0-345"><a id="__codelineno-0-345" name="__codelineno-0-345"></a>                    <span class="n">element</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 </span><span id="__span-0-346"><a id="__codelineno-0-346" name="__codelineno-0-346"></a>                    <span class="n">element</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">"value"</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </span><span id="__span-0-347"><a id="__codelineno-0-347" name="__codelineno-0-347"></a>                <span class="n">event_type</span> <span class="o">=</span> <span class="s2">"input"</span>
-</span><span id="__span-0-348"><a id="__codelineno-0-348" name="__codelineno-0-348"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_bind_input</span><span class="p">)</span>
+</span><span id="__span-0-348"><a id="__codelineno-0-348" name="__codelineno-0-348"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_bind_input</span><span class="p">)</span>
 </span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">:</span>
 </span><span id="__span-0-350"><a id="__codelineno-0-350" name="__codelineno-0-350"></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">"Cannot specify bind a valid parent component"</span><span class="p">)</span>
 </span><span id="__span-0-351"><a id="__codelineno-0-351" name="__codelineno-0-351"></a>
@@ -2556,9 +2521,9 @@
 </span><span id="__span-0-356"><a id="__codelineno-0-356" name="__codelineno-0-356"></a>            <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span>
 </span><span id="__span-0-357"><a id="__codelineno-0-357" name="__codelineno-0-357"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
 </span><span id="__span-0-358"><a id="__codelineno-0-358" name="__codelineno-0-358"></a>                <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
-</span><span id="__span-0-359"><a id="__codelineno-0-359" name="__codelineno-0-359"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">_add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+</span><span id="__span-0-359"><a id="__codelineno-0-359" name="__codelineno-0-359"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
 </span><span id="__span-0-360"><a id="__codelineno-0-360" name="__codelineno-0-360"></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-361"><a id="__codelineno-0-361" name="__codelineno-0-361"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-361"><a id="__codelineno-0-361" name="__codelineno-0-361"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </span><span id="__span-0-362"><a id="__codelineno-0-362" name="__codelineno-0-362"></a>
 </span><span id="__span-0-363"><a id="__codelineno-0-363" name="__codelineno-0-363"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">render_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
 </span><span id="__span-0-364"><a id="__codelineno-0-364" name="__codelineno-0-364"></a>        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
@@ -2609,7 +2574,7 @@
 </span><span id="__span-0-409"><a id="__codelineno-0-409" name="__codelineno-0-409"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_default_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-0-410"><a id="__codelineno-0-410" name="__codelineno-0-410"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_attrs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </span><span id="__span-0-411"><a id="__codelineno-0-411" name="__codelineno-0-411"></a>
-</span><span id="__span-0-412"><a id="__codelineno-0-412" name="__codelineno-0-412"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span>
+</span><span id="__span-0-412"><a id="__codelineno-0-412" name="__codelineno-0-412"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span>
 </span><span id="__span-0-413"><a id="__codelineno-0-413" name="__codelineno-0-413"></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="__span-0-414"><a id="__codelineno-0-414" name="__codelineno-0-414"></a><span class="sd">        Just an internal wrapper around add_event_listener (JS function) that keeps track of what we added, so</span>
 </span><span id="__span-0-415"><a id="__codelineno-0-415" name="__codelineno-0-415"></a><span class="sd">        we can garbage collect it later.</span>
@@ -2620,239 +2585,253 @@
 </span><span id="__span-0-420"><a id="__codelineno-0-420" name="__codelineno-0-420"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_server_side</span><span class="p">:</span>
 </span><span id="__span-0-421"><a id="__codelineno-0-421" name="__codelineno-0-421"></a>            <span class="n">add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">)</span>
 </span><span id="__span-0-422"><a id="__codelineno-0-422" name="__codelineno-0-422"></a>
-</span><span id="__span-0-423"><a id="__codelineno-0-423" name="__codelineno-0-423"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
-</span><span id="__span-0-424"><a id="__codelineno-0-424" name="__codelineno-0-424"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="__span-0-425"><a id="__codelineno-0-425" name="__codelineno-0-425"></a><span class="sd">        Add an event listener for a given event.</span>
-</span><span id="__span-0-426"><a id="__codelineno-0-426" name="__codelineno-0-426"></a>
-</span><span id="__span-0-427"><a id="__codelineno-0-427" name="__codelineno-0-427"></a><span class="sd">        Args:</span>
-</span><span id="__span-0-428"><a id="__codelineno-0-428" name="__codelineno-0-428"></a><span class="sd">            event (str): The name of the event to listen for.</span>
-</span><span id="__span-0-429"><a id="__codelineno-0-429" name="__codelineno-0-429"></a><span class="sd">            handler (function): The function to be executed when the event occurs.</span>
-</span><span id="__span-0-430"><a id="__codelineno-0-430" name="__codelineno-0-430"></a>
-</span><span id="__span-0-431"><a id="__codelineno-0-431" name="__codelineno-0-431"></a><span class="sd">        """</span>
-</span><span id="__span-0-432"><a id="__codelineno-0-432" name="__codelineno-0-432"></a>        <span class="k">if</span> <span class="n">event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">:</span>
-</span><span id="__span-0-433"><a id="__codelineno-0-433" name="__codelineno-0-433"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">=</span> <span class="n">handler</span>
-</span><span id="__span-0-434"><a id="__codelineno-0-434" name="__codelineno-0-434"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-435"><a id="__codelineno-0-435" name="__codelineno-0-435"></a>            <span class="n">existing_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span>
-</span><span id="__span-0-436"><a id="__codelineno-0-436" name="__codelineno-0-436"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_handler</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-</span><span id="__span-0-437"><a id="__codelineno-0-437" name="__codelineno-0-437"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">existing_handler</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-</span><span id="__span-0-438"><a id="__codelineno-0-438" name="__codelineno-0-438"></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-439"><a id="__codelineno-0-439" name="__codelineno-0-439"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">existing_handler</span><span class="p">,</span> <span class="n">handler</span><span class="p">]</span>
-</span><span id="__span-0-440"><a id="__codelineno-0-440" name="__codelineno-0-440"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rendered_element</span><span class="p">:</span>
-</span><span id="__span-0-441"><a id="__codelineno-0-441" name="__codelineno-0-441"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rendered_element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
-</span><span id="__span-0-442"><a id="__codelineno-0-442" name="__codelineno-0-442"></a>
-</span><span id="__span-0-443"><a id="__codelineno-0-443" name="__codelineno-0-443"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector_or_element</span><span class="p">):</span>
-</span><span id="__span-0-444"><a id="__codelineno-0-444" name="__codelineno-0-444"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">update_title</span><span class="p">()</span>
-</span><span id="__span-0-445"><a id="__codelineno-0-445" name="__codelineno-0-445"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children_generated</span><span class="p">:</span>
-</span><span id="__span-0-446"><a id="__codelineno-0-446" name="__codelineno-0-446"></a>            <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
-</span><span id="__span-0-447"><a id="__codelineno-0-447" name="__codelineno-0-447"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">generate_children</span><span class="p">()</span>
-</span><span id="__span-0-448"><a id="__codelineno-0-448" name="__codelineno-0-448"></a>
-</span><span id="__span-0-449"><a id="__codelineno-0-449" name="__codelineno-0-449"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selector_or_element</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="__span-0-450"><a id="__codelineno-0-450" name="__codelineno-0-450"></a>            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="n">selector_or_element</span><span class="p">)</span>
-</span><span id="__span-0-451"><a id="__codelineno-0-451" name="__codelineno-0-451"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-452"><a id="__codelineno-0-452" name="__codelineno-0-452"></a>            <span class="n">element</span> <span class="o">=</span> <span class="n">selector_or_element</span>
-</span><span id="__span-0-453"><a id="__codelineno-0-453" name="__codelineno-0-453"></a>
-</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="p">:</span>
-</span><span id="__span-0-455"><a id="__codelineno-0-455" name="__codelineno-0-455"></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Element </span><span class="si">{</span><span class="n">selector_or_element</span><span class="si">}</span><span class="s2"> not found"</span><span class="p">)</span>
-</span><span id="__span-0-456"><a id="__codelineno-0-456" name="__codelineno-0-456"></a>
-</span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a>        <span class="n">element</span><span class="o">.</span><span class="n">innerHTML</span> <span class="o">=</span> <span class="s2">""</span>
-</span><span id="__span-0-458"><a id="__codelineno-0-458" name="__codelineno-0-458"></a>        <span class="n">element</span><span class="o">.</span><span class="n">appendChild</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
-</span><span id="__span-0-459"><a id="__codelineno-0-459" name="__codelineno-0-459"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="s2">"on_ready"</span><span class="p">)</span>
-</span><span id="__span-0-460"><a id="__codelineno-0-460" name="__codelineno-0-460"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">add_python_css_classes</span><span class="p">()</span>
+</span><span id="__span-0-423"><a id="__codelineno-0-423" name="__codelineno-0-423"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector_or_element</span><span class="p">):</span>
+</span><span id="__span-0-424"><a id="__codelineno-0-424" name="__codelineno-0-424"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">update_title</span><span class="p">()</span>
+</span><span id="__span-0-425"><a id="__codelineno-0-425" name="__codelineno-0-425"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children_generated</span><span class="p">:</span>
+</span><span id="__span-0-426"><a id="__codelineno-0-426" name="__codelineno-0-426"></a>            <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
+</span><span id="__span-0-427"><a id="__codelineno-0-427" name="__codelineno-0-427"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">generate_children</span><span class="p">()</span>
+</span><span id="__span-0-428"><a id="__codelineno-0-428" name="__codelineno-0-428"></a>
+</span><span id="__span-0-429"><a id="__codelineno-0-429" name="__codelineno-0-429"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selector_or_element</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-0-430"><a id="__codelineno-0-430" name="__codelineno-0-430"></a>            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="n">selector_or_element</span><span class="p">)</span>
+</span><span id="__span-0-431"><a id="__codelineno-0-431" name="__codelineno-0-431"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-432"><a id="__codelineno-0-432" name="__codelineno-0-432"></a>            <span class="n">element</span> <span class="o">=</span> <span class="n">selector_or_element</span>
+</span><span id="__span-0-433"><a id="__codelineno-0-433" name="__codelineno-0-433"></a>
+</span><span id="__span-0-434"><a id="__codelineno-0-434" name="__codelineno-0-434"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="p">:</span>
+</span><span id="__span-0-435"><a id="__codelineno-0-435" name="__codelineno-0-435"></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Element </span><span class="si">{</span><span class="n">selector_or_element</span><span class="si">}</span><span class="s2"> not found"</span><span class="p">)</span>
+</span><span id="__span-0-436"><a id="__codelineno-0-436" name="__codelineno-0-436"></a>
+</span><span id="__span-0-437"><a id="__codelineno-0-437" name="__codelineno-0-437"></a>        <span class="n">element</span><span class="o">.</span><span class="n">innerHTML</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span id="__span-0-438"><a id="__codelineno-0-438" name="__codelineno-0-438"></a>        <span class="n">element</span><span class="o">.</span><span class="n">appendChild</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
+</span><span id="__span-0-439"><a id="__codelineno-0-439" name="__codelineno-0-439"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="s2">"on_ready"</span><span class="p">)</span>
+</span><span id="__span-0-440"><a id="__codelineno-0-440" name="__codelineno-0-440"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">add_python_css_classes</span><span class="p">()</span>
+</span><span id="__span-0-441"><a id="__codelineno-0-441" name="__codelineno-0-441"></a>
+</span><span id="__span-0-442"><a id="__codelineno-0-442" name="__codelineno-0-442"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_python_css_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-443"><a id="__codelineno-0-443" name="__codelineno-0-443"></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="__span-0-444"><a id="__codelineno-0-444" name="__codelineno-0-444"></a><span class="sd">        This is only done at the page level.</span>
+</span><span id="__span-0-445"><a id="__codelineno-0-445" name="__codelineno-0-445"></a><span class="sd">        """</span>
+</span><span id="__span-0-446"><a id="__codelineno-0-446" name="__codelineno-0-446"></a>        <span class="k">pass</span>
+</span><span id="__span-0-447"><a id="__codelineno-0-447" name="__codelineno-0-447"></a>
+</span><span id="__span-0-448"><a id="__codelineno-0-448" name="__codelineno-0-448"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">recursive_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-0-449"><a id="__codelineno-0-449" name="__codelineno-0-449"></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="__span-0-450"><a id="__codelineno-0-450" name="__codelineno-0-450"></a><span class="sd">        Recursively call a specified method on all child Tag objects.</span>
+</span><span id="__span-0-451"><a id="__codelineno-0-451" name="__codelineno-0-451"></a>
+</span><span id="__span-0-452"><a id="__codelineno-0-452" name="__codelineno-0-452"></a><span class="sd">        Args:</span>
+</span><span id="__span-0-453"><a id="__codelineno-0-453" name="__codelineno-0-453"></a><span class="sd">            method (str): The name of the method to be called on each Tag object.</span>
+</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">            *args: Optional arguments to be passed to the method.</span>
+</span><span id="__span-0-455"><a id="__codelineno-0-455" name="__codelineno-0-455"></a><span class="sd">            **kwargs: Optional keyword arguments to be passed to the method.</span>
+</span><span id="__span-0-456"><a id="__codelineno-0-456" name="__codelineno-0-456"></a><span class="sd">        """</span>
+</span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a>        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+</span><span id="__span-0-458"><a id="__codelineno-0-458" name="__codelineno-0-458"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+</span><span id="__span-0-459"><a id="__codelineno-0-459" name="__codelineno-0-459"></a>                <span class="n">child</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span-0-460"><a id="__codelineno-0-460" name="__codelineno-0-460"></a>        <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span><span id="__span-0-461"><a id="__codelineno-0-461" name="__codelineno-0-461"></a>
-</span><span id="__span-0-462"><a id="__codelineno-0-462" name="__codelineno-0-462"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_python_css_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-463"><a id="__codelineno-0-463" name="__codelineno-0-463"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="__span-0-464"><a id="__codelineno-0-464" name="__codelineno-0-464"></a><span class="sd">        This is only done at the page level.</span>
-</span><span id="__span-0-465"><a id="__codelineno-0-465" name="__codelineno-0-465"></a><span class="sd">        """</span>
-</span><span id="__span-0-466"><a id="__codelineno-0-466" name="__codelineno-0-466"></a>        <span class="k">pass</span>
-</span><span id="__span-0-467"><a id="__codelineno-0-467" name="__codelineno-0-467"></a>
-</span><span id="__span-0-468"><a id="__codelineno-0-468" name="__codelineno-0-468"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">recursive_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="__span-0-469"><a id="__codelineno-0-469" name="__codelineno-0-469"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="__span-0-470"><a id="__codelineno-0-470" name="__codelineno-0-470"></a><span class="sd">        Recursively call a specified method on all child Tag objects.</span>
-</span><span id="__span-0-471"><a id="__codelineno-0-471" name="__codelineno-0-471"></a>
-</span><span id="__span-0-472"><a id="__codelineno-0-472" name="__codelineno-0-472"></a><span class="sd">        Args:</span>
-</span><span id="__span-0-473"><a id="__codelineno-0-473" name="__codelineno-0-473"></a><span class="sd">            method (str): The name of the method to be called on each Tag object.</span>
-</span><span id="__span-0-474"><a id="__codelineno-0-474" name="__codelineno-0-474"></a><span class="sd">            *args: Optional arguments to be passed to the method.</span>
-</span><span id="__span-0-475"><a id="__codelineno-0-475" name="__codelineno-0-475"></a><span class="sd">            **kwargs: Optional keyword arguments to be passed to the method.</span>
-</span><span id="__span-0-476"><a id="__codelineno-0-476" name="__codelineno-0-476"></a><span class="sd">        """</span>
-</span><span id="__span-0-477"><a id="__codelineno-0-477" name="__codelineno-0-477"></a>        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-</span><span id="__span-0-478"><a id="__codelineno-0-478" name="__codelineno-0-478"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
-</span><span id="__span-0-479"><a id="__codelineno-0-479" name="__codelineno-0-479"></a>                <span class="n">child</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="__span-0-480"><a id="__codelineno-0-480" name="__codelineno-0-480"></a>        <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="__span-0-481"><a id="__codelineno-0-481" name="__codelineno-0-481"></a>
-</span><span id="__span-0-482"><a id="__codelineno-0-482" name="__codelineno-0-482"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-483"><a id="__codelineno-0-483" name="__codelineno-0-483"></a>        <span class="k">pass</span>
-</span><span id="__span-0-484"><a id="__codelineno-0-484" name="__codelineno-0-484"></a>
-</span><span id="__span-0-485"><a id="__codelineno-0-485" name="__codelineno-0-485"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_retain_implicit_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-486"><a id="__codelineno-0-486" name="__codelineno-0-486"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="__span-0-487"><a id="__codelineno-0-487" name="__codelineno-0-487"></a><span class="sd">        Retain attributes set elsewhere</span>
-</span><span id="__span-0-488"><a id="__codelineno-0-488" name="__codelineno-0-488"></a><span class="sd">        """</span>
-</span><span id="__span-0-489"><a id="__codelineno-0-489" name="__codelineno-0-489"></a>        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
-</span><span id="__span-0-490"><a id="__codelineno-0-490" name="__codelineno-0-490"></a>            <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"id"</span><span class="p">:</span>
-</span><span id="__span-0-491"><a id="__codelineno-0-491" name="__codelineno-0-491"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_retained_attrs</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">value</span>
-</span><span id="__span-0-492"><a id="__codelineno-0-492" name="__codelineno-0-492"></a>
-</span><span id="__span-0-493"><a id="__codelineno-0-493" name="__codelineno-0-493"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-494"><a id="__codelineno-0-494" name="__codelineno-0-494"></a>        <span class="k">pass</span>
-</span><span id="__span-0-495"><a id="__codelineno-0-495" name="__codelineno-0-495"></a>
-</span><span id="__span-0-496"><a id="__codelineno-0-496" name="__codelineno-0-496"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_bind_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-</span><span id="__span-0-497"><a id="__codelineno-0-497" name="__codelineno-0-497"></a>        <span class="n">input_type</span> <span class="o">=</span> <span class="n">_element_input_type</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
-</span><span id="__span-0-498"><a id="__codelineno-0-498" name="__codelineno-0-498"></a>        <span class="k">if</span> <span class="n">input_type</span> <span class="o">==</span> <span class="s2">"checkbox"</span><span class="p">:</span>
-</span><span id="__span-0-499"><a id="__codelineno-0-499" name="__codelineno-0-499"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">checked</span><span class="p">)</span>
-</span><span id="__span-0-500"><a id="__codelineno-0-500" name="__codelineno-0-500"></a>        <span class="k">elif</span> <span class="n">input_type</span> <span class="o">==</span> <span class="s2">"radio"</span><span class="p">:</span>
-</span><span id="__span-0-501"><a id="__codelineno-0-501" name="__codelineno-0-501"></a>            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">checked</span><span class="p">:</span>
-</span><span id="__span-0-502"><a id="__codelineno-0-502" name="__codelineno-0-502"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</span><span id="__span-0-503"><a id="__codelineno-0-503" name="__codelineno-0-503"></a>        <span class="k">elif</span> <span class="n">input_type</span> <span class="o">==</span> <span class="s2">"number"</span><span class="p">:</span>
-</span><span id="__span-0-504"><a id="__codelineno-0-504" name="__codelineno-0-504"></a>            <span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span>
-</span><span id="__span-0-505"><a id="__codelineno-0-505" name="__codelineno-0-505"></a>            <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-506"><a id="__codelineno-0-506" name="__codelineno-0-506"></a>                <span class="k">if</span> <span class="s2">"."</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-</span><span id="__span-0-507"><a id="__codelineno-0-507" name="__codelineno-0-507"></a>                    <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-</span><span id="__span-0-508"><a id="__codelineno-0-508" name="__codelineno-0-508"></a>                <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-509"><a id="__codelineno-0-509" name="__codelineno-0-509"></a>                    <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-</span><span id="__span-0-510"><a id="__codelineno-0-510" name="__codelineno-0-510"></a>            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-</span><span id="__span-0-511"><a id="__codelineno-0-511" name="__codelineno-0-511"></a>                <span class="k">pass</span>
-</span><span id="__span-0-512"><a id="__codelineno-0-512" name="__codelineno-0-512"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</span><span id="__span-0-513"><a id="__codelineno-0-513" name="__codelineno-0-513"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-514"><a id="__codelineno-0-514" name="__codelineno-0-514"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-462"><a id="__codelineno-0-462" name="__codelineno-0-462"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-463"><a id="__codelineno-0-463" name="__codelineno-0-463"></a>        <span class="k">pass</span>
+</span><span id="__span-0-464"><a id="__codelineno-0-464" name="__codelineno-0-464"></a>
+</span><span id="__span-0-465"><a id="__codelineno-0-465" name="__codelineno-0-465"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_retain_implicit_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-466"><a id="__codelineno-0-466" name="__codelineno-0-466"></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="__span-0-467"><a id="__codelineno-0-467" name="__codelineno-0-467"></a><span class="sd">        Retain attributes set elsewhere</span>
+</span><span id="__span-0-468"><a id="__codelineno-0-468" name="__codelineno-0-468"></a><span class="sd">        """</span>
+</span><span id="__span-0-469"><a id="__codelineno-0-469" name="__codelineno-0-469"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-470"><a id="__codelineno-0-470" name="__codelineno-0-470"></a>            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
+</span><span id="__span-0-471"><a id="__codelineno-0-471" name="__codelineno-0-471"></a>                <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"id"</span><span class="p">:</span>
+</span><span id="__span-0-472"><a id="__codelineno-0-472" name="__codelineno-0-472"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">_retained_attrs</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">value</span>
+</span><span id="__span-0-473"><a id="__codelineno-0-473" name="__codelineno-0-473"></a>        <span class="k">except</span> <span class="n">ElementNotInDom</span><span class="p">:</span>
+</span><span id="__span-0-474"><a id="__codelineno-0-474" name="__codelineno-0-474"></a>            <span class="k">pass</span>
+</span><span id="__span-0-475"><a id="__codelineno-0-475" name="__codelineno-0-475"></a>
+</span><span id="__span-0-476"><a id="__codelineno-0-476" name="__codelineno-0-476"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-477"><a id="__codelineno-0-477" name="__codelineno-0-477"></a>        <span class="k">pass</span>
+</span><span id="__span-0-478"><a id="__codelineno-0-478" name="__codelineno-0-478"></a>
+</span><span id="__span-0-479"><a id="__codelineno-0-479" name="__codelineno-0-479"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_bind_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span><span id="__span-0-480"><a id="__codelineno-0-480" name="__codelineno-0-480"></a>        <span class="n">input_type</span> <span class="o">=</span> <span class="n">_element_input_type</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+</span><span id="__span-0-481"><a id="__codelineno-0-481" name="__codelineno-0-481"></a>        <span class="k">if</span> <span class="n">input_type</span> <span class="o">==</span> <span class="s2">"checkbox"</span><span class="p">:</span>
+</span><span id="__span-0-482"><a id="__codelineno-0-482" name="__codelineno-0-482"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">checked</span><span class="p">)</span>
+</span><span id="__span-0-483"><a id="__codelineno-0-483" name="__codelineno-0-483"></a>        <span class="k">elif</span> <span class="n">input_type</span> <span class="o">==</span> <span class="s2">"radio"</span><span class="p">:</span>
+</span><span id="__span-0-484"><a id="__codelineno-0-484" name="__codelineno-0-484"></a>            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">checked</span><span class="p">:</span>
+</span><span id="__span-0-485"><a id="__codelineno-0-485" name="__codelineno-0-485"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-486"><a id="__codelineno-0-486" name="__codelineno-0-486"></a>        <span class="k">elif</span> <span class="n">input_type</span> <span class="o">==</span> <span class="s2">"number"</span><span class="p">:</span>
+</span><span id="__span-0-487"><a id="__codelineno-0-487" name="__codelineno-0-487"></a>            <span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span>
+</span><span id="__span-0-488"><a id="__codelineno-0-488" name="__codelineno-0-488"></a>            <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-489"><a id="__codelineno-0-489" name="__codelineno-0-489"></a>                <span class="k">if</span> <span class="s2">"."</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+</span><span id="__span-0-490"><a id="__codelineno-0-490" name="__codelineno-0-490"></a>                    <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-491"><a id="__codelineno-0-491" name="__codelineno-0-491"></a>                <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-492"><a id="__codelineno-0-492" name="__codelineno-0-492"></a>                    <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-493"><a id="__codelineno-0-493" name="__codelineno-0-493"></a>            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+</span><span id="__span-0-494"><a id="__codelineno-0-494" name="__codelineno-0-494"></a>                <span class="k">pass</span>
+</span><span id="__span-0-495"><a id="__codelineno-0-495" name="__codelineno-0-495"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-496"><a id="__codelineno-0-496" name="__codelineno-0-496"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-497"><a id="__codelineno-0-497" name="__codelineno-0-497"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-0-498"><a id="__codelineno-0-498" name="__codelineno-0-498"></a>
+</span><span id="__span-0-499"><a id="__codelineno-0-499" name="__codelineno-0-499"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span id="__span-0-500"><a id="__codelineno-0-500" name="__codelineno-0-500"></a>        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+</span><span id="__span-0-501"><a id="__codelineno-0-501" name="__codelineno-0-501"></a>            <span class="n">nested_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">state</span>
+</span><span id="__span-0-502"><a id="__codelineno-0-502" name="__codelineno-0-502"></a>            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">bind</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+</span><span id="__span-0-503"><a id="__codelineno-0-503" name="__codelineno-0-503"></a>                <span class="n">nested_dict</span> <span class="o">=</span> <span class="n">nested_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="__span-0-504"><a id="__codelineno-0-504" name="__codelineno-0-504"></a>            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">bind</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+</span><span id="__span-0-505"><a id="__codelineno-0-505" name="__codelineno-0-505"></a>                <span class="n">nested_dict</span><span class="p">[</span><span class="n">bind</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="__span-0-506"><a id="__codelineno-0-506" name="__codelineno-0-506"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-507"><a id="__codelineno-0-507" name="__codelineno-0-507"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="__span-0-508"><a id="__codelineno-0-508" name="__codelineno-0-508"></a>
+</span><span id="__span-0-509"><a id="__codelineno-0-509" name="__codelineno-0-509"></a>    <span class="nd">@property</span>
+</span><span id="__span-0-510"><a id="__codelineno-0-510" name="__codelineno-0-510"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-511"><a id="__codelineno-0-511" name="__codelineno-0-511"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page</span><span class="p">:</span>
+</span><span id="__span-0-512"><a id="__codelineno-0-512" name="__codelineno-0-512"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page</span>
+</span><span id="__span-0-513"><a id="__codelineno-0-513" name="__codelineno-0-513"></a>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Page</span><span class="p">):</span>
+</span><span id="__span-0-514"><a id="__codelineno-0-514" name="__codelineno-0-514"></a>            <span class="k">return</span> <span class="bp">self</span>
 </span><span id="__span-0-515"><a id="__codelineno-0-515" name="__codelineno-0-515"></a>
-</span><span id="__span-0-516"><a id="__codelineno-0-516" name="__codelineno-0-516"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_bind_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-</span><span id="__span-0-517"><a id="__codelineno-0-517" name="__codelineno-0-517"></a>        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-</span><span id="__span-0-518"><a id="__codelineno-0-518" name="__codelineno-0-518"></a>            <span class="n">nested_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">state</span>
-</span><span id="__span-0-519"><a id="__codelineno-0-519" name="__codelineno-0-519"></a>            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">bind</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-</span><span id="__span-0-520"><a id="__codelineno-0-520" name="__codelineno-0-520"></a>                <span class="n">nested_dict</span> <span class="o">=</span> <span class="n">nested_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="__span-0-521"><a id="__codelineno-0-521" name="__codelineno-0-521"></a>            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">bind</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-</span><span id="__span-0-522"><a id="__codelineno-0-522" name="__codelineno-0-522"></a>                <span class="n">nested_dict</span><span class="p">[</span><span class="n">bind</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="__span-0-523"><a id="__codelineno-0-523" name="__codelineno-0-523"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-524"><a id="__codelineno-0-524" name="__codelineno-0-524"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="__span-0-525"><a id="__codelineno-0-525" name="__codelineno-0-525"></a>
-</span><span id="__span-0-526"><a id="__codelineno-0-526" name="__codelineno-0-526"></a>    <span class="nd">@property</span>
-</span><span id="__span-0-527"><a id="__codelineno-0-527" name="__codelineno-0-527"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-528"><a id="__codelineno-0-528" name="__codelineno-0-528"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page</span><span class="p">:</span>
-</span><span id="__span-0-529"><a id="__codelineno-0-529" name="__codelineno-0-529"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_page</span>
-</span><span id="__span-0-530"><a id="__codelineno-0-530" name="__codelineno-0-530"></a>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Page</span><span class="p">):</span>
-</span><span id="__span-0-531"><a id="__codelineno-0-531" name="__codelineno-0-531"></a>            <span class="k">return</span> <span class="bp">self</span>
+</span><span id="__span-0-516"><a id="__codelineno-0-516" name="__codelineno-0-516"></a>    <span class="nd">@property</span>
+</span><span id="__span-0-517"><a id="__codelineno-0-517" name="__codelineno-0-517"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">router</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-518"><a id="__codelineno-0-518" name="__codelineno-0-518"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">:</span>
+</span><span id="__span-0-519"><a id="__codelineno-0-519" name="__codelineno-0-519"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">router</span>
+</span><span id="__span-0-520"><a id="__codelineno-0-520" name="__codelineno-0-520"></a>
+</span><span id="__span-0-521"><a id="__codelineno-0-521" name="__codelineno-0-521"></a>    <span class="nd">@property</span>
+</span><span id="__span-0-522"><a id="__codelineno-0-522" name="__codelineno-0-522"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-523"><a id="__codelineno-0-523" name="__codelineno-0-523"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
+</span><span id="__span-0-524"><a id="__codelineno-0-524" name="__codelineno-0-524"></a>
+</span><span id="__span-0-525"><a id="__codelineno-0-525" name="__codelineno-0-525"></a>    <span class="nd">@parent</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="__span-0-526"><a id="__codelineno-0-526" name="__codelineno-0-526"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">):</span>
+</span><span id="__span-0-527"><a id="__codelineno-0-527" name="__codelineno-0-527"></a>        <span class="n">existing_parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_parent"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-0-528"><a id="__codelineno-0-528" name="__codelineno-0-528"></a>        <span class="k">if</span> <span class="n">new_parent</span> <span class="o">==</span> <span class="n">existing_parent</span><span class="p">:</span>
+</span><span id="__span-0-529"><a id="__codelineno-0-529" name="__codelineno-0-529"></a>            <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+</span><span id="__span-0-530"><a id="__codelineno-0-530" name="__codelineno-0-530"></a>                <span class="n">existing_parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="__span-0-531"><a id="__codelineno-0-531" name="__codelineno-0-531"></a>            <span class="k">return</span>
 </span><span id="__span-0-532"><a id="__codelineno-0-532" name="__codelineno-0-532"></a>
-</span><span id="__span-0-533"><a id="__codelineno-0-533" name="__codelineno-0-533"></a>    <span class="nd">@property</span>
-</span><span id="__span-0-534"><a id="__codelineno-0-534" name="__codelineno-0-534"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">router</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-535"><a id="__codelineno-0-535" name="__codelineno-0-535"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="p">:</span>
-</span><span id="__span-0-536"><a id="__codelineno-0-536" name="__codelineno-0-536"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">router</span>
+</span><span id="__span-0-533"><a id="__codelineno-0-533" name="__codelineno-0-533"></a>        <span class="k">if</span> <span class="n">existing_parent</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">existing_parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+</span><span id="__span-0-534"><a id="__codelineno-0-534" name="__codelineno-0-534"></a>            <span class="n">existing_parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="__span-0-535"><a id="__codelineno-0-535" name="__codelineno-0-535"></a>        <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+</span><span id="__span-0-536"><a id="__codelineno-0-536" name="__codelineno-0-536"></a>            <span class="n">new_parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </span><span id="__span-0-537"><a id="__codelineno-0-537" name="__codelineno-0-537"></a>
-</span><span id="__span-0-538"><a id="__codelineno-0-538" name="__codelineno-0-538"></a>    <span class="nd">@property</span>
-</span><span id="__span-0-539"><a id="__codelineno-0-539" name="__codelineno-0-539"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-540"><a id="__codelineno-0-540" name="__codelineno-0-540"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
-</span><span id="__span-0-541"><a id="__codelineno-0-541" name="__codelineno-0-541"></a>
-</span><span id="__span-0-542"><a id="__codelineno-0-542" name="__codelineno-0-542"></a>    <span class="nd">@parent</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="__span-0-543"><a id="__codelineno-0-543" name="__codelineno-0-543"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">):</span>
-</span><span id="__span-0-544"><a id="__codelineno-0-544" name="__codelineno-0-544"></a>        <span class="n">existing_parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_parent"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</span><span id="__span-0-545"><a id="__codelineno-0-545" name="__codelineno-0-545"></a>        <span class="k">if</span> <span class="n">new_parent</span> <span class="o">==</span> <span class="n">existing_parent</span><span class="p">:</span>
-</span><span id="__span-0-546"><a id="__codelineno-0-546" name="__codelineno-0-546"></a>            <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-</span><span id="__span-0-547"><a id="__codelineno-0-547" name="__codelineno-0-547"></a>                <span class="n">existing_parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="__span-0-548"><a id="__codelineno-0-548" name="__codelineno-0-548"></a>            <span class="k">return</span>
-</span><span id="__span-0-549"><a id="__codelineno-0-549" name="__codelineno-0-549"></a>
-</span><span id="__span-0-550"><a id="__codelineno-0-550" name="__codelineno-0-550"></a>        <span class="k">if</span> <span class="n">existing_parent</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">existing_parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-</span><span id="__span-0-551"><a id="__codelineno-0-551" name="__codelineno-0-551"></a>            <span class="n">existing_parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="__span-0-552"><a id="__codelineno-0-552" name="__codelineno-0-552"></a>        <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-</span><span id="__span-0-553"><a id="__codelineno-0-553" name="__codelineno-0-553"></a>            <span class="n">new_parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="__span-0-554"><a id="__codelineno-0-554" name="__codelineno-0-554"></a>
-</span><span id="__span-0-555"><a id="__codelineno-0-555" name="__codelineno-0-555"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">new_parent</span>
-</span><span id="__span-0-556"><a id="__codelineno-0-556" name="__codelineno-0-556"></a>
-</span><span id="__span-0-557"><a id="__codelineno-0-557" name="__codelineno-0-557"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">children</span><span class="p">):</span>
-</span><span id="__span-0-558"><a id="__codelineno-0-558" name="__codelineno-0-558"></a>        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
-</span><span id="__span-0-559"><a id="__codelineno-0-559" name="__codelineno-0-559"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
-</span><span id="__span-0-560"><a id="__codelineno-0-560" name="__codelineno-0-560"></a>                <span class="n">child</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
-</span><span id="__span-0-561"><a id="__codelineno-0-561" name="__codelineno-0-561"></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-562"><a id="__codelineno-0-562" name="__codelineno-0-562"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-</span><span id="__span-0-563"><a id="__codelineno-0-563" name="__codelineno-0-563"></a>
-</span><span id="__span-0-564"><a id="__codelineno-0-564" name="__codelineno-0-564"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-565"><a id="__codelineno-0-565" name="__codelineno-0-565"></a>        <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">redraw_list</span><span class="p">:</span>
-</span><span id="__span-0-566"><a id="__codelineno-0-566" name="__codelineno-0-566"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">redraw_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="__span-0-538"><a id="__codelineno-0-538" name="__codelineno-0-538"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">new_parent</span>
+</span><span id="__span-0-539"><a id="__codelineno-0-539" name="__codelineno-0-539"></a>
+</span><span id="__span-0-540"><a id="__codelineno-0-540" name="__codelineno-0-540"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">children</span><span class="p">):</span>
+</span><span id="__span-0-541"><a id="__codelineno-0-541" name="__codelineno-0-541"></a>        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+</span><span id="__span-0-542"><a id="__codelineno-0-542" name="__codelineno-0-542"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+</span><span id="__span-0-543"><a id="__codelineno-0-543" name="__codelineno-0-543"></a>                <span class="n">child</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span id="__span-0-544"><a id="__codelineno-0-544" name="__codelineno-0-544"></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-545"><a id="__codelineno-0-545" name="__codelineno-0-545"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+</span><span id="__span-0-546"><a id="__codelineno-0-546" name="__codelineno-0-546"></a>
+</span><span id="__span-0-547"><a id="__codelineno-0-547" name="__codelineno-0-547"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-548"><a id="__codelineno-0-548" name="__codelineno-0-548"></a>        <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">redraw_list</span><span class="p">:</span>
+</span><span id="__span-0-549"><a id="__codelineno-0-549" name="__codelineno-0-549"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">redraw_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="__span-0-550"><a id="__codelineno-0-550" name="__codelineno-0-550"></a>
+</span><span id="__span-0-551"><a id="__codelineno-0-551" name="__codelineno-0-551"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-552"><a id="__codelineno-0-552" name="__codelineno-0-552"></a>            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span>
+</span><span id="__span-0-553"><a id="__codelineno-0-553" name="__codelineno-0-553"></a>        <span class="k">except</span> <span class="n">ElementNotInDom</span><span class="p">:</span>
+</span><span id="__span-0-554"><a id="__codelineno-0-554" name="__codelineno-0-554"></a>            <span class="k">return</span>
+</span><span id="__span-0-555"><a id="__codelineno-0-555" name="__codelineno-0-555"></a>
+</span><span id="__span-0-556"><a id="__codelineno-0-556" name="__codelineno-0-556"></a>        <span class="k">if</span> <span class="n">is_server_side</span><span class="p">:</span>
+</span><span id="__span-0-557"><a id="__codelineno-0-557" name="__codelineno-0-557"></a>            <span class="n">old_active_element_id</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-0-558"><a id="__codelineno-0-558" name="__codelineno-0-558"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-559"><a id="__codelineno-0-559" name="__codelineno-0-559"></a>            <span class="n">old_active_element_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">activeElement</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">activeElement</span> <span class="k">else</span> <span class="kc">None</span>
+</span><span id="__span-0-560"><a id="__codelineno-0-560" name="__codelineno-0-560"></a>
+</span><span id="__span-0-561"><a id="__codelineno-0-561" name="__codelineno-0-561"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="s2">"_retain_implicit_attrs"</span><span class="p">)</span>
+</span><span id="__span-0-562"><a id="__codelineno-0-562" name="__codelineno-0-562"></a>
+</span><span id="__span-0-563"><a id="__codelineno-0-563" name="__codelineno-0-563"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-564"><a id="__codelineno-0-564" name="__codelineno-0-564"></a>
+</span><span id="__span-0-565"><a id="__codelineno-0-565" name="__codelineno-0-565"></a>        <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_attrs</span><span class="p">()</span>
+</span><span id="__span-0-566"><a id="__codelineno-0-566" name="__codelineno-0-566"></a>        <span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
 </span><span id="__span-0-567"><a id="__codelineno-0-567" name="__codelineno-0-567"></a>
-</span><span id="__span-0-568"><a id="__codelineno-0-568" name="__codelineno-0-568"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-569"><a id="__codelineno-0-569" name="__codelineno-0-569"></a>            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span>
-</span><span id="__span-0-570"><a id="__codelineno-0-570" name="__codelineno-0-570"></a>        <span class="k">except</span> <span class="n">ElementNotInDom</span><span class="p">:</span>
-</span><span id="__span-0-571"><a id="__codelineno-0-571" name="__codelineno-0-571"></a>            <span class="k">return</span>
-</span><span id="__span-0-572"><a id="__codelineno-0-572" name="__codelineno-0-572"></a>
-</span><span id="__span-0-573"><a id="__codelineno-0-573" name="__codelineno-0-573"></a>        <span class="k">if</span> <span class="n">is_server_side</span><span class="p">:</span>
-</span><span id="__span-0-574"><a id="__codelineno-0-574" name="__codelineno-0-574"></a>            <span class="n">old_active_element_id</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-0-575"><a id="__codelineno-0-575" name="__codelineno-0-575"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-576"><a id="__codelineno-0-576" name="__codelineno-0-576"></a>            <span class="n">old_active_element_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">activeElement</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">activeElement</span> <span class="k">else</span> <span class="kc">None</span>
+</span><span id="__span-0-568"><a id="__codelineno-0-568" name="__codelineno-0-568"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">update_title</span><span class="p">()</span>
+</span><span id="__span-0-569"><a id="__codelineno-0-569" name="__codelineno-0-569"></a>        <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
+</span><span id="__span-0-570"><a id="__codelineno-0-570" name="__codelineno-0-570"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">generate_children</span><span class="p">()</span>
+</span><span id="__span-0-571"><a id="__codelineno-0-571" name="__codelineno-0-571"></a>
+</span><span id="__span-0-572"><a id="__codelineno-0-572" name="__codelineno-0-572"></a>        <span class="n">staging_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_element</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
+</span><span id="__span-0-573"><a id="__codelineno-0-573" name="__codelineno-0-573"></a>
+</span><span id="__span-0-574"><a id="__codelineno-0-574" name="__codelineno-0-574"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_render_onto</span><span class="p">(</span><span class="n">staging_element</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+</span><span id="__span-0-575"><a id="__codelineno-0-575" name="__codelineno-0-575"></a>
+</span><span id="__span-0-576"><a id="__codelineno-0-576" name="__codelineno-0-576"></a>        <span class="n">patch_dom_element</span><span class="p">(</span><span class="n">staging_element</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
 </span><span id="__span-0-577"><a id="__codelineno-0-577" name="__codelineno-0-577"></a>
-</span><span id="__span-0-578"><a id="__codelineno-0-578" name="__codelineno-0-578"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="s2">"_retain_implicit_attrs"</span><span class="p">)</span>
-</span><span id="__span-0-579"><a id="__codelineno-0-579" name="__codelineno-0-579"></a>
-</span><span id="__span-0-580"><a id="__codelineno-0-580" name="__codelineno-0-580"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-581"><a id="__codelineno-0-581" name="__codelineno-0-581"></a>
-</span><span id="__span-0-582"><a id="__codelineno-0-582" name="__codelineno-0-582"></a>        <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_attrs</span><span class="p">()</span>
-</span><span id="__span-0-583"><a id="__codelineno-0-583" name="__codelineno-0-583"></a>        <span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+</span><span id="__span-0-578"><a id="__codelineno-0-578" name="__codelineno-0-578"></a>        <span class="k">if</span> <span class="n">old_active_element_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-579"><a id="__codelineno-0-579" name="__codelineno-0-579"></a>            <span class="n">el</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">getElementById</span><span class="p">(</span><span class="n">old_active_element_id</span><span class="p">)</span>
+</span><span id="__span-0-580"><a id="__codelineno-0-580" name="__codelineno-0-580"></a>            <span class="k">if</span> <span class="n">el</span><span class="p">:</span>
+</span><span id="__span-0-581"><a id="__codelineno-0-581" name="__codelineno-0-581"></a>                <span class="n">el</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+</span><span id="__span-0-582"><a id="__codelineno-0-582" name="__codelineno-0-582"></a>
+</span><span id="__span-0-583"><a id="__codelineno-0-583" name="__codelineno-0-583"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="s2">"on_redraw"</span><span class="p">)</span>
 </span><span id="__span-0-584"><a id="__codelineno-0-584" name="__codelineno-0-584"></a>
-</span><span id="__span-0-585"><a id="__codelineno-0-585" name="__codelineno-0-585"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">update_title</span><span class="p">()</span>
-</span><span id="__span-0-586"><a id="__codelineno-0-586" name="__codelineno-0-586"></a>        <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
-</span><span id="__span-0-587"><a id="__codelineno-0-587" name="__codelineno-0-587"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">generate_children</span><span class="p">()</span>
+</span><span id="__span-0-585"><a id="__codelineno-0-585" name="__codelineno-0-585"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">trigger_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-0-586"><a id="__codelineno-0-586" name="__codelineno-0-586"></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="__span-0-587"><a id="__codelineno-0-587" name="__codelineno-0-587"></a><span class="sd">                Triggers an event to be consumed by code using this class.</span>
 </span><span id="__span-0-588"><a id="__codelineno-0-588" name="__codelineno-0-588"></a>
-</span><span id="__span-0-589"><a id="__codelineno-0-589" name="__codelineno-0-589"></a>        <span class="n">staging_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_element</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
-</span><span id="__span-0-590"><a id="__codelineno-0-590" name="__codelineno-0-590"></a>
-</span><span id="__span-0-591"><a id="__codelineno-0-591" name="__codelineno-0-591"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_render_onto</span><span class="p">(</span><span class="n">staging_element</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
-</span><span id="__span-0-592"><a id="__codelineno-0-592" name="__codelineno-0-592"></a>
-</span><span id="__span-0-593"><a id="__codelineno-0-593" name="__codelineno-0-593"></a>        <span class="n">patch_dom_element</span><span class="p">(</span><span class="n">staging_element</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-</span><span id="__span-0-594"><a id="__codelineno-0-594" name="__codelineno-0-594"></a>
-</span><span id="__span-0-595"><a id="__codelineno-0-595" name="__codelineno-0-595"></a>        <span class="k">if</span> <span class="n">old_active_element_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-596"><a id="__codelineno-0-596" name="__codelineno-0-596"></a>            <span class="n">el</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">getElementById</span><span class="p">(</span><span class="n">old_active_element_id</span><span class="p">)</span>
-</span><span id="__span-0-597"><a id="__codelineno-0-597" name="__codelineno-0-597"></a>            <span class="k">if</span> <span class="n">el</span><span class="p">:</span>
-</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a>                <span class="n">el</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+</span><span id="__span-0-589"><a id="__codelineno-0-589" name="__codelineno-0-589"></a><span class="sd">                Args:</span>
+</span><span id="__span-0-590"><a id="__codelineno-0-590" name="__codelineno-0-590"></a><span class="sd">                    event (str): The name of the event to trigger. If the event name contains underscores, a warning message is printed suggesting to use dashes instead.</span>
+</span><span id="__span-0-591"><a id="__codelineno-0-591" name="__codelineno-0-591"></a><span class="sd">                    detail (dict, optional): Additional data to be sent with the event. This should be a dictionary where the keys and values will be converted to JavaScript objects.</span>
+</span><span id="__span-0-592"><a id="__codelineno-0-592" name="__codelineno-0-592"></a><span class="sd">                    **kwargs: Additional keyword arguments. These arguments are not used in the implementation of the method and are ignored.</span>
+</span><span id="__span-0-593"><a id="__codelineno-0-593" name="__codelineno-0-593"></a><span class="sd">        ß"""</span>
+</span><span id="__span-0-594"><a id="__codelineno-0-594" name="__codelineno-0-594"></a>        <span class="k">if</span> <span class="s2">"_"</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
+</span><span id="__span-0-595"><a id="__codelineno-0-595" name="__codelineno-0-595"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"Triggering event with underscores. Did you mean dashes?: "</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</span><span id="__span-0-596"><a id="__codelineno-0-596" name="__codelineno-0-596"></a>
+</span><span id="__span-0-597"><a id="__codelineno-0-597" name="__codelineno-0-597"></a>        <span class="c1"># noinspection PyUnresolvedReferences</span>
+</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">pyscript.ffi</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_js</span>
 </span><span id="__span-0-599"><a id="__codelineno-0-599" name="__codelineno-0-599"></a>
-</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="s2">"on_redraw"</span><span class="p">)</span>
-</span><span id="__span-0-601"><a id="__codelineno-0-601" name="__codelineno-0-601"></a>
-</span><span id="__span-0-602"><a id="__codelineno-0-602" name="__codelineno-0-602"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">trigger_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="__span-0-603"><a id="__codelineno-0-603" name="__codelineno-0-603"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="__span-0-604"><a id="__codelineno-0-604" name="__codelineno-0-604"></a><span class="sd">                Triggers an event to be consumed by code using this class.</span>
-</span><span id="__span-0-605"><a id="__codelineno-0-605" name="__codelineno-0-605"></a>
-</span><span id="__span-0-606"><a id="__codelineno-0-606" name="__codelineno-0-606"></a><span class="sd">                Args:</span>
-</span><span id="__span-0-607"><a id="__codelineno-0-607" name="__codelineno-0-607"></a><span class="sd">                    event (str): The name of the event to trigger. If the event name contains underscores, a warning message is printed suggesting to use dashes instead.</span>
-</span><span id="__span-0-608"><a id="__codelineno-0-608" name="__codelineno-0-608"></a><span class="sd">                    detail (dict, optional): Additional data to be sent with the event. This should be a dictionary where the keys and values will be converted to JavaScript objects.</span>
-</span><span id="__span-0-609"><a id="__codelineno-0-609" name="__codelineno-0-609"></a><span class="sd">                    **kwargs: Additional keyword arguments. These arguments are not used in the implementation of the method and are ignored.</span>
-</span><span id="__span-0-610"><a id="__codelineno-0-610" name="__codelineno-0-610"></a><span class="sd">        ß"""</span>
-</span><span id="__span-0-611"><a id="__codelineno-0-611" name="__codelineno-0-611"></a>        <span class="k">if</span> <span class="s2">"_"</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
-</span><span id="__span-0-612"><a id="__codelineno-0-612" name="__codelineno-0-612"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"Triggering event with underscores. Did you mean dashes?: "</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a>        <span class="c1"># noinspection PyUnresolvedReferences</span>
+</span><span id="__span-0-601"><a id="__codelineno-0-601" name="__codelineno-0-601"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">js</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span><span class="p">,</span> <span class="n">Map</span>
+</span><span id="__span-0-602"><a id="__codelineno-0-602" name="__codelineno-0-602"></a>
+</span><span id="__span-0-603"><a id="__codelineno-0-603" name="__codelineno-0-603"></a>        <span class="k">if</span> <span class="n">detail</span><span class="p">:</span>
+</span><span id="__span-0-604"><a id="__codelineno-0-604" name="__codelineno-0-604"></a>            <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({</span><span class="s2">"detail"</span><span class="p">:</span> <span class="n">Map</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">Object</span><span class="o">.</span><span class="n">entries</span><span class="p">(</span><span class="n">to_js</span><span class="p">(</span><span class="n">detail</span><span class="p">)))})</span>
+</span><span id="__span-0-605"><a id="__codelineno-0-605" name="__codelineno-0-605"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-606"><a id="__codelineno-0-606" name="__codelineno-0-606"></a>            <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({})</span>
+</span><span id="__span-0-607"><a id="__codelineno-0-607" name="__codelineno-0-607"></a>
+</span><span id="__span-0-608"><a id="__codelineno-0-608" name="__codelineno-0-608"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">dispatchEvent</span><span class="p">(</span><span class="n">CustomEvent</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">event_object</span><span class="p">))</span>
+</span><span id="__span-0-609"><a id="__codelineno-0-609" name="__codelineno-0-609"></a>
+</span><span id="__span-0-610"><a id="__codelineno-0-610" name="__codelineno-0-610"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-611"><a id="__codelineno-0-611" name="__codelineno-0-611"></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="__span-0-612"><a id="__codelineno-0-612" name="__codelineno-0-612"></a><span class="sd">        To be overridden by subclasses (usually pages), this method should update the Window title as needed.</span>
 </span><span id="__span-0-613"><a id="__codelineno-0-613" name="__codelineno-0-613"></a>
-</span><span id="__span-0-614"><a id="__codelineno-0-614" name="__codelineno-0-614"></a>        <span class="c1"># noinspection PyUnresolvedReferences</span>
-</span><span id="__span-0-615"><a id="__codelineno-0-615" name="__codelineno-0-615"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">pyscript.ffi</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_js</span>
-</span><span id="__span-0-616"><a id="__codelineno-0-616" name="__codelineno-0-616"></a>
-</span><span id="__span-0-617"><a id="__codelineno-0-617" name="__codelineno-0-617"></a>        <span class="c1"># noinspection PyUnresolvedReferences</span>
-</span><span id="__span-0-618"><a id="__codelineno-0-618" name="__codelineno-0-618"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">js</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span><span class="p">,</span> <span class="n">Map</span>
-</span><span id="__span-0-619"><a id="__codelineno-0-619" name="__codelineno-0-619"></a>
-</span><span id="__span-0-620"><a id="__codelineno-0-620" name="__codelineno-0-620"></a>        <span class="k">if</span> <span class="n">detail</span><span class="p">:</span>
-</span><span id="__span-0-621"><a id="__codelineno-0-621" name="__codelineno-0-621"></a>            <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({</span><span class="s2">"detail"</span><span class="p">:</span> <span class="n">Map</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">Object</span><span class="o">.</span><span class="n">entries</span><span class="p">(</span><span class="n">to_js</span><span class="p">(</span><span class="n">detail</span><span class="p">)))})</span>
-</span><span id="__span-0-622"><a id="__codelineno-0-622" name="__codelineno-0-622"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-623"><a id="__codelineno-0-623" name="__codelineno-0-623"></a>            <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({})</span>
-</span><span id="__span-0-624"><a id="__codelineno-0-624" name="__codelineno-0-624"></a>
-</span><span id="__span-0-625"><a id="__codelineno-0-625" name="__codelineno-0-625"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">dispatchEvent</span><span class="p">(</span><span class="n">CustomEvent</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">event_object</span><span class="p">))</span>
-</span><span id="__span-0-626"><a id="__codelineno-0-626" name="__codelineno-0-626"></a>
-</span><span id="__span-0-627"><a id="__codelineno-0-627" name="__codelineno-0-627"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">update_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-628"><a id="__codelineno-0-628" name="__codelineno-0-628"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="__span-0-629"><a id="__codelineno-0-629" name="__codelineno-0-629"></a><span class="sd">        To be overridden by subclasses (usually pages), this method should update the Window title as needed.</span>
+</span><span id="__span-0-614"><a id="__codelineno-0-614" name="__codelineno-0-614"></a><span class="sd">        Called on mounting or redraw.</span>
+</span><span id="__span-0-615"><a id="__codelineno-0-615" name="__codelineno-0-615"></a><span class="sd">        """</span>
+</span><span id="__span-0-616"><a id="__codelineno-0-616" name="__codelineno-0-616"></a>        <span class="k">pass</span>
+</span><span id="__span-0-617"><a id="__codelineno-0-617" name="__codelineno-0-617"></a>
+</span><span id="__span-0-618"><a id="__codelineno-0-618" name="__codelineno-0-618"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-619"><a id="__codelineno-0-619" name="__codelineno-0-619"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="__span-0-620"><a id="__codelineno-0-620" name="__codelineno-0-620"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">origin_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="__span-0-621"><a id="__codelineno-0-621" name="__codelineno-0-621"></a>        <span class="k">return</span> <span class="bp">self</span>
+</span><span id="__span-0-622"><a id="__codelineno-0-622" name="__codelineno-0-622"></a>
+</span><span id="__span-0-623"><a id="__codelineno-0-623" name="__codelineno-0-623"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+</span><span id="__span-0-624"><a id="__codelineno-0-624" name="__codelineno-0-624"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span id="__span-0-625"><a id="__codelineno-0-625" name="__codelineno-0-625"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">origin_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span id="__span-0-626"><a id="__codelineno-0-626" name="__codelineno-0-626"></a>        <span class="k">return</span> <span class="kc">False</span>
+</span><span id="__span-0-627"><a id="__codelineno-0-627" name="__codelineno-0-627"></a>
+</span><span id="__span-0-628"><a id="__codelineno-0-628" name="__codelineno-0-628"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-629"><a id="__codelineno-0-629" name="__codelineno-0-629"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag_name</span>
 </span><span id="__span-0-630"><a id="__codelineno-0-630" name="__codelineno-0-630"></a>
-</span><span id="__span-0-631"><a id="__codelineno-0-631" name="__codelineno-0-631"></a><span class="sd">        Called on mounting or redraw.</span>
-</span><span id="__span-0-632"><a id="__codelineno-0-632" name="__codelineno-0-632"></a><span class="sd">        """</span>
-</span><span id="__span-0-633"><a id="__codelineno-0-633" name="__codelineno-0-633"></a>        <span class="k">pass</span>
-</span><span id="__span-0-634"><a id="__codelineno-0-634" name="__codelineno-0-634"></a>
-</span><span id="__span-0-635"><a id="__codelineno-0-635" name="__codelineno-0-635"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-636"><a id="__codelineno-0-636" name="__codelineno-0-636"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="__span-0-637"><a id="__codelineno-0-637" name="__codelineno-0-637"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">origin_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="__span-0-638"><a id="__codelineno-0-638" name="__codelineno-0-638"></a>        <span class="k">return</span> <span class="bp">self</span>
-</span><span id="__span-0-639"><a id="__codelineno-0-639" name="__codelineno-0-639"></a>
-</span><span id="__span-0-640"><a id="__codelineno-0-640" name="__codelineno-0-640"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
-</span><span id="__span-0-641"><a id="__codelineno-0-641" name="__codelineno-0-641"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-</span><span id="__span-0-642"><a id="__codelineno-0-642" name="__codelineno-0-642"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">origin_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-</span><span id="__span-0-643"><a id="__codelineno-0-643" name="__codelineno-0-643"></a>        <span class="k">return</span> <span class="kc">False</span>
-</span><span id="__span-0-644"><a id="__codelineno-0-644" name="__codelineno-0-644"></a>
-</span><span id="__span-0-645"><a id="__codelineno-0-645" name="__codelineno-0-645"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-646"><a id="__codelineno-0-646" name="__codelineno-0-646"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag_name</span>
-</span><span id="__span-0-647"><a id="__codelineno-0-647" name="__codelineno-0-647"></a>
-</span><span id="__span-0-648"><a id="__codelineno-0-648" name="__codelineno-0-648"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-649"><a id="__codelineno-0-649" name="__codelineno-0-649"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">)&gt;"</span>
+</span><span id="__span-0-631"><a id="__codelineno-0-631" name="__codelineno-0-631"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-632"><a id="__codelineno-0-632" name="__codelineno-0-632"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">)&gt;"</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 <div class="doc doc-children">
 <div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="puepy.core.Tag._add_event_listener">
-<code class="highlight language-python"><span class="n">_add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">)</span></code>
+<h2 class="doc doc-heading" id="puepy.core.Tag._retain_implicit_attrs">
+<code class="highlight language-python"><span class="n">_retain_implicit_attrs</span><span class="p">()</span></code>
+</h2>
+<div class="doc doc-contents">
+<p>Retain attributes set elsewhere</p>
+<details class="quote">
+<summary>Source code in <code>puepy/core.py</code></summary>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-465">465</a></span>
+<span class="normal"><a href="#__codelineno-0-466">466</a></span>
+<span class="normal"><a href="#__codelineno-0-467">467</a></span>
+<span class="normal"><a href="#__codelineno-0-468">468</a></span>
+<span class="normal"><a href="#__codelineno-0-469">469</a></span>
+<span class="normal"><a href="#__codelineno-0-470">470</a></span>
+<span class="normal"><a href="#__codelineno-0-471">471</a></span>
+<span class="normal"><a href="#__codelineno-0-472">472</a></span>
+<span class="normal"><a href="#__codelineno-0-473">473</a></span>
+<span class="normal"><a href="#__codelineno-0-474">474</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-465"><a id="__codelineno-0-465" name="__codelineno-0-465"></a><span class="k">def</span><span class="w"> </span><span class="nf">_retain_implicit_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-466"><a id="__codelineno-0-466" name="__codelineno-0-466"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-0-467"><a id="__codelineno-0-467" name="__codelineno-0-467"></a><span class="sd">    Retain attributes set elsewhere</span>
+</span><span id="__span-0-468"><a id="__codelineno-0-468" name="__codelineno-0-468"></a><span class="sd">    """</span>
+</span><span id="__span-0-469"><a id="__codelineno-0-469" name="__codelineno-0-469"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-470"><a id="__codelineno-0-470" name="__codelineno-0-470"></a>        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
+</span><span id="__span-0-471"><a id="__codelineno-0-471" name="__codelineno-0-471"></a>            <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"id"</span><span class="p">:</span>
+</span><span id="__span-0-472"><a id="__codelineno-0-472" name="__codelineno-0-472"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_retained_attrs</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">value</span>
+</span><span id="__span-0-473"><a id="__codelineno-0-473" name="__codelineno-0-473"></a>    <span class="k">except</span> <span class="n">ElementNotInDom</span><span class="p">:</span>
+</span><span id="__span-0-474"><a id="__codelineno-0-474" name="__codelineno-0-474"></a>        <span class="k">pass</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h2 class="doc doc-heading" id="puepy.core.Tag.add_event_listener">
+<code class="highlight language-python"><span class="n">add_event_listener</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">)</span></code>
 </h2>
 <div class="doc doc-contents">
 <p>Just an internal wrapper around add_event_listener (JS function) that keeps track of what we added, so
@@ -2869,7 +2848,7 @@ we can garbage collect it later.</p>
 <span class="normal"><a href="#__codelineno-0-418">418</a></span>
 <span class="normal"><a href="#__codelineno-0-419">419</a></span>
 <span class="normal"><a href="#__codelineno-0-420">420</a></span>
-<span class="normal"><a href="#__codelineno-0-421">421</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-412"><a id="__codelineno-0-412" name="__codelineno-0-412"></a><span class="k">def</span><span class="w"> </span><span class="nf">_add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-0-421">421</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-412"><a id="__codelineno-0-412" name="__codelineno-0-412"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">listener</span><span class="p">):</span>
 </span><span id="__span-0-413"><a id="__codelineno-0-413" name="__codelineno-0-413"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-0-414"><a id="__codelineno-0-414" name="__codelineno-0-414"></a><span class="sd">    Just an internal wrapper around add_event_listener (JS function) that keeps track of what we added, so</span>
 </span><span id="__span-0-415"><a id="__codelineno-0-415" name="__codelineno-0-415"></a><span class="sd">    we can garbage collect it later.</span>
@@ -2884,125 +2863,6 @@ we can garbage collect it later.</p>
 </div>
 </div>
 <div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="puepy.core.Tag._retain_implicit_attrs">
-<code class="highlight language-python"><span class="n">_retain_implicit_attrs</span><span class="p">()</span></code>
-</h2>
-<div class="doc doc-contents">
-<p>Retain attributes set elsewhere</p>
-<details class="quote">
-<summary>Source code in <code>puepy/core.py</code></summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-485">485</a></span>
-<span class="normal"><a href="#__codelineno-0-486">486</a></span>
-<span class="normal"><a href="#__codelineno-0-487">487</a></span>
-<span class="normal"><a href="#__codelineno-0-488">488</a></span>
-<span class="normal"><a href="#__codelineno-0-489">489</a></span>
-<span class="normal"><a href="#__codelineno-0-490">490</a></span>
-<span class="normal"><a href="#__codelineno-0-491">491</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-485"><a id="__codelineno-0-485" name="__codelineno-0-485"></a><span class="k">def</span><span class="w"> </span><span class="nf">_retain_implicit_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-486"><a id="__codelineno-0-486" name="__codelineno-0-486"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-0-487"><a id="__codelineno-0-487" name="__codelineno-0-487"></a><span class="sd">    Retain attributes set elsewhere</span>
-</span><span id="__span-0-488"><a id="__codelineno-0-488" name="__codelineno-0-488"></a><span class="sd">    """</span>
-</span><span id="__span-0-489"><a id="__codelineno-0-489" name="__codelineno-0-489"></a>    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
-</span><span id="__span-0-490"><a id="__codelineno-0-490" name="__codelineno-0-490"></a>        <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> <span class="n">attr</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"id"</span><span class="p">:</span>
-</span><span id="__span-0-491"><a id="__codelineno-0-491" name="__codelineno-0-491"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_retained_attrs</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">value</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="puepy.core.Tag.add_event_listener">
-<code class="highlight language-python"><span class="n">add_event_listener</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span></code>
-</h2>
-<div class="doc doc-contents">
-<p>Add an event listener for a given event.</p>
-<p><span class="doc-section-title">Parameters:</span></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="doc-section-item">
-<td>
-<code>event</code>
-</td>
-<td>
-<code>str</code>
-</td>
-<td>
-<div class="doc-md-description">
-<p>The name of the event to listen for.</p>
-</div>
-</td>
-<td>
-<em>required</em>
-</td>
-</tr>
-<tr class="doc-section-item">
-<td>
-<code>handler</code>
-</td>
-<td>
-<code>function</code>
-</td>
-<td>
-<div class="doc-md-description">
-<p>The function to be executed when the event occurs.</p>
-</div>
-</td>
-<td>
-<em>required</em>
-</td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-<summary>Source code in <code>puepy/core.py</code></summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-423">423</a></span>
-<span class="normal"><a href="#__codelineno-0-424">424</a></span>
-<span class="normal"><a href="#__codelineno-0-425">425</a></span>
-<span class="normal"><a href="#__codelineno-0-426">426</a></span>
-<span class="normal"><a href="#__codelineno-0-427">427</a></span>
-<span class="normal"><a href="#__codelineno-0-428">428</a></span>
-<span class="normal"><a href="#__codelineno-0-429">429</a></span>
-<span class="normal"><a href="#__codelineno-0-430">430</a></span>
-<span class="normal"><a href="#__codelineno-0-431">431</a></span>
-<span class="normal"><a href="#__codelineno-0-432">432</a></span>
-<span class="normal"><a href="#__codelineno-0-433">433</a></span>
-<span class="normal"><a href="#__codelineno-0-434">434</a></span>
-<span class="normal"><a href="#__codelineno-0-435">435</a></span>
-<span class="normal"><a href="#__codelineno-0-436">436</a></span>
-<span class="normal"><a href="#__codelineno-0-437">437</a></span>
-<span class="normal"><a href="#__codelineno-0-438">438</a></span>
-<span class="normal"><a href="#__codelineno-0-439">439</a></span>
-<span class="normal"><a href="#__codelineno-0-440">440</a></span>
-<span class="normal"><a href="#__codelineno-0-441">441</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-423"><a id="__codelineno-0-423" name="__codelineno-0-423"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
-</span><span id="__span-0-424"><a id="__codelineno-0-424" name="__codelineno-0-424"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-0-425"><a id="__codelineno-0-425" name="__codelineno-0-425"></a><span class="sd">    Add an event listener for a given event.</span>
-</span><span id="__span-0-426"><a id="__codelineno-0-426" name="__codelineno-0-426"></a>
-</span><span id="__span-0-427"><a id="__codelineno-0-427" name="__codelineno-0-427"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-428"><a id="__codelineno-0-428" name="__codelineno-0-428"></a><span class="sd">        event (str): The name of the event to listen for.</span>
-</span><span id="__span-0-429"><a id="__codelineno-0-429" name="__codelineno-0-429"></a><span class="sd">        handler (function): The function to be executed when the event occurs.</span>
-</span><span id="__span-0-430"><a id="__codelineno-0-430" name="__codelineno-0-430"></a>
-</span><span id="__span-0-431"><a id="__codelineno-0-431" name="__codelineno-0-431"></a><span class="sd">    """</span>
-</span><span id="__span-0-432"><a id="__codelineno-0-432" name="__codelineno-0-432"></a>    <span class="k">if</span> <span class="n">event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">:</span>
-</span><span id="__span-0-433"><a id="__codelineno-0-433" name="__codelineno-0-433"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">=</span> <span class="n">handler</span>
-</span><span id="__span-0-434"><a id="__codelineno-0-434" name="__codelineno-0-434"></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-435"><a id="__codelineno-0-435" name="__codelineno-0-435"></a>        <span class="n">existing_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span>
-</span><span id="__span-0-436"><a id="__codelineno-0-436" name="__codelineno-0-436"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_handler</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-</span><span id="__span-0-437"><a id="__codelineno-0-437" name="__codelineno-0-437"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">existing_handler</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-</span><span id="__span-0-438"><a id="__codelineno-0-438" name="__codelineno-0-438"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-439"><a id="__codelineno-0-439" name="__codelineno-0-439"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_manually_added_event_listeners</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">existing_handler</span><span class="p">,</span> <span class="n">handler</span><span class="p">]</span>
-</span><span id="__span-0-440"><a id="__codelineno-0-440" name="__codelineno-0-440"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rendered_element</span><span class="p">:</span>
-</span><span id="__span-0-441"><a id="__codelineno-0-441" name="__codelineno-0-441"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_add_event_listener</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rendered_element</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
 <h2 class="doc doc-heading" id="puepy.core.Tag.add_python_css_classes">
 <code class="highlight language-python"><span class="n">add_python_css_classes</span><span class="p">()</span></code>
 </h2>
@@ -3010,15 +2870,15 @@ we can garbage collect it later.</p>
 <p>This is only done at the page level.</p>
 <details class="quote">
 <summary>Source code in <code>puepy/core.py</code></summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-462">462</a></span>
-<span class="normal"><a href="#__codelineno-0-463">463</a></span>
-<span class="normal"><a href="#__codelineno-0-464">464</a></span>
-<span class="normal"><a href="#__codelineno-0-465">465</a></span>
-<span class="normal"><a href="#__codelineno-0-466">466</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-462"><a id="__codelineno-0-462" name="__codelineno-0-462"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_python_css_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-463"><a id="__codelineno-0-463" name="__codelineno-0-463"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-0-464"><a id="__codelineno-0-464" name="__codelineno-0-464"></a><span class="sd">    This is only done at the page level.</span>
-</span><span id="__span-0-465"><a id="__codelineno-0-465" name="__codelineno-0-465"></a><span class="sd">    """</span>
-</span><span id="__span-0-466"><a id="__codelineno-0-466" name="__codelineno-0-466"></a>    <span class="k">pass</span>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-442">442</a></span>
+<span class="normal"><a href="#__codelineno-0-443">443</a></span>
+<span class="normal"><a href="#__codelineno-0-444">444</a></span>
+<span class="normal"><a href="#__codelineno-0-445">445</a></span>
+<span class="normal"><a href="#__codelineno-0-446">446</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-442"><a id="__codelineno-0-442" name="__codelineno-0-442"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_python_css_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-443"><a id="__codelineno-0-443" name="__codelineno-0-443"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-0-444"><a id="__codelineno-0-444" name="__codelineno-0-444"></a><span class="sd">    This is only done at the page level.</span>
+</span><span id="__span-0-445"><a id="__codelineno-0-445" name="__codelineno-0-445"></a><span class="sd">    """</span>
+</span><span id="__span-0-446"><a id="__codelineno-0-446" name="__codelineno-0-446"></a>    <span class="k">pass</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </div>
@@ -3250,31 +3110,31 @@ especially on a Page, to check if the user is authorized to view the page, for e
 </table>
 <details class="quote">
 <summary>Source code in <code>puepy/core.py</code></summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-468">468</a></span>
-<span class="normal"><a href="#__codelineno-0-469">469</a></span>
-<span class="normal"><a href="#__codelineno-0-470">470</a></span>
-<span class="normal"><a href="#__codelineno-0-471">471</a></span>
-<span class="normal"><a href="#__codelineno-0-472">472</a></span>
-<span class="normal"><a href="#__codelineno-0-473">473</a></span>
-<span class="normal"><a href="#__codelineno-0-474">474</a></span>
-<span class="normal"><a href="#__codelineno-0-475">475</a></span>
-<span class="normal"><a href="#__codelineno-0-476">476</a></span>
-<span class="normal"><a href="#__codelineno-0-477">477</a></span>
-<span class="normal"><a href="#__codelineno-0-478">478</a></span>
-<span class="normal"><a href="#__codelineno-0-479">479</a></span>
-<span class="normal"><a href="#__codelineno-0-480">480</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-468"><a id="__codelineno-0-468" name="__codelineno-0-468"></a><span class="k">def</span><span class="w"> </span><span class="nf">recursive_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="__span-0-469"><a id="__codelineno-0-469" name="__codelineno-0-469"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-0-470"><a id="__codelineno-0-470" name="__codelineno-0-470"></a><span class="sd">    Recursively call a specified method on all child Tag objects.</span>
-</span><span id="__span-0-471"><a id="__codelineno-0-471" name="__codelineno-0-471"></a>
-</span><span id="__span-0-472"><a id="__codelineno-0-472" name="__codelineno-0-472"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-473"><a id="__codelineno-0-473" name="__codelineno-0-473"></a><span class="sd">        method (str): The name of the method to be called on each Tag object.</span>
-</span><span id="__span-0-474"><a id="__codelineno-0-474" name="__codelineno-0-474"></a><span class="sd">        *args: Optional arguments to be passed to the method.</span>
-</span><span id="__span-0-475"><a id="__codelineno-0-475" name="__codelineno-0-475"></a><span class="sd">        **kwargs: Optional keyword arguments to be passed to the method.</span>
-</span><span id="__span-0-476"><a id="__codelineno-0-476" name="__codelineno-0-476"></a><span class="sd">    """</span>
-</span><span id="__span-0-477"><a id="__codelineno-0-477" name="__codelineno-0-477"></a>    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-</span><span id="__span-0-478"><a id="__codelineno-0-478" name="__codelineno-0-478"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
-</span><span id="__span-0-479"><a id="__codelineno-0-479" name="__codelineno-0-479"></a>            <span class="n">child</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="__span-0-480"><a id="__codelineno-0-480" name="__codelineno-0-480"></a>    <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-448">448</a></span>
+<span class="normal"><a href="#__codelineno-0-449">449</a></span>
+<span class="normal"><a href="#__codelineno-0-450">450</a></span>
+<span class="normal"><a href="#__codelineno-0-451">451</a></span>
+<span class="normal"><a href="#__codelineno-0-452">452</a></span>
+<span class="normal"><a href="#__codelineno-0-453">453</a></span>
+<span class="normal"><a href="#__codelineno-0-454">454</a></span>
+<span class="normal"><a href="#__codelineno-0-455">455</a></span>
+<span class="normal"><a href="#__codelineno-0-456">456</a></span>
+<span class="normal"><a href="#__codelineno-0-457">457</a></span>
+<span class="normal"><a href="#__codelineno-0-458">458</a></span>
+<span class="normal"><a href="#__codelineno-0-459">459</a></span>
+<span class="normal"><a href="#__codelineno-0-460">460</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-448"><a id="__codelineno-0-448" name="__codelineno-0-448"></a><span class="k">def</span><span class="w"> </span><span class="nf">recursive_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-0-449"><a id="__codelineno-0-449" name="__codelineno-0-449"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-0-450"><a id="__codelineno-0-450" name="__codelineno-0-450"></a><span class="sd">    Recursively call a specified method on all child Tag objects.</span>
+</span><span id="__span-0-451"><a id="__codelineno-0-451" name="__codelineno-0-451"></a>
+</span><span id="__span-0-452"><a id="__codelineno-0-452" name="__codelineno-0-452"></a><span class="sd">    Args:</span>
+</span><span id="__span-0-453"><a id="__codelineno-0-453" name="__codelineno-0-453"></a><span class="sd">        method (str): The name of the method to be called on each Tag object.</span>
+</span><span id="__span-0-454"><a id="__codelineno-0-454" name="__codelineno-0-454"></a><span class="sd">        *args: Optional arguments to be passed to the method.</span>
+</span><span id="__span-0-455"><a id="__codelineno-0-455" name="__codelineno-0-455"></a><span class="sd">        **kwargs: Optional keyword arguments to be passed to the method.</span>
+</span><span id="__span-0-456"><a id="__codelineno-0-456" name="__codelineno-0-456"></a><span class="sd">    """</span>
+</span><span id="__span-0-457"><a id="__codelineno-0-457" name="__codelineno-0-457"></a>    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+</span><span id="__span-0-458"><a id="__codelineno-0-458" name="__codelineno-0-458"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">Tag</span><span class="p">):</span>
+</span><span id="__span-0-459"><a id="__codelineno-0-459" name="__codelineno-0-459"></a>            <span class="n">child</span><span class="o">.</span><span class="n">recursive_call</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span-0-460"><a id="__codelineno-0-460" name="__codelineno-0-460"></a>    <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </div>
@@ -3315,53 +3175,53 @@ especially on a Page, to check if the user is authorized to view the page, for e
 <p>ß</p>
 <details class="quote">
 <summary>Source code in <code>puepy/core.py</code></summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-602">602</a></span>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-585">585</a></span>
+<span class="normal"><a href="#__codelineno-0-586">586</a></span>
+<span class="normal"><a href="#__codelineno-0-587">587</a></span>
+<span class="normal"><a href="#__codelineno-0-588">588</a></span>
+<span class="normal"><a href="#__codelineno-0-589">589</a></span>
+<span class="normal"><a href="#__codelineno-0-590">590</a></span>
+<span class="normal"><a href="#__codelineno-0-591">591</a></span>
+<span class="normal"><a href="#__codelineno-0-592">592</a></span>
+<span class="normal"><a href="#__codelineno-0-593">593</a></span>
+<span class="normal"><a href="#__codelineno-0-594">594</a></span>
+<span class="normal"><a href="#__codelineno-0-595">595</a></span>
+<span class="normal"><a href="#__codelineno-0-596">596</a></span>
+<span class="normal"><a href="#__codelineno-0-597">597</a></span>
+<span class="normal"><a href="#__codelineno-0-598">598</a></span>
+<span class="normal"><a href="#__codelineno-0-599">599</a></span>
+<span class="normal"><a href="#__codelineno-0-600">600</a></span>
+<span class="normal"><a href="#__codelineno-0-601">601</a></span>
+<span class="normal"><a href="#__codelineno-0-602">602</a></span>
 <span class="normal"><a href="#__codelineno-0-603">603</a></span>
 <span class="normal"><a href="#__codelineno-0-604">604</a></span>
 <span class="normal"><a href="#__codelineno-0-605">605</a></span>
 <span class="normal"><a href="#__codelineno-0-606">606</a></span>
 <span class="normal"><a href="#__codelineno-0-607">607</a></span>
-<span class="normal"><a href="#__codelineno-0-608">608</a></span>
-<span class="normal"><a href="#__codelineno-0-609">609</a></span>
-<span class="normal"><a href="#__codelineno-0-610">610</a></span>
-<span class="normal"><a href="#__codelineno-0-611">611</a></span>
-<span class="normal"><a href="#__codelineno-0-612">612</a></span>
-<span class="normal"><a href="#__codelineno-0-613">613</a></span>
-<span class="normal"><a href="#__codelineno-0-614">614</a></span>
-<span class="normal"><a href="#__codelineno-0-615">615</a></span>
-<span class="normal"><a href="#__codelineno-0-616">616</a></span>
-<span class="normal"><a href="#__codelineno-0-617">617</a></span>
-<span class="normal"><a href="#__codelineno-0-618">618</a></span>
-<span class="normal"><a href="#__codelineno-0-619">619</a></span>
-<span class="normal"><a href="#__codelineno-0-620">620</a></span>
-<span class="normal"><a href="#__codelineno-0-621">621</a></span>
-<span class="normal"><a href="#__codelineno-0-622">622</a></span>
-<span class="normal"><a href="#__codelineno-0-623">623</a></span>
-<span class="normal"><a href="#__codelineno-0-624">624</a></span>
-<span class="normal"><a href="#__codelineno-0-625">625</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-602"><a id="__codelineno-0-602" name="__codelineno-0-602"></a><span class="k">def</span><span class="w"> </span><span class="nf">trigger_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="__span-0-603"><a id="__codelineno-0-603" name="__codelineno-0-603"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-0-604"><a id="__codelineno-0-604" name="__codelineno-0-604"></a><span class="sd">            Triggers an event to be consumed by code using this class.</span>
-</span><span id="__span-0-605"><a id="__codelineno-0-605" name="__codelineno-0-605"></a>
-</span><span id="__span-0-606"><a id="__codelineno-0-606" name="__codelineno-0-606"></a><span class="sd">            Args:</span>
-</span><span id="__span-0-607"><a id="__codelineno-0-607" name="__codelineno-0-607"></a><span class="sd">                event (str): The name of the event to trigger. If the event name contains underscores, a warning message is printed suggesting to use dashes instead.</span>
-</span><span id="__span-0-608"><a id="__codelineno-0-608" name="__codelineno-0-608"></a><span class="sd">                detail (dict, optional): Additional data to be sent with the event. This should be a dictionary where the keys and values will be converted to JavaScript objects.</span>
-</span><span id="__span-0-609"><a id="__codelineno-0-609" name="__codelineno-0-609"></a><span class="sd">                **kwargs: Additional keyword arguments. These arguments are not used in the implementation of the method and are ignored.</span>
-</span><span id="__span-0-610"><a id="__codelineno-0-610" name="__codelineno-0-610"></a><span class="sd">    ß"""</span>
-</span><span id="__span-0-611"><a id="__codelineno-0-611" name="__codelineno-0-611"></a>    <span class="k">if</span> <span class="s2">"_"</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
-</span><span id="__span-0-612"><a id="__codelineno-0-612" name="__codelineno-0-612"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Triggering event with underscores. Did you mean dashes?: "</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
-</span><span id="__span-0-613"><a id="__codelineno-0-613" name="__codelineno-0-613"></a>
-</span><span id="__span-0-614"><a id="__codelineno-0-614" name="__codelineno-0-614"></a>    <span class="c1"># noinspection PyUnresolvedReferences</span>
-</span><span id="__span-0-615"><a id="__codelineno-0-615" name="__codelineno-0-615"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">pyscript.ffi</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_js</span>
-</span><span id="__span-0-616"><a id="__codelineno-0-616" name="__codelineno-0-616"></a>
-</span><span id="__span-0-617"><a id="__codelineno-0-617" name="__codelineno-0-617"></a>    <span class="c1"># noinspection PyUnresolvedReferences</span>
-</span><span id="__span-0-618"><a id="__codelineno-0-618" name="__codelineno-0-618"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">js</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span><span class="p">,</span> <span class="n">Map</span>
-</span><span id="__span-0-619"><a id="__codelineno-0-619" name="__codelineno-0-619"></a>
-</span><span id="__span-0-620"><a id="__codelineno-0-620" name="__codelineno-0-620"></a>    <span class="k">if</span> <span class="n">detail</span><span class="p">:</span>
-</span><span id="__span-0-621"><a id="__codelineno-0-621" name="__codelineno-0-621"></a>        <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({</span><span class="s2">"detail"</span><span class="p">:</span> <span class="n">Map</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">Object</span><span class="o">.</span><span class="n">entries</span><span class="p">(</span><span class="n">to_js</span><span class="p">(</span><span class="n">detail</span><span class="p">)))})</span>
-</span><span id="__span-0-622"><a id="__codelineno-0-622" name="__codelineno-0-622"></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-623"><a id="__codelineno-0-623" name="__codelineno-0-623"></a>        <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({})</span>
-</span><span id="__span-0-624"><a id="__codelineno-0-624" name="__codelineno-0-624"></a>
-</span><span id="__span-0-625"><a id="__codelineno-0-625" name="__codelineno-0-625"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">dispatchEvent</span><span class="p">(</span><span class="n">CustomEvent</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">event_object</span><span class="p">))</span>
+<span class="normal"><a href="#__codelineno-0-608">608</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-585"><a id="__codelineno-0-585" name="__codelineno-0-585"></a><span class="k">def</span><span class="w"> </span><span class="nf">trigger_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-0-586"><a id="__codelineno-0-586" name="__codelineno-0-586"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-0-587"><a id="__codelineno-0-587" name="__codelineno-0-587"></a><span class="sd">            Triggers an event to be consumed by code using this class.</span>
+</span><span id="__span-0-588"><a id="__codelineno-0-588" name="__codelineno-0-588"></a>
+</span><span id="__span-0-589"><a id="__codelineno-0-589" name="__codelineno-0-589"></a><span class="sd">            Args:</span>
+</span><span id="__span-0-590"><a id="__codelineno-0-590" name="__codelineno-0-590"></a><span class="sd">                event (str): The name of the event to trigger. If the event name contains underscores, a warning message is printed suggesting to use dashes instead.</span>
+</span><span id="__span-0-591"><a id="__codelineno-0-591" name="__codelineno-0-591"></a><span class="sd">                detail (dict, optional): Additional data to be sent with the event. This should be a dictionary where the keys and values will be converted to JavaScript objects.</span>
+</span><span id="__span-0-592"><a id="__codelineno-0-592" name="__codelineno-0-592"></a><span class="sd">                **kwargs: Additional keyword arguments. These arguments are not used in the implementation of the method and are ignored.</span>
+</span><span id="__span-0-593"><a id="__codelineno-0-593" name="__codelineno-0-593"></a><span class="sd">    ß"""</span>
+</span><span id="__span-0-594"><a id="__codelineno-0-594" name="__codelineno-0-594"></a>    <span class="k">if</span> <span class="s2">"_"</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
+</span><span id="__span-0-595"><a id="__codelineno-0-595" name="__codelineno-0-595"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Triggering event with underscores. Did you mean dashes?: "</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</span><span id="__span-0-596"><a id="__codelineno-0-596" name="__codelineno-0-596"></a>
+</span><span id="__span-0-597"><a id="__codelineno-0-597" name="__codelineno-0-597"></a>    <span class="c1"># noinspection PyUnresolvedReferences</span>
+</span><span id="__span-0-598"><a id="__codelineno-0-598" name="__codelineno-0-598"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">pyscript.ffi</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_js</span>
+</span><span id="__span-0-599"><a id="__codelineno-0-599" name="__codelineno-0-599"></a>
+</span><span id="__span-0-600"><a id="__codelineno-0-600" name="__codelineno-0-600"></a>    <span class="c1"># noinspection PyUnresolvedReferences</span>
+</span><span id="__span-0-601"><a id="__codelineno-0-601" name="__codelineno-0-601"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">js</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span><span class="p">,</span> <span class="n">Map</span>
+</span><span id="__span-0-602"><a id="__codelineno-0-602" name="__codelineno-0-602"></a>
+</span><span id="__span-0-603"><a id="__codelineno-0-603" name="__codelineno-0-603"></a>    <span class="k">if</span> <span class="n">detail</span><span class="p">:</span>
+</span><span id="__span-0-604"><a id="__codelineno-0-604" name="__codelineno-0-604"></a>        <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({</span><span class="s2">"detail"</span><span class="p">:</span> <span class="n">Map</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">Object</span><span class="o">.</span><span class="n">entries</span><span class="p">(</span><span class="n">to_js</span><span class="p">(</span><span class="n">detail</span><span class="p">)))})</span>
+</span><span id="__span-0-605"><a id="__codelineno-0-605" name="__codelineno-0-605"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-606"><a id="__codelineno-0-606" name="__codelineno-0-606"></a>        <span class="n">event_object</span> <span class="o">=</span> <span class="n">to_js</span><span class="p">({})</span>
+</span><span id="__span-0-607"><a id="__codelineno-0-607" name="__codelineno-0-607"></a>
+</span><span id="__span-0-608"><a id="__codelineno-0-608" name="__codelineno-0-608"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">dispatchEvent</span><span class="p">(</span><span class="n">CustomEvent</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">event_object</span><span class="p">))</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </div>
@@ -3375,19 +3235,19 @@ especially on a Page, to check if the user is authorized to view the page, for e
 <p>Called on mounting or redraw.</p>
 <details class="quote">
 <summary>Source code in <code>puepy/core.py</code></summary>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-627">627</a></span>
-<span class="normal"><a href="#__codelineno-0-628">628</a></span>
-<span class="normal"><a href="#__codelineno-0-629">629</a></span>
-<span class="normal"><a href="#__codelineno-0-630">630</a></span>
-<span class="normal"><a href="#__codelineno-0-631">631</a></span>
-<span class="normal"><a href="#__codelineno-0-632">632</a></span>
-<span class="normal"><a href="#__codelineno-0-633">633</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-627"><a id="__codelineno-0-627" name="__codelineno-0-627"></a><span class="k">def</span><span class="w"> </span><span class="nf">update_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-628"><a id="__codelineno-0-628" name="__codelineno-0-628"></a><span class="w">    </span><span class="sd">"""</span>
-</span><span id="__span-0-629"><a id="__codelineno-0-629" name="__codelineno-0-629"></a><span class="sd">    To be overridden by subclasses (usually pages), this method should update the Window title as needed.</span>
-</span><span id="__span-0-630"><a id="__codelineno-0-630" name="__codelineno-0-630"></a>
-</span><span id="__span-0-631"><a id="__codelineno-0-631" name="__codelineno-0-631"></a><span class="sd">    Called on mounting or redraw.</span>
-</span><span id="__span-0-632"><a id="__codelineno-0-632" name="__codelineno-0-632"></a><span class="sd">    """</span>
-</span><span id="__span-0-633"><a id="__codelineno-0-633" name="__codelineno-0-633"></a>    <span class="k">pass</span>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-610">610</a></span>
+<span class="normal"><a href="#__codelineno-0-611">611</a></span>
+<span class="normal"><a href="#__codelineno-0-612">612</a></span>
+<span class="normal"><a href="#__codelineno-0-613">613</a></span>
+<span class="normal"><a href="#__codelineno-0-614">614</a></span>
+<span class="normal"><a href="#__codelineno-0-615">615</a></span>
+<span class="normal"><a href="#__codelineno-0-616">616</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-610"><a id="__codelineno-0-610" name="__codelineno-0-610"></a><span class="k">def</span><span class="w"> </span><span class="nf">update_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-611"><a id="__codelineno-0-611" name="__codelineno-0-611"></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-0-612"><a id="__codelineno-0-612" name="__codelineno-0-612"></a><span class="sd">    To be overridden by subclasses (usually pages), this method should update the Window title as needed.</span>
+</span><span id="__span-0-613"><a id="__codelineno-0-613" name="__codelineno-0-613"></a>
+</span><span id="__span-0-614"><a id="__codelineno-0-614" name="__codelineno-0-614"></a><span class="sd">    Called on mounting or redraw.</span>
+</span><span id="__span-0-615"><a id="__codelineno-0-615" name="__codelineno-0-615"></a><span class="sd">    """</span>
+</span><span id="__span-0-616"><a id="__codelineno-0-616" name="__codelineno-0-616"></a>    <span class="k">pass</span>
 </span></code></pre></div></td></tr></table></div>
 </details>
 </div>
